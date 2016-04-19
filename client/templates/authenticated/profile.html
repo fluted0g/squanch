@@ -1,0 +1,23 @@
+<template name="profile">
+  <h3>Your Profile</h3>
+
+  {{#with userProfile}}
+  	{{#if profile.name.first}}
+  	<p>Name: {{username}}</p>
+  	{{/if}}
+  	{{#unless profile.name.first}}
+  	<p>Name: No name!!!</p>
+  	{{/unless}}
+  	<p>eMail: {{emails.[0].address}}</p>
+  	<p>Member since: {{createdAt}}</p>
+  {{/with}}
+
+  <h4>Possible buddies:</h4>
+  
+  {{#each users}}
+  {{user}}
+  	<p>User: {{#if username}}{{username}}{{/if}}{{#unless username}}{{profile.name.first}} {{profile.name.last}}{{/unless}}</p>
+  	<p>Mail: {{emails.[0].address}}</p>
+  	<p>Member since: {{createdAt}}</p>
+  {{/each}}
+</template>

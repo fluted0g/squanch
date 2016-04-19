@@ -1,0 +1,45 @@
+
+$mainYellow : #FFB20A;
+$redL: #FF0000;
+$greenL : #008000;
+$blueL : #0000FF;
+$yellowL : #FFD700;
+$orangeL : #FF8C00;
+$purpleL : #663399;
+
+.labelMarker {
+	display: inline-block;
+	border-radius: 5px;
+	margin-top: 0.5em;
+	margin-left: 0.5em;
+	height: 1em;
+	width: 2em;
+}
+
+.default {
+	background-color: $mainYellow;
+}
+
+.redL {
+	background-color: $redL; 
+}
+
+.greenL {
+	background-color: $greenL; 
+}
+
+.blueL {
+	background-color: $blueL; 
+}
+
+.yellowL {
+	background-color: $yellowL; 
+}
+
+.orangeL {
+	background-color: $orangeL; 
+}
+
+.purpleL {
+	background-color: $purpleL; 
+}

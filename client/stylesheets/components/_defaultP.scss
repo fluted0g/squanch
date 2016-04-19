@@ -1,0 +1,40 @@
+$darkYellow: #C18400;
+
+body {
+	width: 1366px;
+}
+
+.card_manager {
+	float: left;
+	padding: 0.5em;
+	margin: 0.5em;
+	list-style: none;
+	max-width: 100%;
+}
+
+.card_frame {
+	display: inline-block;
+	float: left;
+	margin: 0.4em;
+
+}
+
+.ghostCard {
+
+	float: left;
+
+	height: 3.5em;
+    width: 25em;
+
+    margin: 0.4em;
+    padding: 0.5em;
+
+    background-color: transparent;
+}
+
+.task_frame {
+	border: 2px solid $darkYellow;
+	border-radius: 7px;
+	margin: 0.2em;
+	padding: 0.2em;
+}

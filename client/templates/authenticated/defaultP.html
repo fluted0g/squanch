@@ -1,0 +1,32 @@
+<template name="defaultP">	
+
+	{{#if Template.subscriptionsReady}}
+
+	{{> controlPanel}}
+
+	{{#each project}}
+
+	<h1>{{name}}</h1>
+	<p>{{proj_type}}</p>
+
+	<form class="insert_card">
+		<label for="card_title">Insert a card: 
+			<input type="text" name="card_title" class="card_title"></label>
+			<input type="submit" value="Send">
+		</form>
+		
+		<ul class="card_manager">
+			{{#each cards}}
+			{{> card}}
+			{{/each}}
+		</ul>
+
+	{{/each}}
+
+	{{else}}
+
+		{{> loading}}
+
+	{{/if}}
+
+</template>	

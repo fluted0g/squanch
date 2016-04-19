@@ -1,0 +1,15 @@
+<template name="studentP">
+
+	{{#if Template.subscriptionsReady}}
+		{{#each project}}
+		<h1>Name: {{name}}</h1>
+		<p>Description: {{description}}</p>
+		<p>Type: {{proj_type}}</p>
+		{{/each}}
+	{{else}}
+
+		{{> loading}}
+
+	{{/if}}
+
+</template>

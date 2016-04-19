@@ -1,0 +1,31 @@
+	<template name="card">
+		
+		<li class="bubble card_frame" id="{{_id}}">
+
+			<div class="reduced_body">
+
+				<h4>{{name}}</h4>
+
+			</div>
+
+			<div class="expanded_body">
+
+				<h4>{{name}}</h4>
+
+				<form class="insert_task">
+					<label for="task_title">Insert a task: 
+						<input type="text" name="task_title" class="task_title"></label>
+						<input type="submit" value="Send">
+					</form>
+
+					{{#each tasks}}
+					{{> task}}
+					{{/each}}
+
+				</div>
+			</li>
+			
+			<script type="text/javascript">
+			$(".card_manager").sortable({grid: [3,10], revert: true});
+			</script>
+		</template>

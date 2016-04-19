@@ -1,0 +1,63 @@
+<template name="controlPanel">
+	<div class="controlPanelContainer">
+
+		<div class="controlPanelMenu">
+			<div class="showHideToggler"></div>
+			<h4>Control Panel</h4>
+
+
+
+			<div class="panel-group" id="accordion">
+        		<div class="panel panel-default">
+            		<div class="panel-heading">
+                		<h4 class="panel-title">
+                    		<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">ADD MEMBERS</a>
+                		</h4>
+            		</div>
+            		<div id="collapseOne" class="panel-collapse collapse">
+                		<div class="panel-body">
+                    		
+                			<!-- AQUI LA MOVIDA -->
+                			{{> searchUser}}                			
+                		</div>
+            		</div>
+        		</div>
+        	<div class="panel panel-default">
+            	<div class="panel-heading">
+                	<h4 class="panel-title">
+                    	<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">ARCHIVE</a>
+                	</h4>
+            	</div>
+            	<div id="collapseTwo" class="panel-collapse collapse">
+                	<div class="panel-body">
+                    	
+                		<!-- AQUI LA MOVIDA -->
+                		<ul>
+                			<li><a>Modal a archivo de cards</a></li>
+                			<li><a>Modal a archivo de tasks</a></li>
+                		</ul>
+
+                	</div>
+            	</div>
+        	</div>
+	        	<div class="panel panel-default">
+	        		<div class="panel-heading">
+	        			<h4 class="panel-title">
+	        				<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">SETTINGS</a>
+	        			</h4>
+	        		</div>
+	        		<div id="collapseThree" class="panel-collapse collapse">
+	        			<div class="panel-body">
+	        				
+	        				<!-- AQUI LA MOVIDA -->
+                			bla bla bla
+
+	        			</div>
+            		</div>
+        		</div>
+    		</div>
+    	</div>
+	</div>
+
+
+</template>

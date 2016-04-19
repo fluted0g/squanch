@@ -1,0 +1,14 @@
+<template name="searchUser">
+
+		<label for="searchUser">Search by email or username:
+			<input type="text" name="searchUser" class="searchUser">
+		</label>
+
+	<div class="userList">
+		{{#each getUsers}}
+		<div class="userFrame">
+			{{{username}}} : {{{emails.[0].address}}}
+		</div>
+		{{/each}}
+	</div>
+</template>
