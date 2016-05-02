@@ -5,10 +5,10 @@ SearchSource.defineSource('searchUser', function(searchText, options) {
   if(searchText) {
     //var regExp = buildRegExp(searchText);
     var selector = {$or: [
-      {'emails.$.address': searchText},
+      { 'emails' :  { $elemMatch: { 'address' : searchText} } },
       {username: searchText}
     ]};
-    //console.log(Meteor.users.find(selector, options));
+    
     return Meteor.users.find(selector, options); //fetch???
   } else {
     return "No users found";

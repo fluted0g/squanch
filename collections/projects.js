@@ -11,15 +11,16 @@ Projects.deny({
   update: () => false,
   remove: () => false
 });
-
+/*
 Member = new SimpleSchema({
-  _id: {
+  memberId: {
     type: String,
     regEx: SimpleSchema.RegEx.Id
   },
   memberSince: {
     type: Date,
     label: "Member's primerito día",
+    optional: true,
     autoValue: function(){
       if (this.isInsert) {
         return new Date();
@@ -32,7 +33,7 @@ Member = new SimpleSchema({
   }
 
 });
-
+*/
 Card = new SimpleSchema({
   _id: {    
     type: String,
@@ -104,10 +105,16 @@ ProjectSchema = new SimpleSchema({
     type:String,
     label: "Project owner ID"
   },
+  /*
   members: {
     type: [Member],
     label: "Project members",
     optional: true
+  }
+  */
+  members : {
+    type: [String],
+    label: "Project members"
   },
   cards: {
     type: [Card],

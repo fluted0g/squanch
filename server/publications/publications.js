@@ -1,16 +1,6 @@
-
-/*
-Meteor.publish( 'template', function() {
-	return Projects.find( { 'owner': this.userId } );
-});
-*/
-
-
-//Publication for all user's projects
-//Members not supported
 Meteor.publish( 'projects', function() {
 	var id = this.userId;
-	userProjects = Projects.find( { 'members' :  { $elemMatch: { '_id' : id} } } );
+	userProjects = Projects.find( { 'members' :  { $elemMatch: { 'memberId' : id} } } );
 
 	if ( userProjects ) {
 		return userProjects;
@@ -19,12 +9,10 @@ Meteor.publish( 'projects', function() {
 	return this.ready();
 });
 
-
-//Publication of single project
 Meteor.publish('project',function(id) {
 	var userId = this.userId;
 	check(id,String);
-	curr_project = Projects.find( { 'members' :  { $elemMatch: { '_id' : userId} } , '_id': id } );
+	curr_project = Projects.find( { 'members' :  { $elemMatch: { 'memberId' : userId} } , '_id': id } );
 	project_tasks = Tasks.find( {'project_id':id} );
 
 	if(curr_project) {
@@ -105,10 +93,12 @@ Meteor.publish('members', function(projectId) {
 
 	var members = Projects.find( {_id : projectId}, {fields : { members : 1 } } )
 
+	console.log("Members pub: "+members);
+
 	var memberList = [];
 
 	members.forEach(function(item){
-    	memberList.push(item._id);
+    	memberList.push(item.members);
 	});
 
 	var projectMembers = Meteor.users.find({ '_id' : { $in : memberList } },{ fields : { _id: 1, emails : 1, username : 1} } );
@@ -120,13 +110,42 @@ Meteor.publish('members', function(projectId) {
 });
 
 //###########################################################//
+
 //###########################################################//
+
 //###########################################################//
 
 Meteor.methods({
 
-	//general purpose
+	//user related
+	addMember : function(projectId, newMemberId) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
 
+		check(projectId, String);
+		check(newMemberId, Object);
+
+		//CHECK IF ID ALREADY EXISTS IN MEMBERS
+		var memberExists = Projects.findOne({ _id: projectId, members : { $elemMatch: memberId } }, { fields : { members : 1} })
+		console.log(memberExists);
+		if (memberExists) {
+			console.log("Member already exists");
+		} else {
+			Projects.update({ _id : projectId },{ $push: {members : memberId} });
+		}	
+	},
+	removeMember : function(projectId, memberId) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+
+		check(projectId, String);
+		check(memberId, String);
+
+		Projects.update({_id : projectId },{ $pull : { members : { $elemMatch : memberId}} });
+	},
+	//general purpose
 	newProject : function(name,description,proj_type,theme) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
@@ -143,26 +162,20 @@ Meteor.methods({
 			description: description,
 			proj_type: proj_type,
 			theme: theme,
-			members : [{ _id : Meteor.userId() }]
+			members : [Meteor.userId()]
 		});
 	},
 
 	//project page related
-
-	addMember : function(memberId) {
-		if (! Meteor.userId()) {
-			throw new Meteor.Error("not-authorized");
-		}
-
-		check(memberId, String);
-
-		Projects.update({ members : [{_id: memberId}] });
-	},
-
 	insertCard : function(projectId,cardName) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
-		}
+		}		
+		
+		check(projectId, String);
+		check(cardName, String);
+		check(status, String);
+		check(oCard, Object);
 
 		var status = "active";
 		var oCard = {
@@ -170,11 +183,6 @@ Meteor.methods({
 			name: cardName,
 			status: status
 		}
-		
-		check(projectId, String);
-		check(cardName, String);
-		check(status, String);
-		check(oCard, Object);
 
 		//to EDIT specific things of the card you can use {$set: {"cards.$.title": "newTitle"}}
 		Projects.update(

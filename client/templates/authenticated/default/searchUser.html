@@ -1,14 +1,23 @@
 <template name="searchUser">
 
+	<form name="searchUserForm" class="searchUserForm">
 		<label for="searchUser">Search by email or username:
 			<input type="text" name="searchUser" class="searchUser">
 		</label>
+		<input type="submit" value="Add">
+	</form>
 
-	<div class="userList">
+	<div class="matchingUsers">
+		<h5>Matching users:</h5> 
 		{{#each getUsers}}
-		<div class="userFrame">
 			{{{username}}} : {{{emails.[0].address}}}
-		</div>
 		{{/each}}
 	</div>
+
+	<div class="userList">
+        <h5>Members:</h5>
+        	{{> members}}   
+    </div>  
 </template>
+
+

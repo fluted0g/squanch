@@ -4,7 +4,7 @@ Template.controlPanel.onCreated(function() {
   instance.autorun(function() {
     var projectId = Session.get("projectID");
     instance.subscribe('project', projectId);
-    instance.subscribe('members', projectId);
+    //instance.subscribe('members', projectId);
   });
 });
 
@@ -29,7 +29,7 @@ Template.controlPanel.events ({
 		var bool = $('.controlPanelContainer').hasClass('panelHidden');
 
 		if (!bool) {
-			$('.controlPanelContainer').animate({ left : '-18em' },1000,function() {
+			$('.controlPanelContainer').animate({ left : '-22em' },1000,function() {
 				$('.controlPanelContainer').toggleClass('panelHidden');
 			});
 		} else {

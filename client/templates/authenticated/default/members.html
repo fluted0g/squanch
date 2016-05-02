@@ -1,0 +1,7 @@
+<template name="members">
+	{{#each member}}
+		<div class="userFrame" id="{{memberId}}">
+			{{emails.[0].address}} <span class="deleteMember">&times;</span>
+		</div>
+	{{/each}}
+</template>

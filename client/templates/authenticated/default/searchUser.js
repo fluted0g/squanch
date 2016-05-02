@@ -1,3 +1,11 @@
+Template.searchUser.onCreated(function() {
+  var instance = this;
+
+  instance.autorun(function() {
+    var projectId = Session.get("projectID");
+    instance.subscribe('users');
+  });
+});
 
 var options = {
   keepHistory: 1000 * 60 * 5,
@@ -19,14 +27,28 @@ Template.searchUser.helpers({
   },
   isLoading: function() {
     return userSearch.getStatus().loading;
+  },
+  member: function() {
+
   }
 });
 
 Template.searchUser.events({
-	'keyup .searchUser' : _.throttle(function(e) {
-    	var text = $(e.target).val().trim();
-    	userSearch.search(text);
-    	var searchQuery = userSearch.getCurrentQuery();
-    	console.log(searchQuery);
-  	}, 200)
+  'keyup,blur .searchUser' : _.throttle( function(e) {
+      var text = $(e.target).val().trim();
+      userSearch.search(text);
+      
+  },200),
+	'submit .searchUserForm' :  function(e) {
+      e.preventDefault();
+    	var projectId = Session.get("projectID");
+      var text = $(e.target.searchUser).val().trim();
+      var isUser = Meteor.users.findOne({ $or :
+                                            [ { 'emails' :  { $elemMatch: 
+                                            { 'address' : text } } }, 
+                                            { username : text } ]
+                                            },{fields : {_id : 1}} );
+
+      Meteor.call('addMember',projectId, isUser);
+  	}
 });
