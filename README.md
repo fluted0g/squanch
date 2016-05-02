@@ -1,6 +1,7 @@
-# The Meteor Chef - Base
-A starting point for Meteor apps.
+# Squanch
+A trello clone for my final grade project.
 
+Using Meteor Chef's Base:
 <table>
   <tbody>
     <tr>
