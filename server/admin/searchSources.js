@@ -1,15 +1,17 @@
 SearchSource.defineSource('searchUser', function(searchText, options) {
   
-  var options = {_id : 1, username : 1, emails : 1};
+  var options = { fields: {_id : 1, username : 1, emails : 1}};
 
   if(searchText) {
-    //var regExp = buildRegExp(searchText);
+    var regExp = buildRegExp(searchText);
     var selector = {$or: [
-      { 'emails' :  { $elemMatch: { 'address' : searchText} } },
-      {username: searchText}
+      { 'emails' :  { $elemMatch : { 'address': regExp } } },
+      {username: regExp}
     ]};
+
+    //console.log(Meteor.users.find(selector, options).fetch());
     
-    return Meteor.users.find(selector, options); //fetch???
+    return Meteor.users.find(selector, options).fetch(); //fetch???
   } else {
     return "No users found";
   }

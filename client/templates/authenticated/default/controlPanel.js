@@ -11,19 +11,16 @@ Template.controlPanel.onCreated(function() {
 Template.controlPanel.helpers ({
 	members : function() {
 		return Meteor.users.find();
+	},
+	archivedCards : function() {
+		return Projects.find({cards: { status: 'archived'}});
+	},
+	archivedTasks : function() {
+		return Tasks.find({status :'archived'});
 	}
 });
 
 Template.controlPanel.events ({
-	'click .addMember' : function(event) {
-
-	},
-	'blur .addMember' : function(event) {
-
-	},
-	'click .showArchive' : function(event) {
-
-	},
 	'click .showHideToggler' : function(event) {
 
 		var bool = $('.controlPanelContainer').hasClass('panelHidden');

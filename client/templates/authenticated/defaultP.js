@@ -17,6 +17,9 @@ Template.defaultP.helpers ({
 	},
 	members : function() {
 		return Meteor.users.find();
+	},
+	cards : function() {
+		return Projects.find({'cards.status' : 'active'},{fields: {cards:1}});
 	}
 	/*
 	,

@@ -1,6 +1,6 @@
 Meteor.publish( 'projects', function() {
 	var id = this.userId;
-	userProjects = Projects.find( { 'members' :  { $elemMatch: { 'memberId' : id} } } );
+	userProjects = Projects.find( { 'members' :  { $in:  [id] } } );
 
 	if ( userProjects ) {
 		return userProjects;
@@ -12,7 +12,7 @@ Meteor.publish( 'projects', function() {
 Meteor.publish('project',function(id) {
 	var userId = this.userId;
 	check(id,String);
-	curr_project = Projects.find( { 'members' :  { $elemMatch: { 'memberId' : userId} } , '_id': id } );
+	curr_project = Projects.find( { 'members' :  { $in: [userId] } , '_id': id } );
 	project_tasks = Tasks.find( {'project_id':id} );
 
 	if(curr_project) {
@@ -91,18 +91,9 @@ Meteor.publish('members', function(projectId) {
 
 	check(projectId,String);
 
-	var members = Projects.find( {_id : projectId}, {fields : { members : 1 } } )
-
-	console.log("Members pub: "+members);
-
-	var memberList = [];
-
-	members.forEach(function(item){
-    	memberList.push(item.members);
-	});
-
-	var projectMembers = Meteor.users.find({ '_id' : { $in : memberList } },{ fields : { _id: 1, emails : 1, username : 1} } );
-
+	var members = Projects.find( {_id : projectId}, {fields : { members : 1 } } ).fetch()[0];
+	
+	var projectMembers = Meteor.users.find({ '_id' : { $in : members.members } },{ fields : {emails : 1, username : 1} } );
 	if (projectMembers) {
 		return projectMembers;
 	}
@@ -118,32 +109,55 @@ Meteor.publish('members', function(projectId) {
 Meteor.methods({
 
 	//user related
-	addMember : function(projectId, newMemberId) {
+	addMember : function(projectId, memberNameOrMail) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
 		}
 
 		check(projectId, String);
-		check(newMemberId, Object);
+		check(memberNameOrMail, String);
 
+
+		var member = Accounts.findUserByUsername(memberNameOrMail);
+		if (!member) {
+			member = Accounts.findUserByEmail(memberNameOrMail);
+		}
+		var memberId = member._id;
+		
 		//CHECK IF ID ALREADY EXISTS IN MEMBERS
-		var memberExists = Projects.findOne({ _id: projectId, members : { $elemMatch: memberId } }, { fields : { members : 1} })
-		console.log(memberExists);
+		var memberExists = Projects.findOne({ _id: projectId, members : { $in: [memberId] } }, { fields : { members : 1} })
+		
 		if (memberExists) {
-			console.log("Member already exists");
+			throw new Meteor.error("member-exists");
 		} else {
 			Projects.update({ _id : projectId },{ $push: {members : memberId} });
 		}	
 	},
-	removeMember : function(projectId, memberId) {
+	removeMember : function(projectId, memberNameOrMail) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
 		}
 
 		check(projectId, String);
-		check(memberId, String);
+		check(memberNameOrMail, String);
 
-		Projects.update({_id : projectId },{ $pull : { members : { $elemMatch : memberId}} });
+		var member = Accounts.findUserByUsername(memberNameOrMail);
+		if (!member) {
+			member = Accounts.findUserByEmail(memberNameOrMail);
+		}
+		var memberId = member._id;
+		var isOwner = Projects.findOne({_id:projectId,owner:memberId});
+		if (Meteor.userId() == memberId) {
+			var isSelf = true;
+		}
+
+		if (!isOwner || !isSelf) {
+			Projects.update({_id : projectId },{ $pull : { members : { $in : [memberId]}} });
+		} else {
+			throw new Meteor.error("invalid-target");
+		}
+
+		
 	},
 	//general purpose
 	newProject : function(name,description,proj_type,theme) {
@@ -174,8 +188,8 @@ Meteor.methods({
 		
 		check(projectId, String);
 		check(cardName, String);
-		check(status, String);
-		check(oCard, Object);
+		//check(status, String);
+		//check(oCard, Object);
 
 		var status = "active";
 		var oCard = {

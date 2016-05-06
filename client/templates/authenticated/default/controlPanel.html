@@ -34,8 +34,12 @@
                     	
                 		<!-- AQUI LA MOVIDA -->
                 		<ul>
-                			<li><a>Modal a archivo de cards</a></li>
-                			<li><a>Modal a archivo de tasks</a></li>
+                            {{#each archivedCards}}
+                			<li><a>name</a></li>
+                            {{/each}}
+                			{{#each archivedTasks}}
+                            <li><a>{{name}}</a></li>
+                            {{/each}}
                 		</ul>
 
                 	</div>

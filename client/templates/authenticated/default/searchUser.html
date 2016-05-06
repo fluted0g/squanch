@@ -8,9 +8,10 @@
 	</form>
 
 	<div class="matchingUsers">
-		<h5>Matching users:</h5> 
+		<h5>Matching users:</h5>
 		{{#each getUsers}}
-			{{{username}}} : {{{emails.[0].address}}}
+			Username: {{username}}
+			Email: {{{emails.[0].address}}}
 		{{/each}}
 	</div>
 

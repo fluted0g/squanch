@@ -1,16 +1,12 @@
 
 Template.card.helpers ({
-    
-    tasks : function() {
-        
+    tasks : function() {  
         var cardId = this._id;
         return  Tasks.find({'card_id':cardId,'status':'active'});
     }
-    
 });
 
 Template.card.events ({
-
 	"submit .insert_task" : function(event) {
 		event.preventDefault();
 		var pId = FlowRouter.getParam("_id");
@@ -19,26 +15,21 @@ Template.card.events ({
 
 		Meteor.call("newTask",pId,cardId,taskTitle);
 		event.target.task_title.value = "";
-
 	},	
 	"mouseover .card_frame" : function(event) {
 		var card = event.currentTarget.id;
 		Session.set("cardID",card);
 	},
     "dblclick .bubble" : function (event) {
+        time = 800;
+        elem = event.currentTarget;
+        var expanded;
 
-    time = 800;
-
-    elem = event.currentTarget;
-    
-    var expanded;
-
-    if ( $(elem).hasClass("expanded") ) {
-        expanded = true;
-    } else {
-        expanded = false;
-    }
-    
+        if ( $(elem).hasClass("expanded") ) {
+            expanded = true;
+        } else {
+            expanded = false;
+        }
         $(elem).toggleClass("reduced", time).promise().done(function () {
 
             if (!expanded) {
@@ -57,16 +48,13 @@ Template.card.events ({
                 });
             }
         });
-},
+    },
     "click .bubble" : function(event) {
 
         var bubbles = $(".bubble");
-
-    // Set up click handlers for each bubble
-    
+        // Set up click handlers for each bubble
         var clickedBubble = event.currentTarget, // The bubble that was clicked
         max = 0;
-
         // Find the highest z-index
         bubbles.each(function() {
             self = $(this);
@@ -75,7 +63,6 @@ Template.card.events ({
             // Keep either the current max, or the current z-index, whichever is higher
             max = Math.max( max, z );
         });
-
         // Set the bubble that was clicked to the highest z-index plus one
         $(clickedBubble).css("z-index", max + 1 );
     }
