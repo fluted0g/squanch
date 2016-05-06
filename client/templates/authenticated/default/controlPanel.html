@@ -3,9 +3,8 @@
 
 		<div class="controlPanelMenu">
 			<div class="showHideToggler"></div>
+
 			<h4>Control Panel</h4>
-
-
 
 			<div class="panel-group" id="accordion">
         		<div class="panel panel-default">
@@ -16,10 +15,7 @@
             		</div>
             		<div id="collapseOne" class="panel-collapse collapse">
                 		<div class="panel-body">
-                    		
-                			<!-- AQUI LA MOVIDA -->
                 			{{> searchUser}}
-            			
                 		</div>
             		</div>
         		</div>
@@ -31,16 +27,23 @@
             	</div>
             	<div id="collapseTwo" class="panel-collapse collapse">
                 	<div class="panel-body">
-                    	
-                		<!-- AQUI LA MOVIDA -->
-                		<ul>
-                            {{#each archivedCards}}
-                			<li><a>name</a></li>
-                            {{/each}}
-                			{{#each archivedTasks}}
-                            <li><a>{{name}}</a></li>
-                            {{/each}}
-                		</ul>
+                		<div>
+                            <label>Cards:</label>
+                            <ul>
+                                {{#each archivedCards}}
+                    			<li class="archivedCard">{{name}}</li>
+                                {{/each}}
+                            </ul>
+                        </div>
+
+                        <div>
+                            <label>Tasks:</label>
+                            <ul>
+                    			{{#each archivedTasks}}
+                                <li class="archivedTask">{{name}}</li>
+                                {{/each}}
+                    		</ul>
+                        </div>
 
                 	</div>
             	</div>
@@ -53,10 +56,7 @@
 	        		</div>
 	        		<div id="collapseThree" class="panel-collapse collapse">
 	        			<div class="panel-body">
-	        				
-	        				<!-- AQUI LA MOVIDA -->
-                			bla bla bla
-
+                			<span class="deleteProject">Delete project</span>
 	        			</div>
             		</div>
         		</div>

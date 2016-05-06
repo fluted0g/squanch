@@ -19,7 +19,8 @@ Template.defaultP.helpers ({
 		return Meteor.users.find();
 	},
 	cards : function() {
-		return Projects.find({'cards.status' : 'active'},{fields: {cards:1}});
+		var projectId = Session.get("projectID");
+		return Cards.find({'status' : 'active','project_id':projectId});
 	}
 	/*
 	,

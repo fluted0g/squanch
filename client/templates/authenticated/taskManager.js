@@ -30,7 +30,7 @@ Template.taskManager.helpers({
   	cards: function() {
   		var projectId = Session.get("projectId");
 
-  		return Projects.find({'cards.$.project_id':projectId})
+  		return Cards.find({'project_id':projectId})
   	}
 });
 
@@ -136,14 +136,10 @@ Template.taskManager.events({
 	"click .archiveTask": function(event) {
 		event.preventDefault();
 
-		var newStatus = "archived";
+		var id = this._id;
 
-		var oTask = Session.get("oTask");
-
-		oTask.status = newStatus;
-
-		Meteor.call("editTaskStatus",oTask._id,newStatus);
-		Session.set("oTask",oTask);
+		Meteor.call("toggleStatus","task",id);
+		$("#modalTask").modal('hide');
 	}/*,
 	".hide.bs.modal #modalTask" : function(event) {
 		oTask = Session.get("oTask");

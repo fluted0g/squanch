@@ -13,6 +13,7 @@ Template.header.events({
         Bert.alert( error.reason, 'warning' );
       } else {
         Bert.alert( 'Logged out!', 'success' );
+        FlowRouter.path('login');
       }
     });
   }

@@ -11,6 +11,7 @@ Projects.deny({
   update: () => false,
   remove: () => false
 });
+
 /*
 Member = new SimpleSchema({
   memberId: {
@@ -33,7 +34,7 @@ Member = new SimpleSchema({
   }
 
 });
-*/
+
 Card = new SimpleSchema({
   _id: {    
     type: String,
@@ -58,6 +59,7 @@ Card = new SimpleSchema({
     optional: true
   }
 });
+*/
 
 ProjectSchema = new SimpleSchema({
   name: {
@@ -115,17 +117,18 @@ ProjectSchema = new SimpleSchema({
   members : {
     type: [String],
     label: "Project members"
-  },
+  }
+  /*,
   cards: {
-    type: [Card],
-    label: "Project cards",
+    type: [String],
+    label: "Project cards ID's",
     optional: true
   }
   
-  /*,
+  ,
   tasks: {
     type: [String],
-    label: "Card tasks",
+    label: "Card tasks ID's",
     optional: true
   }
   */

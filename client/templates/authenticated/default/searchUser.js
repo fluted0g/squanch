@@ -19,7 +19,7 @@ userSearch = new SearchSource('searchUser', fields, options);
 
 Template.searchUser.helpers({
   getUsers: function() {
-    return userSearch.getData();
+      return userSearch.getData();
     /*
     return userSearch.getData({
       transform: function(matchText, regExp) {
@@ -33,20 +33,16 @@ Template.searchUser.helpers({
     return userSearch.getStatus().loading;
   }
 });
-
-Template.searchUser.rendered = function() {
-  userSearch.search('');
-};
-
 Template.searchUser.events({
-  'keyup , blur .searchUser' : _.throttle( function(e) {
+  'keyup .searchUser' : _.throttle( function(e) {
       e.preventDefault();
       var text = $(e.target).val().trim();
       if (text.length >= 3) {
         userSearch.search(text);
+      } else if (text.length < 3) {
+        //chapuza que flipas, pero me vale
+        userSearch.search("20G25N81Y77B79");
       }
-      
-      
   },200),
 	'submit .searchUserForm' :  function(e) {
       e.preventDefault();

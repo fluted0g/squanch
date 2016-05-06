@@ -13,11 +13,6 @@ Cards.deny({
 });
 
 CardSchema = new SimpleSchema({
-  _id: {    
-    type: String,
-    regEx: SimpleSchema.RegEx.Id,
-    autoValue: function(){ return Random.id(); }
-  },
   project_id: {
     type: String,
     label: "Project ID"

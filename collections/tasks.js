@@ -39,17 +39,15 @@ Event = new SimpleSchema({
     label: "author id"
   }
 });
-
+/*
 //los miembros de task DEBERIAN poder pasarse desde projects
 Member = new SimpleSchema({
   //con lo cual DEBERIAN venir con su id
-  /*
   _id: {
     type: String,
     regEx: SimpleSchema.RegEx.Id,
     autoValue: function(){ return Random.id(); }
   },
-  */
   name: {
     type: String,
     label:"Member name"
@@ -73,6 +71,7 @@ Member = new SimpleSchema({
   }
 
 });
+*/
 
 Comment = new SimpleSchema({
   _id : {
@@ -160,8 +159,8 @@ TaskSchema = new SimpleSchema({
     optional: true
   },
   members: {
-    type: [Member],
-    label: "Task members",
+    type: [String],
+    label: "Task members ID's",
     optional: true
   },
   comments: {

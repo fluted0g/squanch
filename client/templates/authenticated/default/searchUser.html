@@ -9,10 +9,12 @@
 
 	<div class="matchingUsers">
 		<h5>Matching users:</h5>
-		{{#each getUsers}}
-			Username: {{username}}
-			Email: {{{emails.[0].address}}}
-		{{/each}}
+			<ul>
+				{{#each getUsers}}
+				<li>Username: {{username}}</li>
+				<li>Email: {{{emails.[0].address}}}</li>
+				{{/each}}
+			</ul>
 	</div>
 
 	<div class="userList">

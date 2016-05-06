@@ -20,6 +20,10 @@ Template.card.events ({
 		var card = event.currentTarget.id;
 		Session.set("cardID",card);
 	},
+    "click .cardOptions" : function(event) {
+        var id = this._id;
+        Meteor.call("toggleStatus","card",id)
+    },
     "dblclick .bubble" : function (event) {
         time = 800;
         elem = event.currentTarget;
