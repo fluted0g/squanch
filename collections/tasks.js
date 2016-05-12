@@ -15,15 +15,18 @@ Tasks.deny({
 //track activity in the task
 //should be first to load I guess?
 Event = new SimpleSchema({
-
-  //update??, move, archive, copy, setDueDate...
+  _id : {
+    type: String,
+    regEx: SimpleSchema.RegEx.Id,
+    autoValue: function(){ return Random.id(); }
+  },
   type: {
     type: String,
     label: "event type"
-    },
+  },
   createdAt: {
     type: Date,
-    label: "Project creation date",
+    label: "event creation date",
     autoValue: function(){
       if (this.isInsert) {
         return new Date();
@@ -36,42 +39,9 @@ Event = new SimpleSchema({
   },
   author: {
     type : String,
-    label: "author id"
+    label: "author username"
   }
 });
-/*
-//los miembros de task DEBERIAN poder pasarse desde projects
-Member = new SimpleSchema({
-  //con lo cual DEBERIAN venir con su id
-  _id: {
-    type: String,
-    regEx: SimpleSchema.RegEx.Id,
-    autoValue: function(){ return Random.id(); }
-  },
-  name: {
-    type: String,
-    label:"Member name"
-  },
-  email: {
-    type: String,
-    label:"Member email"
-  },
-  memberSince: {
-    type: Date,
-    label: "Member's primerito día",
-    autoValue: function(){
-      if (this.isInsert) {
-        return new Date();
-      } else if (this.isUpsert) {
-        return {$setOnInsert: new Date()};
-      } else {
-        this.unset();
-      }
-    }
-  }
-
-});
-*/
 
 Comment = new SimpleSchema({
   _id : {
@@ -85,11 +55,20 @@ Comment = new SimpleSchema({
   },
   author : {
     type : String,
-    label: "author id"
+    label: "author username"
   },
   createdAt: {
     type: Date,
-    label: "createdAt"
+    label: "comment creation date",
+    autoValue: function(){
+      if (this.isInsert) {
+        return new Date();
+      } else if (this.isUpsert) {
+        return {$setOnInsert: new Date()};
+      } else {
+        this.unset();
+      }
+    }
   }
 });
 
@@ -102,10 +81,6 @@ TaskSchema = new SimpleSchema({
     type: String,
     label: "Task description",
     optional: true
-  },
-  project_id : {
-    type: String,
-    label: "Project ID"
   },
   card_id : {
     type: String,
@@ -135,7 +110,7 @@ TaskSchema = new SimpleSchema({
     denyInsert : true,
     optional: true
   },
-  dueTo: {
+  dueDate: {
     type: Date,
     label: "Task due date",
     optional: true

@@ -1,0 +1,137 @@
+@import "../tools/palette";
+
+ul {
+  padding-left: 0;
+}
+
+.card_manager {
+  width: auto;
+  height: 100%;
+  display: inline-flex;
+  flex-direction: row;
+  overflow: auto;
+  list-style: none;
+}
+
+.card_body {
+  position: relative;
+}
+
+.card_frame {
+	display: inline-block;
+	float: left;
+	margin: 0.15em;
+	padding: 0.7em;
+  width: 20em;
+  height: 100%;
+  border: 2px solid $darkerYellow;
+  border-radius: 10px;
+  color: $textColor;    
+  background-color: $mainYellow;
+  h3 {
+    display: inline-block;
+    margin-top: 1px;
+  }
+
+}
+
+.cardOptions {
+  float: right;
+  display: inline-flex;
+  i {
+    color: $darkerYellow;
+    font-size: 2em;
+
+    &:hover {
+      color: $darkYellow;
+    }
+  }
+}
+
+.taskInserter {
+  border-radius:5px;
+  text-align: center;
+}
+
+.activeT {
+  background-color: $mainYellow;
+  border: 2px solid $darkYellow;
+}
+
+.fake_task_title {
+  border-radius: 3px;
+  margin: 0.2em;
+  padding: 0.2em;
+  width: 98%;
+  height: 2.5em;
+  display: inline-block;
+  background-color: lighten($darkYellow,10%);
+  text-align: left;
+  span {
+    display: inline-block;
+  }
+  &:hover {
+    background-color: lighten($darkYellow,15%);
+  }
+}
+
+.task_title {
+  background-color: lighten($darkYellow,10%);
+  border:none;
+  margin: 0.2em;
+  padding: 0.2em;
+  display: inline-block;
+  border-radius: 3px;
+  width: 98%;
+  height: 2.5em;
+  outline-color: $darkYellow;
+  &:hover {
+    background-color: lighten($darkYellow,15%);
+  }
+  &:focus {
+    border: none;
+  }
+}
+
+.cancelFormT {
+  color: #111;
+  font-size: 3em;
+  cursor: pointer;
+}
+
+.hiddenE {
+  display: none;
+}
+
+.ghostCard {
+  height: 2.5em;
+  width: 20em;
+  background-color: $mainYellow;
+  border-radius: 10px;
+  margin: 0.15em;
+  padding: 0.7em;
+}
+
+.clearDiv {
+  clear: both;
+}
+
+.cardMenu {
+  position: absolute;
+  right: -70px;
+  top: -10px;
+  background-color: transparent;
+  color: #fff;
+  z-index: 100;
+  padding: 5px;
+
+  li {
+    background-color: #111;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 0.1em;
+    &:hover {
+      background-color:#777;
+    }
+  }
+}

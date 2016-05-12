@@ -1,0 +1,50 @@
+@import "../tools/palette";
+
+.task_manager {
+  width: 99%;
+  height: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  overflow: auto;
+  list-style: none;
+}
+
+.task_frame {
+	border: 2px solid $darkYellow;
+	border-radius: 7px;
+	margin: 0.2em;
+	padding: 0.2em;
+	h4 {
+		margin-top: 2px;
+		margin-bottom: 2px;
+		display: inline-flex;
+	}
+
+	display: inline-block;
+}
+
+.taskOptions {
+	float: right;
+	margin-top: 1px;
+	
+	i {
+		color: $darkerYellow;
+		font-size: 1.6em;
+
+		&:hover {
+      		color: $darkYellow;
+    	}
+	}
+}
+
+.task_info {
+	margin: 3px;
+}
+
+.ghostTask {
+	margin: 0.2em;
+	padding: 0.2em;
+	width: 98%;
+	height: 2.5em;
+	background-color: $darkYellow;
+}

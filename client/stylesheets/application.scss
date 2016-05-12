@@ -2,9 +2,9 @@
 
 @import "tools/palette";
 
-@import "objects/forms";
+@import "components/color_override";
 
-@import "objects/bubbles";
+@import "objects/forms";
 
 @import "objects/labels";
 
@@ -13,5 +13,9 @@
 @import "components/projects";
 
 @import "components/defaultP";
+
+@import "components/cards";
+
+@import "components/tasks";
 
 @import "components/controlPanel";

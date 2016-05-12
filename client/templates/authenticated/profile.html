@@ -3,7 +3,7 @@
 
   <div>
     {{#with userProfile}}
-    	<p><span>Name: </span> <span class="editableContentSolid"> {{username}}{{#unless username}}No name!!!{{/unless}}</span></p>
+    	<p><span>Name: </span> <span class="editableContentSolid" id="editableProfileName"> {{username}}{{#unless username}}No name!!!{{/unless}}</span></p>
     	<p><span>eMail: </span> <span>{{emails.[0].address}}</span></p>
     {{/with}}
   </div>

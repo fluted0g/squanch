@@ -1,40 +1,90 @@
 $darkYellow: #C18400;
 
 body {
-	width: 1366px;
+	padding-top: 55px;
+}
+.container {
+	width: 97.5%;
+}
+.bodyContainer {
+	margin: 0 15px 0;
+	height:100%;
 }
 
-.card_manager {
-	float: left;
-	padding: 0.5em;
-	margin: 0.5em;
-	list-style: none;
-	max-width: 100%;
+.fa {
+	font-size: 1.1em;
 }
 
-.card_frame {
-	display: inline-block;
-	float: left;
-	margin: 0.4em;
-
+.project_info {
+	position: fixed;
+	padding-left: 20px;
+	width: 100%;
+	height: 7em;
+	z-index: 999;
 }
 
-.ghostCard {
-
-	float: left;
-
-	height: 3.5em;
-    width: 25em;
-
-    margin: 0.4em;
-    padding: 0.5em;
-
-    background-color: transparent;
+.project_cards {
+	margin-top: 7.5em;
 }
 
-.task_frame {
+.cardInserter {
+	border-radius:5px;
+	height: 8em;
+	width: 20em;
+	text-align: center;
+}
+
+.activeC {
+	background-color: $mainYellow;
 	border: 2px solid $darkYellow;
-	border-radius: 7px;
-	margin: 0.2em;
-	padding: 0.2em;
 }
+
+.insert_card {
+	
+}
+.fake_card_title {
+	display: inline-block;
+	background-color: lighten($darkYellow,10%);
+	border-radius: 3px;
+	width: 19em;
+	height: 2.5em;
+	text-align: left;
+	margin-top: 5px;
+
+	span {
+		display: inline-block;
+		margin-top: 5px;
+	}
+
+	&:hover {
+		background-color: lighten($darkYellow,15%);
+	}
+}
+.card_title {
+	background-color: lighten($darkYellow,10%);
+	border:none;
+	border-radius: 3px;
+	width: 19em;
+	height: 2.5em;
+	outline-color: $darkYellow;
+	margin-top: 4px;
+
+	&:hover {
+		background-color: lighten($darkYellow,15%);
+	}
+
+	&:focus {
+		border: none;
+	}
+}
+
+.cancelFormC {
+	color: #111;
+	font-size: 3em;
+	cursor: pointer;
+}
+
+.hiddenE {
+	display: none;
+}
+

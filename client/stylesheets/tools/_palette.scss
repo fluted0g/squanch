@@ -1,10 +1,12 @@
+//main palette
 
-$textColor: #111;
 $mainYellow : #FFB20A;
-$lightYellow: lighten(#FFB20A,10%);
-$lighterYellow: lighten($lightYellow,10%);
-$darkYellow: darken(#FFB20A,10%);
-$darkerYellow: darken(#FFB20A,10%);
+$lightYellow: lighten(#FFB20A,15%);
+$lighterYellow: lighten(#FFB20A,30%);
+$darkYellow: darken(#FFB20A,15%);
+$darkerYellow: darken(#FFB20A,30%);
+
+//default palette
 
 $bgDefault      : #ffb20a;
 $bgHighlight    : #ffca58;
@@ -12,93 +14,15 @@ $colDefault     : #000000;
 $colHighlight   : #000000;
 $dropDown       : true;
 
-#__blaze-root, body {
-	background-color: $lightYellow;
-	color: $textColor;
-}
+//font colors:
+$textColor: #111;
+$fa-grey: #eee;
 
-.navbar-default {
-  background-color: $bgDefault;
-  border-color: $bgHighlight;
-  .navbar-brand {
-    color: $colDefault;
-    &:hover, &:focus {
-      color: $colHighlight; }}
-  .navbar-text {
-    color: $colDefault; }
-  .navbar-nav {
-    > li {
-      > a {
-        color: $colDefault;
-        &:hover,  &:focus {
-          color: $colHighlight; }}
-      @if $dropDown {
-        > .dropdown-menu {
-          background-color: $bgDefault;
-          > li {
-            > a {
-              color: $colDefault;
-              &:hover,  &:focus {
-                color: $colHighlight;
-                background-color: $bgHighlight; }}
-            > .divider {
-              background-color: $bgHighlight;}}}}}
-    @if $dropDown {
-      .open .dropdown-menu > .active {
-        > a, > a:hover, > a:focus {
-          color: $colHighlight;
-          background-color: $bgHighlight; }}}
-    > .active {
-      > a, > a:hover, > a:focus {
-        color: $colHighlight;
-        background-color: $bgHighlight; }}
-    > .open {
-      > a, > a:hover, > a:focus {
-        color: $colHighlight;
-        background-color: $bgHighlight; }}}
-  .navbar-toggle {
-    border-color: $bgHighlight;
-    &:hover, &:focus {
-      background-color: $bgHighlight; }
-    .icon-bar {
-      background-color: $colDefault; }}
-  .navbar-collapse,
-  .navbar-form {
-    border-color: $colDefault; }
-  .navbar-link {
-    color: $colDefault;
-    &:hover {
-      color: $colHighlight; }}}
-@media (max-width: 767px) {
-  .navbar-default .navbar-nav .open .dropdown-menu {
-    > li > a {
-      color: $colDefault;
-      &:hover, &:focus {
-        color: $colHighlight; }}
-    > .active {
-      > a, > a:hover, > a:focus {
-        color: $colHighlight;
-        background-color: $bgHighlight; }}}
-}
+//label colors:
 
-.jumbotron {
-	background-color: $mainYellow;
-	color: $textColor;
-
-	.pContainer, .startP {
-		background-color: $lightYellow;
-		color: $textColor;
-		&:hover {
-			background-color: $lighterYellow;
-		}
-	}
-}
-
-
-.bubble {
-    border: 2px solid $darkerYellow;
-    color: $textColor;    
-    background-color: $mainYellow;
-}
-
-
+$redL: #FF0000;
+$greenL : #008000;
+$blueL : #0000FF;
+$yellowL : #FFD700;
+$orangeL : #FF8C00;
+$purpleL : #663399;

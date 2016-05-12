@@ -2,8 +2,8 @@ Template.members.onCreated(function() {
   var instance = this;
 
   instance.autorun(function() {
-    var projectId = Session.get("projectID");
-    //instance.subscribe('members', projectId);
+  	var projectId = Session.get("projectID");
+    instance.subscribe('members', projectId);
   });
 });
 

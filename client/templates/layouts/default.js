@@ -30,35 +30,25 @@ Template.default.helpers({
 });
 
 Template.default.events({
-	'click .editable' : function() {
-		console.log($(event.currentTarget));
-		console.log($(event.target));
-		console.log($(event.target).get(0).tagName);
-
+	'click .editableContent' : function() {
+		
 		if ($(event.target).get(0).tagName == 'SPAN') {
-			console.log("I'm a span");
-
 			var $input = $("<input>", {
         	val: $(event.target).text(),
         	type: "text",
-        	class: "editable"
+        	class: "editableContent"
     		});
     		$(event.target).replaceWith($input);
     		$input.select();
-
-    		//this has to be another EVENT:
-
-    		//$input.on("blur", switchToSpan);
-
 		}
 	},
-	'blur .editable' : function() {
+	'blur .editableContent' : function() {
 		if ($(event.target).get(0).tagName == 'INPUT') {
 			console.log("I'm an input");
 
 			var $span = $("<span>", {
         		text: $(event.target).val(),
-        		class: "editable"
+        		class: "editableContent"
     		});
    			$(event.target).replaceWith($span);
 		}

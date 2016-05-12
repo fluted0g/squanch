@@ -11,20 +11,29 @@ Meteor.publish( 'projects', function() {
 Meteor.publish('project',function(id) {
 	var userId = this.userId;
 	check(id,String);
+
+	//find project and his cards
 	curr_project = Projects.find( { 'members' :  { $in: [userId] } , '_id': id } );
-	project_cards = Cards.find({'project_id': id})
-	project_tasks = Tasks.find({'project_id':id});
+	project_cards = Cards.find({'project_id': id});
+
+	//find all tasks belonging to the project cards
+	var cardIds = [];
+	arrangedCards = project_cards.fetch();
+	_.each(arrangedCards, function(card) {
+		cardIds.push(card._id);
+	});
+	test_tasks = Tasks.find({'card_id' : { $in: cardIds}});
 
 	if(curr_project) {
 		return [
 		curr_project,
 		project_cards,
-		project_tasks
+		test_tasks
 		];
 	}
 	return this.ready();
 });
-
+/*
 Meteor.publish('users', function() {
 	var allUsers = Meteor.users.find({},{fields:{username:1,emails:1,profile:1}});
 
@@ -33,12 +42,15 @@ Meteor.publish('users', function() {
 	}
 	return this.ready();
 });
+*/
 
 Meteor.publish('members', function(projectId) {
 	check(projectId,String);
 
-	var members = Projects.find( {_id : projectId}, {fields : { members : 1 } } ).fetch()[0];
-	var projectMembers = Meteor.users.find({ '_id' : { $in : members.members } },{ fields : {emails : 1, username : 1} } );
+	var project = Projects.find({_id: projectId}).fetch()[0];
+	console.log(project.members);
+
+	var projectMembers = Meteor.users.find({ '_id' : { $in : project.members } },{ fields : {services : 0 } });
 	if (projectMembers) {
 		return projectMembers;
 	}
@@ -46,9 +58,7 @@ Meteor.publish('members', function(projectId) {
 });
 
 //###########################################################//
-
 //###########################################################//
-
 //###########################################################//
 
 Meteor.methods({
@@ -60,13 +70,14 @@ Meteor.methods({
 		check(projectId, String);
 		check(memberNameOrMail, String);
 
-		var member = Accounts.findUserByUsername(memberNameOrMail);
+		var member;
+		member = Accounts.findUserByUsername(memberNameOrMail);
 		if (!member) {
 			member = Accounts.findUserByEmail(memberNameOrMail);
 		}
 		var memberId = member._id;
-
 		var memberExists = Projects.findOne({ _id: projectId, members : { $in: [memberId] } }, { fields : { members : 1} });
+		
 		if (memberExists) {
 			throw new Meteor.error("member-exists");
 		} else {
@@ -85,7 +96,6 @@ Meteor.methods({
 			member = Accounts.findUserByEmail(memberNameOrMail);
 		}
 		var memberId = member._id;
-
 		var isOwner = Projects.findOne({_id:projectId,owner:memberId});
 		
 		if (Meteor.userId() == memberId) {
@@ -96,6 +106,24 @@ Meteor.methods({
 		} else {
 			throw new Meteor.error("invalid-target");
 		}	
+	},
+	isUser : function(nameOrMail) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(nameOrMail, String);
+
+		var member = Accounts.findUserByUsername(nameOrMail);
+		if (!member) {
+			member = Accounts.findUserByEmail(nameOrMail);
+		}
+
+		//console.log(member);
+		if (member) {
+			return true;
+		} else if (!member) {
+			throw new Meteor.error("user-not-exists");
+		}
 	},
 	//general purpose
 	newProject : function(name,description,proj_type,theme) {
@@ -132,7 +160,7 @@ Meteor.methods({
 			throw new Meteor.Error("not-authorized");
 		}
 	},
-	//project page related
+	//card related
 	insertCard : function(projectId,cardName) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
@@ -149,12 +177,41 @@ Meteor.methods({
 		
 		Cards.insert(oCard);
 	},
-	newTask : function(projectId, cardId,taskName) {
+	editCardName : function(cardId,input) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+
+		check(cardId,String);
+		check(input,String);
+
+		var card = Cards.findOne({_id:cardId});
+		if (card) {
+			Cards.update({_id:cardId},{$set:{name:input}});
+		} else {
+			throw new Meteor.error("invalid-target")
+		}
+	},
+	editCardLabel : function(cardId, input) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(cardId,String);
+		check(input,String);
+
+		var card = Cards.findOne({_id:cardId});
+		if(card) {
+			Cards.update({_id:cardId},{$set:{label:input}});
+		} else {
+			throw new Meteor.error("invalid-target")
+		}
+	},
+	//task related
+	newTask : function(cardId,taskName) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
 		}
 		check(taskName, String);
-		check(projectId, String);
 		check(cardId, String);
 
 		var userId = Meteor.userId();
@@ -162,7 +219,6 @@ Meteor.methods({
 		var label = "default";
 		var oTask = {
 			name: taskName,
-			project_id: projectId,
 			card_id: cardId,
 			status: status,
 			label: label,
@@ -185,7 +241,6 @@ Meteor.methods({
 			$set: {
 				'name': oTask.name,
 				'description' : oTask.description,
-				'project_id' : oTask.project_id,
 				'card_id' : oTask.card_id, 
 				'createdAt' : oTask.createdAt,
 				'dueTo' : oTask.dueTo,
@@ -259,6 +314,7 @@ Meteor.methods({
 			$set: {'dueDate': input}
 		});
 	},
+	//task and card related
 	toggleStatus: function(type,id) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");

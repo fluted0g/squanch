@@ -1,34 +1,30 @@
 <template name="defaultP">	
-
 	{{#if Template.subscriptionsReady}}
-
-	{{#with members}}
-	{{> controlPanel}}
-	{{/with}}
-
-	{{#each project}}
-
-	<h1>{{name}}</h1>
-	<p>{{proj_type}}</p>
-
-	<form class="insert_card">
-		<label for="card_title">Insert a card: 
-			<input type="text" name="card_title" class="card_title"></label>
-			<input type="submit" value="Send">
-		</form>
-		
-		<ul class="card_manager">
-			{{#each cards}}
-			{{> card}}
+		<div class="project_info">
+			{{> controlPanel}}
+			{{#each project}}
+			<h2>{{name}}</h2>
+			<p>{{proj_type}}</p>
 			{{/each}}
-		</ul>
-
-	{{/each}}
-
+		</div>
+		<div class="project_cards">
+			<ul class="card_manager">
+				{{#each cards}}
+					{{> card}}
+				{{/each}}
+				<li class="cardInserter">
+					<form class="insert_card">
+						<span class="fake_card_title">
+							<span>Insert a card...</span>
+						</span>
+						<input type="text" name="card_title" class="card_title hiddenE" placeholder="Insert a card..." autocomplete="off">
+						<input class="submitCard hiddenE" type="submit" value="Send">
+						<span class="cancelFormC hiddenE">&times;</span>
+					</form>					
+				</li>
+			</ul>
+		</div>
 	{{else}}
-
 		{{> loading}}
-
 	{{/if}}
-
 </template>	

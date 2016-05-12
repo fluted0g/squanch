@@ -1,8 +1,8 @@
 <template name="controlPanel">
-	<div class="controlPanelContainer">
+	<div class="controlPanelContainer panelHidden">
 
 		<div class="controlPanelMenu">
-			<div class="showHideToggler"></div>
+			<div class="showHideToggler"><h5>MENU</h5></div>
 
 			<h4>Control Panel</h4>
 
@@ -16,6 +16,14 @@
             		<div id="collapseOne" class="panel-collapse collapse">
                 		<div class="panel-body">
                 			{{> searchUser}}
+
+                            <div class="userList">
+                                <h5>Members:</h5>
+                                    {{#each member}}
+                                        {{> members}}
+                                    {{/each}}
+                            </div> 
+
                 		</div>
             		</div>
         		</div>

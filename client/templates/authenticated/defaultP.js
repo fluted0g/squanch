@@ -1,4 +1,3 @@
-
 Template.defaultP.onCreated(function() {
   var instance = this;
 
@@ -7,9 +6,8 @@ Template.defaultP.onCreated(function() {
     Session.set("projectID",projectId);
     instance.subscribe('project', projectId);
     instance.subscribe('members', projectId);
-  });
+    });
 });
-
 
 Template.defaultP.helpers ({
 	project : function() {
@@ -22,16 +20,6 @@ Template.defaultP.helpers ({
 		var projectId = Session.get("projectID");
 		return Cards.find({'status' : 'active','project_id':projectId});
 	}
-	/*
-	,
-	cards : function() {
-		var projectId = Session.get("projectID");
-		var oCards = Projects.find({'cards.$.project_id':projectId});
-		console.log(oCards);
-		Session.set("oCards", oCards);
-		return oCards;
-	}
-	*/
 });
 
 Template.defaultP.events ({
@@ -39,11 +27,22 @@ Template.defaultP.events ({
 		event.preventDefault();
 		var projectId = Session.get("projectID");
 		var cardTitle = event.target.card_title.value;
-		Meteor.call("insertCard", projectId, cardTitle);
-		event.target.card_title.value = "";
+		if (cardTitle != "") {
+			Meteor.call("insertCard", projectId, cardTitle);
+			event.target.card_title.value = "";
+			
+			$(".cardInserter").toggleClass("activeC");
+			$(".submitCard, .cancelFormC, .card_title, .fake_card_title").toggleClass("hiddenE");
+		}
 	},
-	"submit .delete_card" : function(event) {
-		event.preventDefault();
+	"click .fake_card_title" : function(event) {
+		$(".cardInserter").toggleClass("activeC");
+		$(".submitCard, .cancelFormC, .card_title, .fake_card_title").toggleClass("hiddenE");
+		$(".card_title").select();
+	},
+	"click .cancelFormC" : function(event) {
+		$(".cardInserter").toggleClass("activeC");
+		$(".submitCard, .cancelFormC, .card_title, .fake_card_title").toggleClass("hiddenE");
 	}
 });
 

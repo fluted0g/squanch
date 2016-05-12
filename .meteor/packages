@@ -34,10 +34,6 @@ reactive-var
 reactive-dict
 aldeed:collection2
 tracker
-accounts-facebook
-accounts-github
-accounts-twitter
-accounts-google
 http
 service-configuration
 email
@@ -47,3 +43,5 @@ mizzao:jquery-ui
 peppelg:bootstrap-3-modal
 tsega:bootstrap3-datetimepicker
 meteorhacks:search-source
+fortawesome:fontawesome
+hinas:meteor-bootstrap-confirmation

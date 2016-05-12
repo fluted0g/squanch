@@ -1,8 +1,33 @@
-	<template name="task">
-		
-		
-		<div class="task_frame" id="{{_id}}">
-			<p>{{name}}<span class="labelMarker {{label}}"></span></p>
+<template name="task">
+	<li class="task_frame" id="{{_id}}">
+		<div class="task_head">
+			<h4>{{name}}</h4>
+			<span class="labelMarker {{label}}"></span>
+			<span class="taskOptions">
+					<i class="fa fa-pencil-square"></i>
+			</span>
 		</div>
-
-	</template>
+		<div class="task_info">
+			{{#with description}}
+				<span title="This task has a description.">
+					<i class="fa fa-info-circle"></i>
+				</span>
+			{{/with}}
+			{{#with dueDate}}
+				<span title="This task has a deadline date.">
+					<i class="fa fa-calendar-times-o"></i>
+				</span>
+			{{/with}}
+			{{#with comments}}
+				<span title="This task has comments.">
+					<i class="fa fa-comments-o"></i>
+				</span>
+			{{/with}}
+			{{#each checkBoxes}}
+				<span title="This task has checkbox lists.">
+					<i class="fa fa-check-square">{{checkedBoxes}}/{{totalBoxes}}</i>
+				</span>
+			{{/each}}
+		</div>
+	</li>
+</template>

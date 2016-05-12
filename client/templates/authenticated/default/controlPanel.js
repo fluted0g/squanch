@@ -2,21 +2,26 @@ Template.controlPanel.onCreated(function() {
   var instance = this;
 
   instance.autorun(function() {
-    //var projectId = Session.get("projectID");
-    //instance.subscribe('project', projectId);
-    //instance.subscribe('members', projectId);
+  	var projectId = Session.get("projectID");
+    instance.subscribe('members', projectId);
   });
 });
 
+Template.controlPanel.onRendered(function() {
+});
+
 Template.controlPanel.helpers ({
-	members : function() {
-		return Meteor.users.find();
-	},
 	archivedCards : function() {
 		return Cards.find({status :'archived'});
 	},
 	archivedTasks : function() {
 		return Tasks.find({status :'archived'});
+	},
+	member : function() {
+		var memberList = Projects.find({},{fields : { members : 1}}).fetch()[0];
+		users = Meteor.users.find({_id : {$in : memberList.members}});
+		console.log(users);
+		return users;
 	}
 });
 
@@ -44,8 +49,16 @@ Template.controlPanel.events ({
 		Meteor.call("toggleStatus","task",id);
 	},
 	'click .deleteProject' : function(e) {
-		var id = Session.get("projectID");
 		//prompt confirmation!!!!
-		Meteor.call("deleteProject",id);
+		$('.deleteProject').confirmation({
+			onConfirm : function(event) {
+				event.preventDefault();
+				var id = Session.get("projectID");
+				Meteor.call("deleteProject",id);
+				FlowRouter.go('/');
+			},
+			popout: true,
+			singleton: true
+		});	
 	}
 });

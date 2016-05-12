@@ -1,17 +1,7 @@
-/*
-Template.taskManager.onCreated( () => {
-	var projectId = Session.get("projectID");
-	var cardId = Session.get("cardID");
-	var taskId = Session.get("taskID");
-	Template.instance().subscribe('task_modal',projectId,cardId,taskId );
-});
-*/
-
 Template.taskManager.onCreated(function() {
   var instance = this;
   
   instance.autorun(function() {
-
   	var oTask = Session.get("oTask");
     var taskId = oTask._id;
     instance.subscribe('task',taskId);  
@@ -29,19 +19,16 @@ Template.taskManager.helpers({
   	},
   	cards: function() {
   		var projectId = Session.get("projectId");
-
-  		return Cards.find({'project_id':projectId})
+  		return Cards.find({'project_id':projectId});
   	}
 });
 
 Template.taskManager.events({
 	"submit .set_desc" : function(event) {
 		event.preventDefault();
+
 		var newDesc = event.target.editDesc.value;
-
-		//should use some kind of blocky thing? a function?
 		var oTask = Session.get("oTask");
-
 		oTask.description = newDesc;
 
 		Meteor.call("editTaskDescription",oTask._id,newDesc);
@@ -51,49 +38,38 @@ Template.taskManager.events({
 		event.preventDefault();
 
 		var newLabel = event.target.editLabel.value;
-
 		//determining project_type and reformatting for collection
 		switch (newLabel) {
 			case "Red" :
 				newLabel = "redL";
 			break;
-
 			case "Green" :
 				newLabel = "greenL";
 			break;
-
 			case "Blue" :
 				newLabel = "blueL";
 			break;
-
 			case "Yellow" :
 				newLabel = "yellowL";
 			break;
-
 			case "Orange" :
 				newLabel = "orangeL";
 			break;
-
 			case "Purple" :
 				newLabel = "purpleL";
 			break;
-		}
-		
+		}	
 		var oTask = Session.get("oTask");
-
 		oTask.label = newLabel;
 
 		Meteor.call("editTaskLabel",oTask._id,newLabel);
 		Session.set("oTask",oTask);
 	},
 	"submit .moveTask" : function(event) {
-		
 		event.preventDefault();
 
 		var newCardId = event.target.moveTask.value;
-
 		var oTask = Session.get("oTask");
-
 		oTask.card_id = newCardId;
 		
 		Meteor.call("editTaskCardId",oTask._id,newCardId);
@@ -108,29 +84,15 @@ Template.taskManager.events({
 
 		Meteor.call("editTaskName",oTask._id,newName);
 		Session.set("oTask",oTask);
-	},/*
-	"submit .set_date" : function(event) {
-
+	},
+	'click .dateSetter' : function(event) {
 		event.preventDefault();
 
-		var dueDate = $('#picker-dueDate').data("DateTimePicker").getDate();
-
+		var dueDate = $('.datetimepicker').data("DateTimePicker").date();
 		var oTask = Session.get("oTask");
-		oTask.dueDate = dueDate;
+		oTask.dueDate = dueDate.toDate();
 
-		Meteor.call("editDueDate".oTask._id,dueDate);
-		Session.set("oTask",oTask);
-	},*/
-	'blur #picker-dueDate' : function(event) {
-		event.preventDefault();
-
-		var dueDate = $('.set-due-date').data("DateTimePicker").getDate();
-		var date = $(event.target).find('#picker-dueDate').val();
-		console.log(date);
-		var oTask = Session.get("oTask");
-		oTask.dueDate = date;
-
-		Meteor.call("editDueDate", oTask._id,date);
+		Meteor.call("editDueDate", oTask._id,oTask.dueDate);
 		Session.set("oTask",oTask);
 	},
 	"click .archiveTask": function(event) {

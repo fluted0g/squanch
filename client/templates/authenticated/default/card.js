@@ -1,3 +1,18 @@
+Template.card.onCreated(function() {
+  var instance = this;
+  instance.autorun(function() {
+    var projectId = Session.get("projectID");
+    instance.subscribe('project', projectId);
+  });
+});
+
+Template.card.onRendered( function() {
+    $(".card_manager").sortable({
+        grid: [10,20], 
+        revert: true, 
+        items: '.card_frame', 
+        placeholder: 'ghostCard'});
+});
 
 Template.card.helpers ({
     tasks : function() {  
@@ -9,65 +24,46 @@ Template.card.helpers ({
 Template.card.events ({
 	"submit .insert_task" : function(event) {
 		event.preventDefault();
-		var pId = FlowRouter.getParam("_id");
-		var cardId = Session.get("cardID");
+		var cardId = this._id; //Session.get("cardID");
 		var taskTitle = event.target.task_title.value;
+        if (taskTitle != "") {
+            Meteor.call("newTask",cardId,taskTitle);
+            var cardIdSelector = "#"+cardId;
+            event.target.task_title.value = "";
+            $(".taskInserter"+cardIdSelector+"").toggleClass("activeT");
+            $(".submitTask"+cardIdSelector+
+                ", .cancelFormT"+cardIdSelector+
+                ", .task_title"+cardIdSelector+
+                ", .fake_task_title"+cardIdSelector+"").toggleClass("hiddenE");
+        }
+	},
+    "click .fake_task_title" : function(event) {
+        var cardIdSelector = "#"+this._id;
 
-		Meteor.call("newTask",pId,cardId,taskTitle);
-		event.target.task_title.value = "";
-	},	
+        $(".taskInserter"+cardIdSelector+"").toggleClass("activeT");
+        $(".submitTask"+cardIdSelector+", .cancelFormT"+cardIdSelector+", .task_title"+cardIdSelector+", .fake_task_title"+cardIdSelector+"").toggleClass("hiddenE");
+        $(".task_title").select();
+    },
+    "click .cancelFormT" : function(event) {
+        var cardIdSelector = "#"+this._id;
+        $(".taskInserter"+cardIdSelector+"").toggleClass("activeT");
+        $(".submitTask"+cardIdSelector+", .cancelFormT"+cardIdSelector+", .task_title"+cardIdSelector+", .fake_task_title"+cardIdSelector+"").toggleClass("hiddenE");
+    },
+    //try if this method is useless (use this._id DUHHHH!)
 	"mouseover .card_frame" : function(event) {
 		var card = event.currentTarget.id;
 		Session.set("cardID",card);
 	},
     "click .cardOptions" : function(event) {
+        var cardIdSelector = "#"+this._id;
+        $(".cardMenu"+cardIdSelector+"").toggleClass("hiddenE");
+    },
+    "click .archiveCard" : function(event) {
         var id = this._id;
-        Meteor.call("toggleStatus","card",id)
+        Meteor.call("toggleStatus","card",id);
     },
-    "dblclick .bubble" : function (event) {
-        time = 800;
-        elem = event.currentTarget;
-        var expanded;
-
-        if ( $(elem).hasClass("expanded") ) {
-            expanded = true;
-        } else {
-            expanded = false;
-        }
-        $(elem).toggleClass("reduced", time).promise().done(function () {
-
-            if (!expanded) {
-                $(elem).find(".reduced_body").hide(0, function() {
-                    $(elem).toggleClass("expanded", time);
-                    $(elem).after('<li class="ghostCard"></li>');
-                    $(elem).find(".expanded_body").fadeIn(800);
-
-                });
-                          
-            } else if (expanded) {
-                $(elem).find(".expanded_body").hide(0, function() {
-                   $(elem).toggleClass("expanded", time);
-                   $(elem).next().remove();
-                    $(elem).find(".reduced_body").fadeIn(800);  
-                });
-            }
-        });
-    },
-    "click .bubble" : function(event) {
-
-        var bubbles = $(".bubble");
-        // Set up click handlers for each bubble
-        var clickedBubble = event.currentTarget, // The bubble that was clicked
-        max = 0;
-        // Find the highest z-index
-        bubbles.each(function() {
-            self = $(this);
-            // Find the current z-index value (has to be INT for Math.max)
-            var z = parseInt( self.css( "z-index" ), 10 );
-            // Keep either the current max, or the current z-index, whichever is higher
-            max = Math.max( max, z );
-        });
-        // Set the bubble that was clicked to the highest z-index plus one
-        $(clickedBubble).css("z-index", max + 1 );
+    "click .tellMeIndex" : function(event) {
+        var listItem = document.getElementById( this._id );
+        console.log($(".card_frame").index(listItem));
     }
 });

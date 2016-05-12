@@ -1,38 +1,45 @@
 ul {
 	list-style: none;
 	margin: 1px;
+	margin-left:0;
 }
-
 .controlPanelContainer {
-	position: absolute;
+	position: fixed;
 	width: 22em;
 	height: 100%;
-	top: 3.6em;
-	left: 0em;
-	
-	/*
-	-webkit-transition: left 1s; 
-    transition: left 1s;
-    */
-
+	top: 3.65em;
+	left: 0;
+	z-index: 999;
 }
-
 .controlPanelMenu {
 	padding: 10px;
 	position: relative;
 	background-color: #ddd;
 }
-
 .showHideToggler {
 	position: absolute;
 	top: 0;
-	left: 100%;
+	right: -2em;
 	width: 2em;
 	height: 5em;
 	background-color: #333;
+	color: #fff;
+	text-align: center;
+	h5 {
+		transform: rotate(90deg);
+		/*transform-origin: left top 0;*/
+	}
 }
-
 .panelHidden {
 	left:-22em;
 };
 
+.deleteMember {
+	cursor: pointer;
+	font-size: 2em;
+}
+
+.deleteProject {
+	cursor: pointer;
+	font-size:2em;
+}

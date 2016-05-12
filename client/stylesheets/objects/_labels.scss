@@ -1,19 +1,12 @@
-
-$mainYellow : #FFB20A;
-$redL: #FF0000;
-$greenL : #008000;
-$blueL : #0000FF;
-$yellowL : #FFD700;
-$orangeL : #FF8C00;
-$purpleL : #663399;
+@import "../tools/palette";
 
 .labelMarker {
-	display: inline-block;
-	border-radius: 5px;
-	margin-top: 0.5em;
-	margin-left: 0.5em;
+	display: inline-flex;
+	border-radius: 10px;
+	margin-top: 3px;
+	margin-left: 5px;
 	height: 1em;
-	width: 2em;
+	width: 3em;
 }
 
 .default {

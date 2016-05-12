@@ -1,32 +1,35 @@
-	<template name="card">
-		
-		<li class="bubble card_frame" id="{{_id}}">
+<template name="card">	
+	
+	<li class="card_frame" id="{{_id}}">
+		<div class="card_body">
 
-			<div class="reduced_body">
+			<ul class="cardMenu hiddenE" id="{{_id}}">
+				<li class="archiveCard">Archive</li>
+				<li class="moveCard">Move</li>
+				<li class="copyCard">Copy</li>
+				<li class="tellMeIndex">Index #</li>
+			</ul>
 
-				<h4>{{name}}  <span class="cardOptions" style="float:right">OPT</span></h4> 
-
-
-			</div>
-
-			<div class="expanded_body">
-
-				<h4>{{name}}</h4>
-
+			<h3 class="editableCardName">{{name}}</h3> 
+			<span class="cardOptions">
+				<i class="fa fa-pencil-square"></i>
+			</span>
+			<div class="clearDiv"></div>
+				<ul class="task_manager">
+				{{#each tasks}}
+				{{> task}}
+				{{/each}}
+				<li class="taskInserter" id="{{_id}}">
 				<form class="insert_task">
-					<label for="task_title">Insert a task: 
-						<input type="text" name="task_title" class="task_title"></label>
-						<input type="submit" value="Send">
-					</form>
-
-					{{#each tasks}}
-					{{> task}}
-					{{/each}}
-
-				</div>
-			</li>
-			
-			<script type="text/javascript">
-			$(".card_manager").sortable({grid: [3,10], revert: true});
-			</script>
-		</template>
+					<span class="fake_task_title" id="{{_id}}">
+						<span>Insert a task...</span>
+					</span>
+					<input type="text" name="task_title" class="task_title hiddenE" id="{{_id}}" placeholder="Insert a task..." autocomplete="off">
+					<input class="submitTask hiddenE" id="{{_id}}" type="submit" value="Send">
+					<span class="cancelFormT hiddenE" id="{{_id}}">&times;</span>
+				</form>					
+				</li>
+				</ul>
+		</div>
+	</li>
+</template>

@@ -27,7 +27,7 @@ CardSchema = new SimpleSchema({
   },
   label: {
     type: String,
-    label: "Card status",
+    label: "Card label",
     optional: true
   }
 });
