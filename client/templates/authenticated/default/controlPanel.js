@@ -17,11 +17,17 @@ Template.controlPanel.helpers ({
 	archivedTasks : function() {
 		return Tasks.find({status :'archived'});
 	},
+	owner : function() {
+		var owner = Projects.find({},{fields:{owner:1}});
+		return Meteor.users.find({_id:owner.owner});
+	},
 	member : function() {
-		var memberList = Projects.find({},{fields : { members : 1}}).fetch()[0];
-		users = Meteor.users.find({_id : {$in : memberList.members}});
-		console.log(users);
-		return users;
+		//var memberList = Projects.find({},{fields : { members : 1}}).fetch()[0];
+		//users = Meteor.users.find({_id : {$in : memberList.members}});
+		//return users;
+		var projectId = Session.get("projectID");
+		var members = Meteor.users.find({project_ids : {$in:[projectId]}});
+		return members;
 	}
 });
 

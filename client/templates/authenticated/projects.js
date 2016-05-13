@@ -1,9 +1,12 @@
+Template.projects.onCreated(function() {
+  var instance = this;
 
-Template.projects.onCreated( () => {
-	Template.instance().subscribe( 'projects' );
+  instance.autorun(function() {
+    //instance.subscribe('projects');
+    instance.subscribe('membershipProject');
+    instance.subscribe('ownedProjects');
+    });
 });
-
-//Meteor.subscribe("projects");
 
 Template.projects.helpers ({
 

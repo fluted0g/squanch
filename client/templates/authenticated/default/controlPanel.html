@@ -19,6 +19,9 @@
 
                             <div class="userList">
                                 <h5>Members:</h5>
+                                    {{#with owner}}
+                                        {{> members}}
+                                    {{/with}}
                                     {{#each member}}
                                         {{> members}}
                                     {{/each}}

@@ -5,6 +5,8 @@ Template.defaultP.onCreated(function() {
     var projectId = FlowRouter.getParam('_id');
     Session.set("projectID",projectId);
     instance.subscribe('project', projectId);
+    
+    instance.subscribe('owner', projectId);
     instance.subscribe('members', projectId);
     });
 });
