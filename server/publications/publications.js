@@ -1,4 +1,4 @@
-Meteor.publish( 'projects', function() {
+Meteor.publish('projects', function() {
 	var id = this.userId;
 	userProjects = Projects.find( { 'members' :  { $in:  [id] } } );
 
@@ -8,7 +8,7 @@ Meteor.publish( 'projects', function() {
 	return this.ready();
 });
 
-Meteor.publish( 'membershipProjects', function() {
+Meteor.publish('membershipProjects', function() {
 	userProjectsIds = Meteor.users.find({_id:this.userId},{fields: {project_ids:1}});
 	console.log(userProjectsIds);
 	userMembershipProjects = Projects.find({_id: {$in : userProjectsIds}});
@@ -19,8 +19,9 @@ Meteor.publish( 'membershipProjects', function() {
 	return this.ready();
 });
 
-Meteor.publish( 'ownedProjects', function() {
-	userProjects = Projects.find({owner: this.userId});
+Meteor.publish('ownedProjects', function() {
+	var id = this.userId;
+	userProjects = Projects.find({owner : id});
 
 	if (userProjects) {
 		return userProjects;
@@ -31,11 +32,9 @@ Meteor.publish( 'ownedProjects', function() {
 Meteor.publish('project',function(project_id) {
 	var userId = this.userId;
 	check(project_id,String);
-
 	//find project and his cards
 	curr_project = Projects.find({_id: project_id });
 	project_cards = Cards.find({project_id: project_id});
-
 	//check user is member or owner
 	var isOwner;
 	if (curr_project.owner == this.userId) {
@@ -44,8 +43,6 @@ Meteor.publish('project',function(project_id) {
 		isOwner = false;
 	}
 	var isMember = Meteor.users.find({ _id:this.userId , projects_ids: {$in : project_id} });
-
-	//find all tasks belonging to the project cards
 	var cardIds = [];
 	arrangedCards = project_cards.fetch();
 	_.each(arrangedCards, function(card) {
@@ -61,33 +58,6 @@ Meteor.publish('project',function(project_id) {
 			];
 		}
 	}
-	
-	return this.ready();
-});
-
-Meteor.publish('project2',function(id) {
-	var userId = this.userId;
-	check(id,String);
-
-	//find project and his cards
-	curr_project = Projects.find( { 'members' :  { $in: [userId] } , '_id': id } );
-	project_cards = Cards.find({'project_id': id});
-
-	//find all tasks belonging to the project cards
-	var cardIds = [];
-	arrangedCards = project_cards.fetch();
-	_.each(arrangedCards, function(card) {
-		cardIds.push(card._id);
-	});
-	test_tasks = Tasks.find({'card_id' : { $in: cardIds}});
-
-	if(curr_project) {
-		return [
-		curr_project,
-		project_cards,
-		test_tasks
-		];
-	}
 	return this.ready();
 });
 /*
@@ -100,19 +70,6 @@ Meteor.publish('users', function() {
 	return this.ready();
 });
 */
-
-Meteor.publish('members2', function(projectId) {
-	check(projectId,String);
-
-	var project = Projects.find({_id: projectId}).fetch()[0];
-
-	var projectMembers = Meteor.users.find({ '_id' : { $in : project.members } },{ fields : {services : 0 } });
-	if (projectMembers) {
-		return projectMembers;
-	}
-	return this.ready();
-});
-
 Meteor.publish('members',function(projectId) {
 	check(projectId,String);
 
@@ -142,27 +99,6 @@ Meteor.publish('owner',function(projectId) {
 
 Meteor.methods({
 	//user related
-	addMember2 : function(projectId, nameOrMail) {
-		if (! Meteor.userId()) {
-			throw new Meteor.Error("not-authorized");
-		}
-		check(projectId, String);
-		check(nameOrMail, String);
-
-		var member;
-		member = Accounts.findUserByUsername(nameOrMail);
-		if (!member) {
-			member = Accounts.findUserByEmail(nameOrMail);
-		}
-		var memberId = member._id;
-		var memberExists = Projects.findOne({ _id: projectId, members : { $in: [memberId] } }, { fields : { members : 1} });
-		
-		if (memberExists) {
-			throw new Meteor.error("member-exists");
-		} else {
-			Projects.update({ _id : projectId },{ $push: {members : memberId} });
-		}	
-	},
 	addMember : function(projectId,nameOrMail) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
@@ -181,29 +117,6 @@ Meteor.methods({
 			throw new Meteor.error("member-exists");
 		} else {
 			Meteor.users.update({ _id : member._id },{ $push: {project_ids : projectId} });
-		}	
-	},
-	removeMember2 : function(projectId, nameOrMail) {
-		if (! Meteor.userId()) {
-			throw new Meteor.Error("not-authorized");
-		}
-		check(projectId, String);
-		check(nameOrMail, String);
-
-		var member = Accounts.findUserByUsername(nameOrMail);
-		if (!member) {
-			member = Accounts.findUserByEmail(nameOrMail);
-		}
-		var memberId = member._id;
-		var isOwner = Projects.findOne({_id:projectId,owner:memberId});
-		
-		if (Meteor.userId() == memberId) {
-			var isSelf = true;
-		}
-		if (!isOwner || !isSelf) {
-			Projects.update({_id : projectId },{ $pull : { members : { $in : [memberId]}} });
-		} else {
-			throw new Meteor.error("invalid-target");
 		}	
 	},
 	removeMember : function(projectId, nameOrMail) {

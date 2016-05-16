@@ -1,6 +1,12 @@
 <template name="members">
-		<div class="userFrame" id="{{#if username}}{{username}}{{else}}{{emails.[0].address}}{{/if}}">
-			{{#if username}}{{username}}{{else}}{{emails.[0].address}}{{/if}} 
-			<span class="deleteMember">&times;</span>
-		</div>
+		<ul class="userFrame" id="{{#if username}}{{username}}{{else}}{{emails.[0].address}}{{/if}}">
+			<li>
+			{{#if initials}}
+				<span>{{initials}}</span>
+			{{/if}} 
+			{{#unless isOwner}}
+			<span class="deleteMember"><i class="fa fa-times-circle"></i></span>
+			{{/unless}}
+			</li>
+		</ul>
 </template>

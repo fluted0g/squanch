@@ -1,6 +1,6 @@
 SearchSource.defineSource('searchUser', function(searchText, options) {
   
-  var options = { fields: {_id : 1, username : 1, emails : 1}};
+  var options = { fields: {_id : 1, username : 1, emails : 1},limit:5};
 
   if(searchText) {
     var regExp = buildRegExp(searchText);

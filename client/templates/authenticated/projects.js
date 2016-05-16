@@ -2,7 +2,6 @@ Template.projects.onCreated(function() {
   var instance = this;
 
   instance.autorun(function() {
-    //instance.subscribe('projects');
     instance.subscribe('membershipProject');
     instance.subscribe('ownedProjects');
     });
@@ -45,7 +44,7 @@ Template.projects.events({
       	$("#newPmodal").modal("hide");
   	},
   	"mouseover .projectLink" : function(event) {
-		var proj_type = event.currentTarget.id;
+		var proj_type = $(event.currentTarget).data("id");
 		Session.set("proj_type",proj_type);
 	}
 

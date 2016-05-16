@@ -22,6 +22,7 @@ Template.searchUser.helpers({
     return userSearch.getStatus().loading;
   }
 });
+
 Template.searchUser.events({
   'keyup .searchUser' : _.throttle( function(e) {
       e.preventDefault();
@@ -42,5 +43,15 @@ Template.searchUser.events({
       Meteor.call('addMember',projectId, text);
       $('.searchUser').val("");
       userSearch.search("20G25N81Y77B79");
-  	}
+  },
+  'click .addUser' : function(e) {
+      var member = this.username;
+      if (!member) {
+        member = this.emails[0].address;
+      }
+      var projectId = Session.get("projectID");
+      Meteor.call('addMember',projectId, member);
+      $('.searchUser').val("");
+      userSearch.search("20G25N81Y77B79");
+  }
 });

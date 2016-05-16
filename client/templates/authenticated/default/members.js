@@ -8,9 +8,20 @@ Template.members.onCreated(function() {
 });
 
 Template.members.helpers({
-	member : function() {
-		var memberList = Projects.find({},{fields : { members : 1}}).fetch()[0];
-		return Meteor.users.find({_id : {$in : memberList.members}});
+	isOwner : function() {
+		var projectId = Session.get("projectID");
+		var ownerP = Projects.find({},{fields:{owner:1}}).fetch()[0];
+		if (ownerP.owner == this._id) {
+			return true;
+		}
+	},
+	initials : function() {
+		if (this.username) {
+			return this.username.substr(0,3).toUpperCase();
+		} else {
+			return this.emails[0].address.substr(0,3).toUpperCase();
+		}
+		
 	}
 });
 

@@ -1,0 +1,40 @@
+@import "../tools/palette";
+
+.userFrame {
+	margin-left: 2px;
+	display: inline-flex;
+	flex-display: row;
+	li {
+		display: inline-block;
+		height: 1.6em;
+		width: 3.2em;
+		background-color: #fff;
+		border-radius: 3px;
+		margin: 3px;
+		padding: 3px;
+		min-width: 97%;
+		position: relative;
+
+		span {
+			float: left;
+
+			i {
+				position: absolute;
+				top: 4.5px;
+				right: 2px;
+			}
+		}
+
+		&:hover {
+			background-color: lighten(#ddd,5%);
+		}
+	}
+}
+
+.deleteMember {
+	float: left;
+}
+
+.fa {
+	font-size: 0.5em;
+}

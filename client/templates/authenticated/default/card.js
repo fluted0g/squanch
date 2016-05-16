@@ -8,7 +8,7 @@ Template.card.onCreated(function() {
 
 Template.card.onRendered( function() {
     $(".card_manager").sortable({
-        grid: [10,20], 
+        grid: [1,10], 
         revert: true, 
         items: '.card_frame', 
         placeholder: 'ghostCard'});
@@ -28,39 +28,50 @@ Template.card.events ({
 		var taskTitle = event.target.task_title.value;
         if (taskTitle != "") {
             Meteor.call("newTask",cardId,taskTitle);
-            var cardIdSelector = "#"+cardId;
             event.target.task_title.value = "";
-            $(".taskInserter"+cardIdSelector+"").toggleClass("activeT");
-            $(".submitTask"+cardIdSelector+
-                ", .cancelFormT"+cardIdSelector+
-                ", .task_title"+cardIdSelector+
-                ", .fake_task_title"+cardIdSelector+"").toggleClass("hiddenE");
+            $(".taskInserter[data-id="+cardId+"]").toggleClass("activeT");
+            $(".submitTask[data-id="+cardId+"]"+
+                ", .cancelFormT[data-id="+cardId+"]"+
+                ", .task_title[data-id="+cardId+"]"+
+                ", .fake_task_title[data-id="+cardId+"]").toggleClass("hiddenE");
         }
 	},
     "click .fake_task_title" : function(event) {
-        var cardIdSelector = "#"+this._id;
-
-        $(".taskInserter"+cardIdSelector+"").toggleClass("activeT");
-        $(".submitTask"+cardIdSelector+", .cancelFormT"+cardIdSelector+", .task_title"+cardIdSelector+", .fake_task_title"+cardIdSelector+"").toggleClass("hiddenE");
+        var cardId = this._id;
+        $(".taskInserter[data-id="+cardId+"]").toggleClass("activeT");
+        $(".submitTask[data-id="+cardId+"]"
+            +", .cancelFormT[data-id="+cardId+"]"
+            +", .task_title[data-id="+cardId+"]"
+            +", .fake_task_title[data-id="+cardId
+            +"]").toggleClass("hiddenE");
         $(".task_title").select();
     },
     "click .cancelFormT" : function(event) {
-        var cardIdSelector = "#"+this._id;
-        $(".taskInserter"+cardIdSelector+"").toggleClass("activeT");
-        $(".submitTask"+cardIdSelector+", .cancelFormT"+cardIdSelector+", .task_title"+cardIdSelector+", .fake_task_title"+cardIdSelector+"").toggleClass("hiddenE");
+        var cardId = this._id;
+        $(".taskInserter[data-id="+cardId+"]").toggleClass("activeT");
+        $(".submitTask[data-id="+cardId+"]"+
+            ", .cancelFormT[data-id="+cardId+"]"
+            +", .task_title[data-id="+cardId+"]"
+            +", .fake_task_title[data-id="+cardId
+            +"]").toggleClass("hiddenE");
     },
     //try if this method is useless (use this._id DUHHHH!)
 	"mouseover .card_frame" : function(event) {
-		var card = event.currentTarget.id;
+        var card = $(event.currentTarget).data("id");
 		Session.set("cardID",card);
 	},
     "click .cardOptions" : function(event) {
-        var cardIdSelector = "#"+this._id;
-        $(".cardMenu"+cardIdSelector+"").toggleClass("hiddenE");
+        var targetMenu = $(".cardMenu[data-id="+ this._id +"]");
+        if (targetMenu.css("display") == "none") {
+            targetMenu.fadeToggle();
+            targetMenu.css("display","block");
+        } else if (targetMenu.css("display") == "block") {
+            targetMenu.fadeToggle();
+            targetMenu.css("display","none");
+        }
     },
     "click .archiveCard" : function(event) {
-        var id = this._id;
-        Meteor.call("toggleStatus","card",id);
+        Meteor.call("toggleStatus","card",this._id);
     },
     "click .tellMeIndex" : function(event) {
         var listItem = document.getElementById( this._id );

@@ -1,15 +1,7 @@
 <template name="card">	
 	
-	<li class="card_frame" id="{{_id}}">
+	<li class="card_frame" data-id="{{_id}}">
 		<div class="card_body">
-
-			<ul class="cardMenu hiddenE" id="{{_id}}">
-				<li class="archiveCard">Archive</li>
-				<li class="moveCard">Move</li>
-				<li class="copyCard">Copy</li>
-				<li class="tellMeIndex">Index #</li>
-			</ul>
-
 			<h3 class="editableCardName">{{name}}</h3> 
 			<span class="cardOptions">
 				<i class="fa fa-pencil-square"></i>
@@ -19,16 +11,22 @@
 				{{#each tasks}}
 				{{> task}}
 				{{/each}}
-				<li class="taskInserter" id="{{_id}}">
+				<li class="taskInserter" data-id="{{_id}}">
 				<form class="insert_task">
-					<span class="fake_task_title" id="{{_id}}">
+					<span class="fake_task_title" data-id="{{_id}}">
 						<span>Insert a task...</span>
 					</span>
-					<input type="text" name="task_title" class="task_title hiddenE" id="{{_id}}" placeholder="Insert a task..." autocomplete="off">
-					<input class="submitTask hiddenE" id="{{_id}}" type="submit" value="Send">
-					<span class="cancelFormT hiddenE" id="{{_id}}">&times;</span>
+					<input type="text" name="task_title" class="task_title hiddenE" data-id="{{_id}}" placeholder="Insert a task..." autocomplete="off">
+					<input class="submitTask hiddenE btn" data-id="{{_id}}" type="submit" value="Send">
+					<span class="cancelFormT hiddenE" data-id="{{_id}}"><i class="fa fa-times-circle"></i></span>
 				</form>					
 				</li>
+				</ul>
+				<ul class="cardMenu" data-id="{{_id}}">
+					<li class="archiveCard">Archive</li>
+					<li class="moveCard">Move</li>
+					<li class="copyCard">Copy</li>
+					<li class="tellMeIndex">Index #</li>
 				</ul>
 		</div>
 	</li>

@@ -114,10 +114,6 @@ ProjectSchema = new SimpleSchema({
     optional: true
   }
   */
-  members : {
-    type: [String],
-    label: "Project members"
-  }
   /*,
   cards: {
     type: [String],

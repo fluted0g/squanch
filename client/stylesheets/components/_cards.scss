@@ -5,8 +5,10 @@ ul {
 }
 
 .card_manager {
+  margin-top: 8em;
   width: auto;
   height: 100%;
+  min-height: 400px;
   display: inline-flex;
   flex-direction: row;
   overflow: auto;
@@ -21,7 +23,9 @@ ul {
 	display: inline-block;
 	float: left;
 	margin: 0.15em;
+  margin-top: 0.3em;
 	padding: 0.7em;
+  padding-top: 1em;
   width: 20em;
   height: 100%;
   border: 2px solid $darkerYellow;
@@ -38,6 +42,7 @@ ul {
 .cardOptions {
   float: right;
   display: inline-flex;
+  cursor: pointer;
   i {
     color: $darkerYellow;
     font-size: 2em;
@@ -118,18 +123,21 @@ ul {
 
 .cardMenu {
   position: absolute;
-  right: -70px;
-  top: -10px;
-  background-color: transparent;
+  right: -59px;
+  top: 3px;
+  background-color: #bbb;
+  border-radius: 5px;
   color: #fff;
   z-index: 100;
-  padding: 5px;
+  padding: 1px;
+  display: none;
 
   li {
     background-color: #111;
     border-radius: 5px;
     padding: 3px;
     margin: 0.1em;
+    cursor: pointer;
     &:hover {
       background-color:#777;
     }

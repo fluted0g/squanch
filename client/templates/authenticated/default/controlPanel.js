@@ -2,8 +2,6 @@ Template.controlPanel.onCreated(function() {
   var instance = this;
 
   instance.autorun(function() {
-  	var projectId = Session.get("projectID");
-    instance.subscribe('members', projectId);
   });
 });
 
@@ -18,13 +16,10 @@ Template.controlPanel.helpers ({
 		return Tasks.find({status :'archived'});
 	},
 	owner : function() {
-		var owner = Projects.find({},{fields:{owner:1}});
-		return Meteor.users.find({_id:owner.owner});
+		var owner = Projects.find({},{fields:{owner:1}}).fetch()[0];
+		return Meteor.users.findOne({_id:owner.owner});
 	},
 	member : function() {
-		//var memberList = Projects.find({},{fields : { members : 1}}).fetch()[0];
-		//users = Meteor.users.find({_id : {$in : memberList.members}});
-		//return users;
 		var projectId = Session.get("projectID");
 		var members = Meteor.users.find({project_ids : {$in:[projectId]}});
 		return members;
