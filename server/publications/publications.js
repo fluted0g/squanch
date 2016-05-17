@@ -376,5 +376,21 @@ Meteor.methods({
 				});
 			}
 		}
+	},
+	//task comments
+	newComment : function(taskId,msg,author) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(taskId,String);
+		check(msg,String);
+		check(author,String);
+
+		var comment = {
+			text: msg,
+			author: author
+		};
+
+		Tasks.update({_id:taskId},{$push : {comments: comment}});
 	}
 });

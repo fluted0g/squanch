@@ -4,7 +4,7 @@ Template.taskManager.onCreated(function() {
   instance.autorun(function() {
   	var oTask = Session.get("oTask");
     var taskId = oTask._id;
-    instance.subscribe('task',taskId);  
+    //instance.subscribe('task',taskId);  
   });
 });
 
@@ -14,7 +14,8 @@ Template.taskManager.onRendered(function() {
 
 Template.taskManager.helpers({
     task: function() {
-    	return Session.get("oTask");
+    	var taskId = Session.get("taskID");
+    	return Tasks.findOne({_id: taskId});
 	    //return Tasks.find();
   	},
   	cards: function() {
@@ -77,7 +78,7 @@ Template.taskManager.events({
 	},
 	"submit .set_name" : function(event) {
 		event.preventDefault();
-
+		console.log(this._id);
 		var newName = event.target.editName.value;
 		var oTask = Session.get("oTask");
 		oTask.name = newName;
@@ -102,7 +103,16 @@ Template.taskManager.events({
 
 		Meteor.call("toggleStatus","task",id);
 		$("#modalTask").modal('hide');
-	}/*,
+	},
+	"submit .new_comment" : function(event) {
+		event.preventDefault();
+		var taskId = this._id;
+		var commentMsg = event.target.commentMsg.value;
+		var author = Meteor.user()._id;
+
+		Meteor.call("newComment",taskId,commentMsg,author);
+	}
+	/*,
 	".hide.bs.modal #modalTask" : function(event) {
 		oTask = Session.get("oTask");
 		Meteor.call("editTask",oTask);

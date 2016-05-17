@@ -4,60 +4,83 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">{{name}}<span class="labelMarker {{label}}"></span></h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">{{name}}
+						<span class="labelMarker {{label}}"></span>
+					</h4>
 					<form class="set_name">
 						<label for="editName">Change name:
-							<input type="text" name="editName"></label>
-							<input type="submit" value="Change">
+							<input type="text" name="editName">
+						</label>
+						<input type="submit" value="Change">
 					</form>
 				</div>
-			<div class="modal-body">
+				<div class="container modal-body">
+					<div class="row">
+						<!--task body-->
+						<div class="col-md-8">
+							<div class="row">
+								<!-- Change description -->
+								{{#unless description}}
+								<form class="set_desc">
+									<label for="editDesc">Set description:
+										<input type="text" name="editDesc">	</label>
+										<input type="submit" value="Set">
+									</form>
+									{{else}}
+									<p>{{description}}</p>
+									{{/unless}}
 
-				<!-- Change description -->
-				{{#unless description}}
-					<form class="set_desc">
-						<label for="editDesc">Set description:
-						<input type="text" name="editDesc"></label>
-						<input type="submit" value="Set">
-					</form>
-					{{else}}
-					
-					<h5>{{description}}</h5>
-					{{/unless}}
+									{{#each comments}}
+										{{> comment}}
+									{{/each}}
+								<form class="new_comment">
+									<input type="text" name="commentMsg">
+									<input type="submit" value="Add comment">
+								</form>
+								</div>
+							</div>
+							<!--task sidebar-->
+							<div class="col-md-4">
+								<!-- Change label color -->
+								<form class="set_label">
+									<label for="editLabel">Change Label: 
+										<select name="editLabel">
+											<option>Red</option>
+											<option>Green</option>
+											<option>Blue</option>
+											<option>Yellow</option>
+											<option>Orange</option>
+											<option>Purple</option>
+										</select>	
+									</label> 
+									<span>{{label}}</span>
+									<input type="submit" value="Set">
+								</form>
 
-					<!-- Change label color -->
-					<form class="set_label">
-						<label for="editLabel">Change Label: 
-							<select name="editLabel">
-								<option>Red</option>
-								<option>Green</option>
-								<option>Blue</option>
-								<option>Yellow</option>
-								<option>Orange</option>
-								<option>Purple</option>
-							</select>	
-						</label> <span>{{label}}</span>
-						<input type="submit" value="Set">
-					</form>
+								<!-- Set due date -->
+								<form>
+									<div class="input-group datetimepicker" id="picker-dueDate">
+										<span class="input-group-addon">
+											<i class="glyphicon glyphicon-calendar"></i>
+										</span>
+										<input class="set-due-date form-control" type="text"/>		
+									</div>
+									<input class="dateSetter" type="submit" value="Set Date"/>
+								</form>
 
-					<!-- Set due date -->
-					<form>
-					<div class="input-group datetimepicker" id="picker-dueDate">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					<input class="set-due-date form-control" type="text"/>					
-					</div>
-					<input class="dateSetter" type="submit" value="Set Date"/>
-					</form>
-
-					<!-- Move task -->
-					<form class="moveTask">
-						<label for="moveTask">Available cards: 
-							<!--<select name="moveTask">
+								<!-- Move task -->
+								<form class="moveTask">
+									<label for="moveTask">Available cards: 
+							<!--
+							<select name="moveTask">
 								{{#each cards}}
 								<option data-id="{{_id}}">{{name}}</option>
 								{{/each}}
-							</select>	-->
+							</select>	
+							-->
 							<input type="text" name="moveTask">			
 						</label><span>{{card_id}}</span>
 						<input type="submit" value="Move">
@@ -65,16 +88,20 @@
 
 					<!-- Archive task -->
 					<button type="button" class ="archiveTask" id="{{_id}}">Archive this task</button>
-
-
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>     
-					         
-					<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-				</div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-	{{/with}}
+
+			</div>
+		</div>
+
+		<div class="modal-footer">
+			<button type="button" 
+			class="btn btn-default" 
+			data-dismiss="modal">Close</button>     
+
+			<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+		</div>
+	</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{{/with}}
 </template>

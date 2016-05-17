@@ -14,13 +14,15 @@
 	border-radius: 7px;
 	margin: 0.2em;
 	padding: 0.2em;
+	display: inline-block;
 	h4 {
 		margin-top: 2px;
 		margin-bottom: 2px;
 		display: inline-flex;
 	}
-
-	display: inline-block;
+	i {
+		font-size: 1em;
+	}
 }
 
 .taskOptions {

@@ -61,7 +61,7 @@ Comment = new SimpleSchema({
     type: Date,
     label: "comment creation date",
     autoValue: function(){
-      if (this.isInsert) {
+      if (this.isInsert || this.isUpdate) {
         return new Date();
       } else if (this.isUpsert) {
         return {$setOnInsert: new Date()};
