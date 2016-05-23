@@ -45,3 +45,4 @@ tsega:bootstrap3-datetimepicker
 meteorhacks:search-source
 fortawesome:fontawesome
 hinas:meteor-bootstrap-confirmation
+momentjs:moment
