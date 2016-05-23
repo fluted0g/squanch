@@ -9,34 +9,42 @@ Template.task.onRendered( function() {
         revert: true, 
         items: '.task_frame', 
         placeholder: 'ghostTask', 
-        helper : 'clone'});
+        helper : 'clone',
+        connectWith: '.task_manager',
+        receive: function(e,ui) {
+            newCard = $(e.target).data("id");
+            taskId = $(ui.item).data("id");
+            Meteor.call("editTaskCardId",taskId,newCard);
+        }
+    });
 });
 
 Template.task.helpers({
-
+    commentsNumber : function() {
+        comments = Tasks.find({},{comments:1}).fetch();
+        console.log(comments);
+        return comments.size();
+    }
 });
 
 Template.task.events({
-
-    "mouseover .task_frame" : function(event) {
-        var taskId = event.currentTarget.id;
+    'sortreceive .task_manager' : function(event,ui) {
+        console.log(event);
+        console.log(ui);
+    },
+    'mouseover .task_frame' : function(event) {
+        var taskId = $(event.currentTarget).data("id");
         Session.set("taskID",taskId);
-    }/*,
-    "click .task_frame" : function(event) {
-        Session.set("oTask",this);
-        Modal.show('taskManager');
-    }*/,
-    "click .taskOptions" : function(event) {
-        Session.set("oTask",this);
+    },
+    'click .taskOptions' : function(event) {
         Modal.show('taskManager');
     },
-    "click .archiveTask" : function(event) {
+    'click .archiveTask' : function(event) {
     	var id = this._id;
         Meteor.call("toggleStatus","task",id);
     },
-    "click .tellMeIndex" : function(event) {
+    'click .tellMeIndex' : function(event) {
         var listItem = document.getElementById( this._id );
         console.log($(".task_frame").index(listItem));
     }
-
 });

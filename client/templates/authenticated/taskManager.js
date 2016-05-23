@@ -1,39 +1,34 @@
 Template.taskManager.onCreated(function() {
-  var instance = this;
-  
-  instance.autorun(function() {
-  	var oTask = Session.get("oTask");
-    var taskId = oTask._id;
-    //instance.subscribe('task',taskId);  
-  });
+	var instance = this;
+
+	instance.autorun(function() {
+		var projectId = Session.get("projectID");
+		instance.subscribe('project', projectId);
+		instance.subscribe('owner', projectId);
+		instance.subscribe('members', projectId); 
+	});
 });
 
 Template.taskManager.onRendered(function() {
-    this.$('#picker-dueDate').datetimepicker();
+	this.$('#picker-dueDate').datetimepicker();
+	this.$("#descButton").hide();
 });
 
 Template.taskManager.helpers({
-    task: function() {
-    	var taskId = Session.get("taskID");
-    	return Tasks.findOne({_id: taskId});
-	    //return Tasks.find();
-  	},
-  	cards: function() {
-  		var projectId = Session.get("projectId");
-  		return Cards.find({'project_id':projectId});
-  	}
+	task: function() {
+		var taskId = Session.get("taskID");
+		return Tasks.findOne({_id: taskId});
+	},
+	cards: function() {
+		return Cards.find({status: 'active'});
+	}
 });
 
 Template.taskManager.events({
 	"submit .set_desc" : function(event) {
 		event.preventDefault();
-
 		var newDesc = event.target.editDesc.value;
-		var oTask = Session.get("oTask");
-		oTask.description = newDesc;
-
 		Meteor.call("editTaskDescription",oTask._id,newDesc);
-		Session.set("oTask",oTask);
 	},
 	"submit .set_label" : function(event) {
 		event.preventDefault();
@@ -42,65 +37,45 @@ Template.taskManager.events({
 		//determining project_type and reformatting for collection
 		switch (newLabel) {
 			case "Red" :
-				newLabel = "redL";
+			newLabel = "redL";
 			break;
 			case "Green" :
-				newLabel = "greenL";
+			newLabel = "greenL";
 			break;
 			case "Blue" :
-				newLabel = "blueL";
+			newLabel = "blueL";
 			break;
 			case "Yellow" :
-				newLabel = "yellowL";
+			newLabel = "yellowL";
 			break;
 			case "Orange" :
-				newLabel = "orangeL";
+			newLabel = "orangeL";
 			break;
 			case "Purple" :
-				newLabel = "purpleL";
+			newLabel = "purpleL";
 			break;
-		}	
-		var oTask = Session.get("oTask");
-		oTask.label = newLabel;
-
-		Meteor.call("editTaskLabel",oTask._id,newLabel);
-		Session.set("oTask",oTask);
+		}
+		Meteor.call("editTaskLabel",this._id,newLabel);
 	},
-	"submit .moveTask" : function(event) {
+	"submit .taskMover" : function(event) {
 		event.preventDefault();
-
-		var newCardId = event.target.moveTask.value;
-		var oTask = Session.get("oTask");
-		oTask.card_id = newCardId;
-		
-		Meteor.call("editTaskCardId",oTask._id,newCardId);
-		Session.set("oTask",oTask);
+		var newCardId = $(event.target).find(':selected').data('id');		
+		Meteor.call("editTaskCardId",this._id,newCardId);
 	},
 	"submit .set_name" : function(event) {
 		event.preventDefault();
 		console.log(this._id);
 		var newName = event.target.editName.value;
-		var oTask = Session.get("oTask");
-		oTask.name = newName;
-
-		Meteor.call("editTaskName",oTask._id,newName);
-		Session.set("oTask",oTask);
+		Meteor.call("editTaskName",this._id,newName);
 	},
 	'click .dateSetter' : function(event) {
 		event.preventDefault();
-
-		var dueDate = $('.datetimepicker').data("DateTimePicker").date();
-		var oTask = Session.get("oTask");
-		oTask.dueDate = dueDate.toDate();
-
-		Meteor.call("editDueDate", oTask._id,oTask.dueDate);
-		Session.set("oTask",oTask);
+		var dueDate = $('.datetimepicker').data("DateTimePicker").date().toDate();
+		Meteor.call("editDueDate", this._id,dueDate);
 	},
 	"click .archiveTask": function(event) {
 		event.preventDefault();
-
 		var id = this._id;
-
 		Meteor.call("toggleStatus","task",id);
 		$("#modalTask").modal('hide');
 	},
@@ -109,12 +84,91 @@ Template.taskManager.events({
 		var taskId = this._id;
 		var commentMsg = event.target.commentMsg.value;
 		var author = Meteor.user()._id;
-
 		Meteor.call("newComment",taskId,commentMsg,author);
+	},
+	'click .editableContentSolid' : function(event) {
+		var html = $(event.target).text().trim();
+
+		if ($(event.target).prop("tagName") == "H4") {
+			var editableText = $("<input class='editableContentFluid editableTaskName' name='editableTaskName' type='text' placeholder='"+html+"'>");
+			editableText.val(html);
+			$(event.target).replaceWith(editableText);
+			$(".editableContentFluid").val(html);
+			editableText.select();
+		}
+		else if ($(event.target).prop("tagName") == "SPAN") {
+			var editableText = $("<textarea rows='4' cols='50' class='editableContentFluid editableTaskDescription' name='editableTaskDescription' type='text' placeholder='"+html+"'></textarea>");
+			editableText.val(html);
+			$(event.target).replaceWith(editableText);
+			$(".editableContentFluid").val(html);
+			editableText.select();
+
+			$("#descButton").show();
+		}
+	},
+	'blur .editableContentFluid' : function(event) {    	
+		var html = $(event.target).val().trim();
+
+		if ($(event.target).prop("tagName") == "INPUT") {
+			var viewableText = $("<h4 class='editableContentSolid editableTaskName'></h4>");
+			if (html == "") {
+				viewableText.html(this.name);
+				$(event.target).replaceWith(viewableText);
+			} else {
+				viewableText.html(html);
+				Meteor.call("editTaskName",this._id,html);
+				$(event.target).replaceWith(viewableText);
+			}
+		}
+		else if ($(event.target).prop("tagName") == "TEXTAREA") {
+			if (html != "") {
+				var viewableText = $("<span class='editableContentSolid editableTaskDescription'></span>");
+				viewableText.html(html);
+				Meteor.call("editTaskDescription",this._id,html);
+				$(event.target).replaceWith(viewableText);
+				$("#descButton").hide();
+			} else {
+				var viewableText = $("<span class='editableContentSolid editableTaskDescription'></span>");
+				Meteor.call("editTaskDescription",this._id,html);
+
+				viewableText.html("Task has no description.");
+				$(event.target).replaceWith(viewableText);
+				$("#descButton").hide();
+			}
+				
+		}	
+	},
+	'submit .editableTaskNameForm' : function(event) {
+		event.preventDefault(); 
+		var html = $(event.target.editableTaskName).val().trim();
+		var viewableText = $("<h4 class='editableContentSolid editableTaskName'></h4>");
+		if (html == "") {
+			viewableText.html(this.name);
+			$(event.target.editableTaskName).replaceWith(viewableText);
+		} else {
+			viewableText.html(html);
+			Meteor.call("editTaskName",this._id,html);
+			$(event.target.editableTaskName).replaceWith(viewableText);
+		}
+	},
+	'submit .editableTaskDescriptionForm' : function(event) {
+		event.preventDefault(); 
+		var html = $(event.target.editableTaskDescription).val().trim();
+
+		if (html != "") {
+			var viewableText = $("<span class='editableContentSolid editableTaskDescription'></span>");
+			viewableText.html(html);
+			Meteor.call("editTaskDescription",this._id,html);
+			$(event.target.editableTaskDescription).replaceWith(viewableText);
+			$("#descButton").hide();
+		} else {
+			var viewableText = $("<span class='editableContentSolid editableTaskDescription'></span>");
+			Meteor.call("editTaskDescription",this._id,html);
+			
+			viewableText.html("Task has no description.");
+			$(event.target.editableTaskDescription).replaceWith(viewableText);
+			$("#descButton").hide();
+		}
+		
 	}
-	/*,
-	".hide.bs.modal #modalTask" : function(event) {
-		oTask = Session.get("oTask");
-		Meteor.call("editTask",oTask);
-	}*/
 });

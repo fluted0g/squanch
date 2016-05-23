@@ -1,19 +1,29 @@
 Template.defaultP.onCreated(function() {
-  var instance = this;
+	var instance = this;
 
-  instance.autorun(function() {
-    var projectId = FlowRouter.getParam('_id');
-    Session.set("projectID",projectId);
-    instance.subscribe('project', projectId);
-    
-    instance.subscribe('owner', projectId);
-    instance.subscribe('members', projectId);
-    });
+	instance.autorun(function() {
+		var projectId = FlowRouter.getParam('_id');
+		Session.set("projectID",projectId);
+		instance.subscribe('project', projectId);
+
+		instance.subscribe('owner', projectId);
+		instance.subscribe('members', projectId);
+	});
+});
+
+Template.defaultP.onRendered( function() {
+
+	$(document).on('click', function(event) {
+		if (!$(event.target).closest('.cardMenu').length) {
+				$(".cardMenu").css("display","none"); 
+			}
+	});
+
 });
 
 Template.defaultP.helpers ({
 	project : function() {
-        return Projects.find();    
+		return Projects.find();    
 	},
 	members : function() {
 		return Meteor.users.find();
@@ -45,6 +55,47 @@ Template.defaultP.events ({
 	"click .cancelFormC" : function(event) {
 		$(".cardInserter").toggleClass("activeC");
 		$(".submitCard, .cancelFormC, .card_title, .fake_card_title").toggleClass("hiddenE");
+	},
+	"submit .new_comment" : function(event) {
+		event.preventDefault();
+		var taskId = this._id;
+		var commentMsg = event.target.commentMsg.value;
+		var author = Meteor.user()._id;
+		Meteor.call("newComment",taskId,commentMsg,author);
+	},
+	'click .editableContentSolid' : function(event) {
+		var html = $(event.target).text().trim();
+		var editableText = 
+		$("<input class='editableContentFluid editableProjectName' name='editableProjectName' type='text' placeholder='"+html+"'>");
+		editableText.val(html);
+		$(event.target).replaceWith(editableText);
+		$(".editableContentFluid").val(html);
+		editableText.select();
+	},
+	'blur .editableContentFluid' : function(event) {    	
+		var html = $(event.target).val().trim();    	
+		var viewableText = $("<h2 class='editableContentSolid editableProjectName'></h2>");
+		if (html == "") {
+			viewableText.html(this.name);
+			$(event.target).replaceWith(viewableText);
+		} else {
+			viewableText.html(html);
+			Meteor.call("editProjectName",this._id,html);
+			$(event.target).replaceWith(viewableText);
+		}
+	},
+	'submit .editableProjectNameForm' : function(event) {
+		event.preventDefault(); 
+		var html = $(event.target.editableProjectName).val().trim();
+		var viewableText = $("<h2 class='editableContentSolid editableProjectName'></h2>");
+		if (html == "") {
+			viewableText.html(this.name);
+			$(event.target.editableProjectName).replaceWith(viewableText);
+		} else {
+			viewableText.html(html);
+			Meteor.call("editProjectName",this._id,html);
+			$(event.target.editableProjectName).replaceWith(viewableText);
+		}
 	}
 });
 

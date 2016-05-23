@@ -2,14 +2,16 @@
 	
 	<li class="card_frame" data-id="{{_id}}">
 		<div class="card_body">
-			<h3 class="editableCardName">{{name}}</h3> 
+			<form class="editableCardNameForm" name="editableCardNameForm">
+			<h3 class="editableContentSolid editableCardName">{{name}}</h3> 
 			<span class="cardOptions">
 				<i class="fa fa-pencil-square"></i>
 			</span>
+			</form>
 			<div class="clearDiv"></div>
-				<ul class="task_manager">
+				<ul class="task_manager" data-id="{{_id}}">
 				{{#each tasks}}
-				{{> task}}
+					{{> task}}
 				{{/each}}
 				<li class="taskInserter" data-id="{{_id}}">
 				<form class="insert_task">
@@ -24,10 +26,17 @@
 				</ul>
 				<ul class="cardMenu" data-id="{{_id}}">
 					<li class="archiveCard">Archive</li>
-					<li class="moveCard">Move</li>
-					<li class="copyCard">Copy</li>
-					<li class="tellMeIndex">Index #</li>
+					<li class="moveTasks">Move tasks
+						<ul class="cardList" data-id="{{_id}}">
+							{{#each cards}}
+								<li class="cardInList" data-id="{{_id}}">{{name}}</li>
+							{{/each}}
+						</ul>
+					</li>
+					<li class="archiveTasks">Archive tasks</li>
 				</ul>
+
+				
 		</div>
 	</li>
 </template>

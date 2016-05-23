@@ -3,8 +3,9 @@
 		<div class="project_info">
 			{{> controlPanel}}
 			{{#each project}}
-			<h2>{{name}}</h2>
-			<span>{{proj_type}}</span>
+			<form class="editableProjectNameForm" name="editableProjectNameForm">
+				<h2 class="editableContentSolid editableProjectName">{{name}}</h2>
+			</form>
 			{{/each}}
 		</div>
 			<ul class="card_manager">

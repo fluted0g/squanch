@@ -1,5 +1,5 @@
 <template name="task">
-	<li class="task_frame" id="{{_id}}">
+	<li class="task_frame" data-id="{{_id}}">
 		<div class="task_head">
 			<h4>{{name}}</h4>
 			<span class="labelMarker {{label}}"></span>
@@ -21,6 +21,7 @@
 			{{#with comments}}
 				<span title="This task has comments.">
 					<i class="fa fa-comments-o"></i>
+					{{commentsNumber}}
 				</span>
 			{{/with}}
 			{{#each checkBoxes}}

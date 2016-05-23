@@ -123,8 +123,10 @@ ul {
 
 .cardMenu {
   position: absolute;
-  right: -59px;
-  top: 3px;
+  left: 100%;
+  top: 0;
+  max-width: 100%;
+  width: 7em;
   background-color: #bbb;
   border-radius: 5px;
   color: #fff;
@@ -142,4 +144,18 @@ ul {
       background-color:#777;
     }
   }
+}
+
+.moveTasks {
+  position: relative;
+}
+
+.cardList {
+  display:none;
+  background-color:black;
+  border-radius: 5px;
+  color: white;
+  position: absolute;
+  left: 100%;
+  top:0;
 }

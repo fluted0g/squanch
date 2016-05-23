@@ -13,7 +13,7 @@ Template.profile.helpers({
 });
 
 Template.profile.events({
-'click .editableContentSolid' : function(event) {
+    'click .editableContentSolid' : function(event) {
     	var html = $(event.target).text().trim();
 		var editableText = 
     		$("<input class='editableContentFluid' id='editableProfileName' type='text' placeholder='"+html+"'>");
@@ -24,7 +24,7 @@ Template.profile.events({
     		editableText.select();
 	},
 	'blur .editableContentFluid' : function(event) {    	
-    	var html = $(event.target).val();    	
+    	var html = $(event.target).val().trim();    	
     	var viewableText = $("<span class='editableContentSolid' id='editableProfileName'></span>");
     	
         if (html == "") {
