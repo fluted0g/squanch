@@ -28,10 +28,14 @@ Template.comment.helpers({
 });
 
 Template.comment.events({
-	"click .editComment" : function(e) {
-
+	"click .edit_comment" : function(e) {
+		commentId = this.comment_id;
+		newMsg = "hey";
+		Meteor.call("editComment",commentId,newMsg);
 	},
-	"click .deleteComment" : function(e) {
-
+	"click .delete_comment" : function(e) {
+		taskId = Session.get("taskID");
+		comment = this;
+		Meteor.call("deleteComment",taskId,comment);
 	}
 });

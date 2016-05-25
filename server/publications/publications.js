@@ -30,7 +30,7 @@ Meteor.publish('project',function(project_id) {
 	check(project_id,String);
 	//find project and his cards
 	curr_project = Projects.find({_id: project_id });
-	project_cards = Cards.find({project_id: project_id});
+	project_cards = Cards.find({project_id: project_id},{sort:{cardIndex:1}});
 	//check user is member or owner
 	var isOwner;
 	if (curr_project.owner == this.userId) {
@@ -44,7 +44,7 @@ Meteor.publish('project',function(project_id) {
 	_.each(arrangedCards, function(card) {
 		cardIds.push(card._id);
 	});
-	test_tasks = Tasks.find({'card_id' : { $in: cardIds}});
+	test_tasks = Tasks.find({'card_id' : { $in: cardIds}},{sort:{taskIndex:1}});
 	if (isOwner || isMember) {
 		if(curr_project) {
 			return [
@@ -228,6 +228,15 @@ Meteor.methods({
 			throw new Meteor.error("invalid-target")
 		}
 	},
+	assignCardIndex : function(cardId, input) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(cardId, String);
+		check(input, Number);
+
+		Cards.update({_id:cardId}, {$set:{cardIndex:input} } );
+	},
 	//task related
 	newTask : function(cardId,taskName) {
 		if (! Meteor.userId()) {
@@ -354,6 +363,15 @@ Meteor.methods({
 			$set: {'dueDate': input}
 		});
 	},
+	assignTaskIndex : function(taskId, input) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(taskId, String);
+		check(input, Number);
+
+		Tasks.update({_id:taskId},{$set:{taskIndex:input}});
+	},
 	//task and card related
 	toggleStatus: function(type,id) {
 		if (! Meteor.userId()) {
@@ -365,7 +383,7 @@ Meteor.methods({
 			card = Cards.findOne({_id:id});
 			if (card.status == 'active') {
 				Cards.update({'_id':id},
-					{$set: {status: 'archived'}
+					{$set: {status: 'archived',cardIndex:999}
 				});
 			} else {
 				Cards.update({'_id':id},
@@ -376,7 +394,7 @@ Meteor.methods({
 			task = Tasks.findOne({_id:id});
 			if (task.status == 'active') {
 				Tasks.update({'_id':id},
-					{$set: {status: 'archived'}
+					{$set: {status: 'archived',taskIndex:999}
 				});
 			} else {
 				Tasks.update({'_id':id},
@@ -393,10 +411,40 @@ Meteor.methods({
 		check(taskId,String);
 		check(msg,String);
 		check(author,String);
-		var comment = {
+
+		var oComment = {
+			comment_id: new Mongo.Collection.ObjectID(),
 			text: msg,
 			author: author
 		};
-		Tasks.update({_id:taskId},{$push : {comments: comment}});
+		//console.log(oComment);
+
+		//check(oComment,Object);
+
+		Tasks.update({_id:taskId},{$push : { comments : oComment }});
+	},
+	editComment: function(commentId,newMsg) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(commentId,String);
+		check(newMsg,String);
+
+		//check author!!!!!
+
+		Tasks.update({comments: {$elemMatch: {comment_id : {_str: commentId} }}}
+			,{$set : {'comments.$.text' : newMsg}}); 
+	},
+	deleteComment: function(taskId,comment) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(taskId,String);
+		check(comment,Object);
+
+		//check author!!!!!
+
+		Tasks.update({_id:taskId},{ $pull : { comments : {comment_id: { $elemMatch : { _str: comment.comment_id} } } } },{multi:true});
+		Tasks.update({},{ $pull : { comments : {comment_id: { $elemMatch : { _str: comment.comment_id} } } } });
 	}
 });

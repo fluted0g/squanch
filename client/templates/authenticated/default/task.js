@@ -13,17 +13,30 @@ Template.task.onRendered( function() {
         connectWith: '.task_manager',
         receive: function(e,ui) {
             newCard = $(e.target).data("id");
-            taskId = $(ui.item).data("id");
+            taskId = $(ui.item).data("id");        
             Meteor.call("editTaskCardId",taskId,newCard);
+        },
+        update : function(e,ui) {
+            taskId = $(ui.item).data("id");
+            taskIndex = $(ui.item).index();
+            siblings = ui.item.siblings();
+            Meteor.call("assignTaskIndex",taskId,taskIndex);
+            _.each(siblings, function(item) {
+                Meteor.call("assignTaskIndex",$(item).data("id"),$(item).index());
+            });
         }
     });
+
+
+    var taskIndex = $(this.firstNode).index();
+    var taskId = $(this.firstNode).data("id");
+    Meteor.call("assignTaskIndex",taskId,taskIndex);
 });
 
 Template.task.helpers({
+    //se ve que al usar #with, el helper limita su "scope" a los comentarios
     commentsNumber : function() {
-        comments = Tasks.find({},{comments:1}).fetch();
-        console.log(comments);
-        return comments.size();
+        return this.length;
     }
 });
 

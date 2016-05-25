@@ -15,7 +15,7 @@ Tasks.deny({
 //track activity in the task
 //should be first to load I guess?
 Event = new SimpleSchema({
-  _id : {
+  event_id : {
     type: String,
     regEx: SimpleSchema.RegEx.Id,
     autoValue: function(){ return Random.id(); }
@@ -44,10 +44,14 @@ Event = new SimpleSchema({
 });
 
 Comment = new SimpleSchema({
-  _id : {
-    type: String,
-    regEx: SimpleSchema.RegEx.Id,
-    autoValue: function(){ return Random.id(); }
+  comment_id : {
+    type: Mongo.Collection.ObjectID,
+    regEx: SimpleSchema.RegEx.Id/*,
+    autoValue: function() { 
+      if (this.isInsert) {
+        return new Mongo.Collection.ObjectID();
+      }  
+    }*/
   },
   text: {
     type: String,
@@ -127,6 +131,16 @@ TaskSchema = new SimpleSchema({
   author: {
     type:String,
     label: "Task author"
+  },
+  taskIndex: {
+    type: Number,
+    label: "Task index",
+    optional: true,
+    autoValue: function() {
+      if (this.isInsert) {
+        return 999;
+      }
+    }
   },
   events: {
     type: [Event],

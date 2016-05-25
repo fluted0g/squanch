@@ -29,6 +29,16 @@ CardSchema = new SimpleSchema({
     type: String,
     label: "Card label",
     optional: true
+  },
+  cardIndex: {
+    type: Number,
+    label: "Card index",
+    optional: true,
+    autoValue: function() {
+      if (this.isInsert) {
+        return 999;
+      }
+    }
   }
 });
 
