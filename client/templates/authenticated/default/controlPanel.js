@@ -15,10 +15,6 @@ Template.controlPanel.helpers ({
 	archivedTasks : function() {
 		return Tasks.find({status :'archived'});
 	},
-	owner : function() {
-		var owner = Projects.find({},{fields:{owner:1}}).fetch()[0];
-		return Meteor.users.findOne({_id:owner.owner});
-	},
 	member : function() {
 		var projectId = Session.get("projectID");
 		var members = Meteor.users.find({project_ids : {$in:[projectId]}});

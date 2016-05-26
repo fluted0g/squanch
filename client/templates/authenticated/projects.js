@@ -2,7 +2,7 @@ Template.projects.onCreated(function() {
   var instance = this;
 
   instance.autorun(function() {
-    instance.subscribe('membershipProject');
+    instance.subscribe('membershipProjects');
     instance.subscribe('ownedProjects');
     });
 });

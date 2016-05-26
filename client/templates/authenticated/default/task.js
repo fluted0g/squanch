@@ -1,6 +1,9 @@
 Template.task.onCreated(function() {
-  var instance = this;
-  instance.autorun(function() {});
+    var instance = this;
+
+    instance.autorun(function() {
+        //instance.subscribe('project');
+    });
 });
 
 Template.task.onRendered( function() {
@@ -26,8 +29,6 @@ Template.task.onRendered( function() {
             });
         }
     });
-
-
     var taskIndex = $(this.firstNode).index();
     var taskId = $(this.firstNode).data("id");
     Meteor.call("assignTaskIndex",taskId,taskIndex);
@@ -35,16 +36,17 @@ Template.task.onRendered( function() {
 
 Template.task.helpers({
     //se ve que al usar #with, el helper limita su "scope" a los comentarios
-    commentsNumber : function() {
-        return this.length;
+    comments: function() {
+        var comments =  Comments.find({task_id:this._id}).fetch();
+        if (comments.length != 0) {
+            commentNumber = comments.length;
+            comment = {number:commentNumber};
+            return comment;
+        }   
     }
 });
 
 Template.task.events({
-    'sortreceive .task_manager' : function(event,ui) {
-        console.log(event);
-        console.log(ui);
-    },
     'mouseover .task_frame' : function(event) {
         var taskId = $(event.currentTarget).data("id");
         Session.set("taskID",taskId);

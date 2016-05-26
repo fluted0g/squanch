@@ -1,15 +1,15 @@
 Tasks = new Mongo.Collection( 'tasks' );
 
 Tasks.allow({
-  insert: () => true,
-  update: () => true,
-  remove: () => true
-});
-
-Tasks.deny({
   insert: () => false,
   update: () => false,
   remove: () => false
+});
+
+Tasks.deny({
+  insert: () => true,
+  update: () => true,
+  remove: () => true
 });
 
 //track activity in the task
@@ -40,39 +40,6 @@ Event = new SimpleSchema({
   author: {
     type : String,
     label: "author username"
-  }
-});
-
-Comment = new SimpleSchema({
-  comment_id : {
-    type: Mongo.Collection.ObjectID,
-    regEx: SimpleSchema.RegEx.Id/*,
-    autoValue: function() { 
-      if (this.isInsert) {
-        return new Mongo.Collection.ObjectID();
-      }  
-    }*/
-  },
-  text: {
-    type: String,
-    label: "Comment text"
-  },
-  author : {
-    type : String,
-    label: "author username"
-  },
-  createdAt: {
-    type: Date,
-    label: "comment creation date",
-    autoValue: function(){
-      if (this.isInsert || this.isUpdate) {
-        return new Date();
-      } else if (this.isUpsert) {
-        return {$setOnInsert: new Date()};
-      } else {
-        this.unset();
-      }
-    }
   }
 });
 
@@ -150,11 +117,6 @@ TaskSchema = new SimpleSchema({
   members: {
     type: [String],
     label: "Task members ID's",
-    optional: true
-  },
-  comments: {
-    type: [Comment],
-    label: "Task comments",
     optional: true
   }
 });

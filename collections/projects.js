@@ -1,15 +1,15 @@
 Projects = new Mongo.Collection( 'projects' );
 
 Projects.allow({
-  insert: () => true,
-  update: () => true,
-  remove: () => true
-});
-
-Projects.deny({
   insert: () => false,
   update: () => false,
   remove: () => false
+});
+
+Projects.deny({
+  insert: () => true,
+  update: () => true,
+  remove: () => true
 });
 
 /*

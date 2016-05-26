@@ -1,15 +1,15 @@
 Cards = new Mongo.Collection( 'cards' );
 
 Cards.allow({
-  insert: () => true,
-  update: () => true,
-  remove: () => true
-});
-
-Cards.deny({
   insert: () => false,
   update: () => false,
   remove: () => false
+});
+
+Cards.deny({
+  insert: () => true,
+  update: () => true,
+  remove: () => true
 });
 
 CardSchema = new SimpleSchema({

@@ -1,3 +1,4 @@
+//old subscription
 Meteor.publish('projects', function() {
 	var id = this.userId;
 	userProjects = Projects.find( { 'members' :  { $in:  [id] } } );
@@ -8,8 +9,8 @@ Meteor.publish('projects', function() {
 });
 
 Meteor.publish('membershipProjects', function() {
-	userProjectsIds = Meteor.users.find({_id:this.userId},{fields: {project_ids:1}});
-	userMembershipProjects = Projects.find({_id: {$in : userProjectsIds}});
+	userProjectsIds = Meteor.users.findOne({_id:this.userId},{fields: {project_ids:1}});
+	userMembershipProjects = Projects.find({_id: {$in : userProjectsIds.project_ids}});
 	if (userMembershipProjects) {
 		return userMembershipProjects;
 	}
@@ -45,12 +46,21 @@ Meteor.publish('project',function(project_id) {
 		cardIds.push(card._id);
 	});
 	test_tasks = Tasks.find({'card_id' : { $in: cardIds}},{sort:{taskIndex:1}});
+	
+	var taskIds = [];
+	arrangedTasks = test_tasks.fetch();
+	_.each(arrangedTasks, function(task) {
+		taskIds.push(task._id);
+	});
+	tasks_comments = Comments.find({'task_id' : { $in: taskIds}},{sort:{createdAt:1}});
+
 	if (isOwner || isMember) {
 		if(curr_project) {
 			return [
 			curr_project,
 			project_cards,
-			test_tasks
+			test_tasks,
+			tasks_comments
 			];
 		}
 	}
@@ -153,12 +163,15 @@ Meteor.methods({
 		check(description, String);
 		check(proj_type,String);
 		check(theme,String);
+		
 		Projects.insert({
 			name: name,
 			owner: Meteor.userId(),
 			description: description,
 			proj_type: proj_type,
 			theme: theme
+		},function(err,doc) {
+			Meteor.users.update({ _id : Meteor.userId() },{ $push: {project_ids : doc} });
 		});
 	},
 	deleteProject : function(projectId) {
@@ -234,7 +247,6 @@ Meteor.methods({
 		}
 		check(cardId, String);
 		check(input, Number);
-
 		Cards.update({_id:cardId}, {$set:{cardIndex:input} } );
 	},
 	//task related
@@ -277,40 +289,13 @@ Meteor.methods({
 			Tasks.update({card_id:card}, { $set : {status:'archived'}},{multi:true});
 		}
 	},
-	//not sure how this worked
-	editTask : function(oTask) {
-		if (! Meteor.userId()) {
-			throw new Meteor.Error("not-authorized");
-		}
-		check(oTask, Object);
-		var taskId = oTask._id;
-		Tasks.update({'_id':taskId},
-		{
-			$set: {
-				'name': oTask.name,
-				'description' : oTask.description,
-				'card_id' : oTask.card_id, 
-				'createdAt' : oTask.createdAt,
-				'dueTo' : oTask.dueTo,
-				'label' : oTask.label,
-				'status' : oTask.status,
-				'author' : oTask.author,
-				'events' : oTask.events,
-				'members' : oTask.members,
-				'comments' : oTask.comments
-			}		
-		});	
-	},
 	editTaskName : function(taskId,input) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
 		}
 		check(taskId, String);
 		check(input, String);
-		Tasks.update({'_id':taskId},
-		{
-			$set: {'name': input}
-		});
+		Tasks.update({'_id':taskId},{$set: {'name': input}});
 	},
 	editTaskDescription : function(taskId,input) {
 		if (! Meteor.userId()) {
@@ -319,15 +304,13 @@ Meteor.methods({
 		check(taskId, String);
 		check(input, String);
 		if (input == "") {
-			Tasks.update({'_id':taskId},
-			{
-				$unset: {description : ""}
-			});
-		} else {
-			Tasks.update({'_id':taskId},
-			{
-				$set: {'description': input}
-			});
+			Tasks.update({'_id':taskId},{$unset:{description:""}});
+		}
+		else if(input =="Task has no description.") {
+			Tasks.update({_id:taskId},{$unset:{description:"Task has no description."}});
+		}
+		else {
+			Tasks.update({'_id':taskId},{$set: {'description': input}});
 		}
 	},
 	editTaskLabel : function(taskId,input) {
@@ -336,10 +319,7 @@ Meteor.methods({
 		}
 		check(taskId, String);
 		check(input, String);
-		Tasks.update({'_id':taskId},
-		{
-			$set: {'label': input}
-		});
+		Tasks.update({'_id':taskId},{$set:{'label': input}});
 	},
 	editTaskCardId : function(taskId,input) {
 		if (! Meteor.userId()) {
@@ -347,10 +327,7 @@ Meteor.methods({
 		}
 		check(taskId, String);
 		check(input, String);
-		Tasks.update({'_id':taskId},
-		{
-			$set: {'card_id': input}
-		});
+		Tasks.update({'_id':taskId},{$set: {'card_id': input}});
 	},
 	editDueDate : function(taskId, input) {
 		if (! Meteor.userId()) {
@@ -358,10 +335,7 @@ Meteor.methods({
 		}
 		check(taskId, String);
 		check(input, Date);
-		Tasks.update({'_id':taskId},
-		{
-			$set: {'dueDate': input}
-		});
+		Tasks.update({'_id':taskId},{$set: {'dueDate': input}});
 	},
 	assignTaskIndex : function(taskId, input) {
 		if (! Meteor.userId()) {
@@ -369,7 +343,6 @@ Meteor.methods({
 		}
 		check(taskId, String);
 		check(input, Number);
-
 		Tasks.update({_id:taskId},{$set:{taskIndex:input}});
 	},
 	//task and card related
@@ -404,24 +377,22 @@ Meteor.methods({
 		}
 	},
 	//task comments
-	newComment : function(taskId,msg,author) {
+	newComment : function(taskId,msg,authorName) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
 		}
 		check(taskId,String);
 		check(msg,String);
-		check(author,String);
-
+		check(authorName,String);
+		authorId = Accounts.findUserByUsername(authorName);
 		var oComment = {
-			comment_id: new Mongo.Collection.ObjectID(),
+			task_id: taskId,
 			text: msg,
-			author: author
+			author: authorId._id
 		};
-		//console.log(oComment);
-
-		//check(oComment,Object);
-
-		Tasks.update({_id:taskId},{$push : { comments : oComment }});
+		if (authorId._id = Meteor.userId()) {
+			Comments.insert(oComment);
+		}
 	},
 	editComment: function(commentId,newMsg) {
 		if (! Meteor.userId()) {
@@ -429,22 +400,23 @@ Meteor.methods({
 		}
 		check(commentId,String);
 		check(newMsg,String);
-
-		//check author!!!!!
-
-		Tasks.update({comments: {$elemMatch: {comment_id : {_str: commentId} }}}
-			,{$set : {'comments.$.text' : newMsg}}); 
+		comment = Comments.findOne({_id:commentId});
+		if (Meteor.userId() == comment.author) {
+			Comments.update({_id:commentId},{$set: {text: newMsg}}); 
+		} else {
+			throw new Meteor.Error("not-authorized");
+		}	
 	},
-	deleteComment: function(taskId,comment) {
+	deleteComment: function(commentId) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
 		}
-		check(taskId,String);
-		check(comment,Object);
-
-		//check author!!!!!
-
-		Tasks.update({_id:taskId},{ $pull : { comments : {comment_id: { $elemMatch : { _str: comment.comment_id} } } } },{multi:true});
-		Tasks.update({},{ $pull : { comments : {comment_id: { $elemMatch : { _str: comment.comment_id} } } } });
+		check(commentId,String);
+		comment = Comments.findOne({_id:commentId});
+		if (Meteor.userId() == comment.author) {
+			Comments.remove({_id:commentId});
+		} else {
+			throw new Meteor.Error("not-authorized");
+		}
 	}
 });

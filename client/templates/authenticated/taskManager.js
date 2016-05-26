@@ -21,6 +21,9 @@ Template.taskManager.helpers({
 	},
 	cards: function() {
 		return Cards.find({status: 'active'});
+	},
+	comments: function() {
+		return Comments.find({task_id:this._id});
 	}
 });
 
@@ -83,7 +86,7 @@ Template.taskManager.events({
 		event.preventDefault();
 		var taskId = this._id;
 		var commentMsg = event.target.commentMsg.value;
-		var author = Meteor.user()._id;
+		var author = Meteor.user().username;
 		Meteor.call("newComment",taskId,commentMsg,author);
 	},
 	'click .editableContentSolid' : function(event) {
@@ -97,7 +100,7 @@ Template.taskManager.events({
 			editableText.select();
 		}
 		else if ($(event.target).prop("tagName") == "SPAN") {
-			var editableText = $("<textarea rows='4' cols='50' class='editableContentFluid editableTaskDescription' name='editableTaskDescription' type='text' placeholder='"+html+"'></textarea>");
+			var editableText = $("<textarea rows='4' cols='50' class='editableContentFluid editableTaskDescription' name='editableTaskDescription' type='text'></textarea>");
 			editableText.val(html);
 			$(event.target).replaceWith(editableText);
 			$(".editableContentFluid").val(html);
@@ -127,10 +130,10 @@ Template.taskManager.events({
 				Meteor.call("editTaskDescription",this._id,html);
 				$(event.target).replaceWith(viewableText);
 				$("#descButton").hide();
-			} else {
+			}
+			else {
 				var viewableText = $("<span class='editableContentSolid editableTaskDescription'></span>");
 				Meteor.call("editTaskDescription",this._id,html);
-
 				viewableText.html("Task has no description.");
 				$(event.target).replaceWith(viewableText);
 				$("#descButton").hide();

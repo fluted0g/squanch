@@ -29,13 +29,13 @@ Template.comment.helpers({
 
 Template.comment.events({
 	"click .edit_comment" : function(e) {
-		commentId = this.comment_id;
+		commentId = this._id;
+		console.log(this._id);
 		newMsg = "hey";
 		Meteor.call("editComment",commentId,newMsg);
 	},
 	"click .delete_comment" : function(e) {
-		taskId = Session.get("taskID");
-		comment = this;
-		Meteor.call("deleteComment",taskId,comment);
+		commentId = this._id;
+		Meteor.call("deleteComment",commentId);
 	}
 });
