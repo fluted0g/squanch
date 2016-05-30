@@ -1,26 +1,33 @@
 //main palette
 
-$mainYellow : #FFB20A;
-$lightYellow: lighten(#FFB20A,15%);
-$lighterYellow: lighten(#FFB20A,30%);
-$darkYellow: darken(#FFB20A,15%);
-$darkerYellow: darken(#FFB20A,30%);
+$mainYellow : #3c698e;		/*#FFB20A;*/
+$lightYellow : lighten($mainYellow,15%);
+$lighterYellow : lighten($mainYellow,30%);
+$darkYellow : darken($mainYellow,15%);
+$darkerYellow : darken($mainYellow,30%);
+
+$gray-base : #000;
+$gray-darker : lighten($gray-base, 13.5%); // #222
+$gray-dark : lighten($gray-base, 20%);   // #333
+$gray : lighten($gray-base, 33.5%); // #555
+$gray-light : lighten($gray-base, 46.7%); // #777
+$gray-lighter : lighten($gray-base, 93.5%); // #eee
 
 //default palette
 
-$bgDefault      : #ffb20a;
-$bgHighlight    : #ffca58;
-$colDefault     : #000000;
-$colHighlight   : #000000;
-$dropDown       : true;
+$bgDefault : $mainYellow;
+$bgHighlight : $lightYellow;
+$colDefault : #fff;
+$colHighlight : #ddd;
+$dropDown : true;
 
 //font colors:
-$textColor: #111;
-$fa-grey: #eee;
+$textColor : #fff;
+$fa-grey : #ddd;
 
 //label colors:
 
-$redL: #FF0000;
+$redL : #FF0000;
 $greenL : #008000;
 $blueL : #0000FF;
 $yellowL : #FFD700;

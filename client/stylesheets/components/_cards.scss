@@ -44,11 +44,11 @@ ul {
   display: inline-flex;
   cursor: pointer;
   i {
-    color: $darkerYellow;
+    color: $lighterYellow;
     font-size: 2em;
 
     &:hover {
-      color: $darkYellow;
+      color: $lightYellow;
     }
   }
 }
@@ -76,7 +76,7 @@ ul {
     display: inline-block;
   }
   &:hover {
-    background-color: lighten($darkYellow,15%);
+    background-color: tint($darkYellow,15%);
   }
 }
 
@@ -91,7 +91,7 @@ ul {
   height: 2.5em;
   outline-color: $darkYellow;
   &:hover {
-    background-color: lighten($darkYellow,15%);
+    background-color: tint($darkYellow,15%);
   }
   &:focus {
     border: none;

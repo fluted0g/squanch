@@ -3,6 +3,7 @@
 .searchUserForm {
 	input[type='text'] {
 		outline-color: transparent;
+
 	}
 }
 
@@ -11,12 +12,12 @@
 	ul {
 		margin-left: 2px;
 		li {
-			background-color: #ddd;
+			background-color: darken($gray-lighter,10%);
 			border-radius: 3px;
 			margin: 3px;
 
 			&:hover {
-				background-color: lighten(#ddd,5%);
+				background-color: darken($gray-lighter,5%);
 			}
 		}
 	}

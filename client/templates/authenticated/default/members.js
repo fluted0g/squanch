@@ -27,7 +27,7 @@ Template.members.helpers({
 
 Template.members.events({
 	'mouseover .userFrame' : function(e) {
-		var member = e.currentTarget.id;
+		var member = $(e.currentTarget).data("id");
 		Session.set("memberNameOrMail", member);
 	},
 	'click .deleteMember' : function(e) {

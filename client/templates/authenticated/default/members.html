@@ -1,12 +1,14 @@
 <template name="members">
-		<ul class="userFrame" id="{{#if username}}{{username}}{{else}}{{emails.[0].address}}{{/if}}">
-			<li>
-			{{#if initials}}
-				<span>{{initials}}</span>
-			{{/if}} 
+		<li class="userFrame" data-id="{{#if username}}{{username}}{{else}}{{emails.[0].address}}{{/if}}">
+				<span>
+					{{#if username}}
+						{{username}}
+					{{else}}
+						{{emails.[0].address}}
+					{{/if}}
+				</span>
 			{{#unless isOwner}}
 			<span class="deleteMember"><i class="fa fa-times-circle"></i></span>
 			{{/unless}}
 			</li>
-		</ul>
 </template>

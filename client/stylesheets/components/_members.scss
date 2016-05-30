@@ -1,34 +1,25 @@
 @import "../tools/palette";
 
 .userFrame {
-	margin-left: 2px;
-	display: inline-flex;
-	flex-display: row;
-	li {
+
 		display: inline-block;
-		height: 1.6em;
-		width: 3.2em;
 		background-color: #fff;
 		border-radius: 3px;
-		margin: 3px;
-		padding: 3px;
-		min-width: 97%;
+		margin: 1px;
+		padding: 7px;
+		width: 100%;
 		position: relative;
 
 		span {
 			float: left;
 
 			i {
+				font-size: 1em;
 				position: absolute;
-				top: 4.5px;
-				right: 2px;
+				top: 12%;
+				right: 10px;
 			}
 		}
-
-		&:hover {
-			background-color: lighten(#ddd,5%);
-		}
-	}
 }
 
 .deleteMember {

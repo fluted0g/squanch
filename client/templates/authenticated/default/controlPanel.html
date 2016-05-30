@@ -6,71 +6,73 @@
 
 			<h4>Control Panel</h4>
 
-			<div class="panel-group" id="accordion">
-        		<div class="panel panel-default">
-            		<div class="panel-heading">
-                		<h4 class="panel-title">
-                    		<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">ADD MEMBERS</a>
-                		</h4>
-            		</div>
-            		<div id="collapseOne" class="panel-collapse collapse">
-                		<div class="panel-body">
-                			{{> searchUser}}
+            <div class="userList">
+                <h5>Members:</h5>
+                <ul>
+                    {{#each member}}
+                    {{> members}}
+                    {{/each}}
+                </ul>
+            </div>
 
-                            <div class="userList">
-                                <h5>Members:</h5>
-                                    {{#each member}}
-                                        {{> members}}
-                                    {{/each}}
-                            </div> 
+            <div class="panel-group" id="accordion">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">ADD MEMBERS</a>
+                      </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse">
+                      <div class="panel-body">
+                       {{> searchUser}}
+                   </div>
+               </div>
+           </div>
+           <div class="panel panel-default">
+             <div class="panel-heading">
+                 <h4 class="panel-title">
+                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">ARCHIVE</a>
+                 </h4>
+             </div>
+             <div id="collapseTwo" class="panel-collapse collapse">
+                 <div class="panel-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a class="archiveLink" data-toggle="tab" href="#cardList">Cards</a></li>
+                    <li><a class="archiveLink" data-toggle="tab" href="#taskList">Tasks</a></li>
+                </ul>
+                <div class="tab-content">
+                    <ul id="cardList" class="active tab-pane">
+                        {{#each archivedCards}}
+                        <li class="archivedCard">{{name}}</li>
+                        {{/each}}
+                    </ul>
 
-                		</div>
-            		</div>
-        		</div>
-        	<div class="panel panel-default">
-            	<div class="panel-heading">
-                	<h4 class="panel-title">
-                    	<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">ARCHIVE</a>
-                	</h4>
-            	</div>
-            	<div id="collapseTwo" class="panel-collapse collapse">
-                	<div class="panel-body">
-                		<div>
-                            <label>Cards:</label>
-                            <ul>
-                                {{#each archivedCards}}
-                    			<li class="archivedCard">{{name}}</li>
-                                {{/each}}
-                            </ul>
-                        </div>
+                    <ul id="taskList" class="tab-pane">
+                       {{#each archivedTasks}}
+                       <li class="archivedTask">{{name}}</li>
+                       {{/each}}
+                   </ul>
+                </div>
 
-                        <div>
-                            <label>Tasks:</label>
-                            <ul>
-                    			{{#each archivedTasks}}
-                                <li class="archivedTask">{{name}}</li>
-                                {{/each}}
-                    		</ul>
-                        </div>
 
-                	</div>
-            	</div>
-        	</div>
-	        	<div class="panel panel-default">
-	        		<div class="panel-heading">
-	        			<h4 class="panel-title">
-	        				<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">SETTINGS</a>
-	        			</h4>
-	        		</div>
-	        		<div id="collapseThree" class="panel-collapse collapse">
-	        			<div class="panel-body">
-                			<span class="deleteProject">Delete project</span>
-	        			</div>
-            		</div>
-        		</div>
-    		</div>
-    	</div>
-	</div>
+           </div>
+       </div>
+   </div>
+   <div class="panel panel-default">
+       <div class="panel-heading">
+        <h4 class="panel-title">
+         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">SETTINGS</a>
+     </h4>
+ </div>
+ <div id="collapseThree" class="panel-collapse collapse">
+    <div class="panel-body">
+       <span class="deleteProject">Delete project</span>
+   </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
 </template>
