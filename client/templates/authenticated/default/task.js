@@ -2,7 +2,8 @@ Template.task.onCreated(function() {
     var instance = this;
 
     instance.autorun(function() {
-        //instance.subscribe('project');
+        var projectId = Session.get("projectID");
+        instance.subscribe('project', projectId);
     });
 });
 
@@ -19,14 +20,19 @@ Template.task.onRendered( function() {
             taskId = $(ui.item).data("id");        
             Meteor.call("editTaskCardId",taskId,newCard);
         },
-        update : function(e,ui) {
-            taskId = $(ui.item).data("id");
-            taskIndex = $(ui.item).index();
-            siblings = ui.item.siblings();
-            Meteor.call("assignTaskIndex",taskId,taskIndex);
-            _.each(siblings, function(item) {
-                Meteor.call("assignTaskIndex",$(item).data("id"),$(item).index());
-            });
+        stop : function(e,ui) {
+        taskId = $(ui.item).data("id");
+        taskIndex = $(ui.item).index();
+        siblings = ui.item.siblings();
+        Meteor.call("assignTaskIndex",taskId,taskIndex);
+        _.each(siblings, function(item) {
+            idx = $(item).index();
+            if (idx == taskIndex) {
+                Meteor.call("assignTaskIndex",$(item).data("id"),idx++);
+            } else {
+                Meteor.call("assignTaskIndex",$(item).data("id"),idx);    
+            }
+        });   
         }
     });
     var taskIndex = $(this.firstNode).index();
@@ -35,14 +41,11 @@ Template.task.onRendered( function() {
 });
 
 Template.task.helpers({
-    //se ve que al usar #with, el helper limita su "scope" a los comentarios
     comments: function() {
-        var comments =  Comments.find({task_id:this._id}).fetch();
-        if (comments.length != 0) {
-            commentNumber = comments.length;
-            comment = {number:commentNumber};
-            return comment;
-        }   
+        return Comments.find({task_id:this._id}).fetch();
+    },
+    timeLeft : function() {
+        return "Due " + moment(this).fromNow();
     }
 });
 

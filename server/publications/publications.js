@@ -45,14 +45,14 @@ Meteor.publish('project',function(project_id) {
 	_.each(arrangedCards, function(card) {
 		cardIds.push(card._id);
 	});
-	test_tasks = Tasks.find({'card_id' : { $in: cardIds}},{sort:{taskIndex:1}});
+	test_tasks = Tasks.find({ card_id : { $in: cardIds}},{sort:{taskIndex:1,updatedAt:1}});
 	
 	var taskIds = [];
 	arrangedTasks = test_tasks.fetch();
 	_.each(arrangedTasks, function(task) {
 		taskIds.push(task._id);
 	});
-	tasks_comments = Comments.find({'task_id' : { $in: taskIds}},{sort:{createdAt:1}});
+	tasks_comments = Comments.find({ task_id : { $in: taskIds}},{sort:{createdAt:1}});
 
 	if (isOwner || isMember) {
 		if(curr_project) {
@@ -91,6 +91,17 @@ Meteor.publish('owner',function(projectId) {
 	var owner = Meteor.users.find({_id:project.owner},{fields:{services:0}});
 	if (owner) {
 		return owner;
+	}
+	return this.ready();
+});
+
+Meteor.publish('taskMembers', function(taskId) {
+	check(taskId, String);
+	var task = Tasks.findOne({_id:taskId});
+	var members = Meteor.users.find({_id: { $in: task.members } });
+
+	if (members) {
+		return members;
 	}
 	return this.ready();
 });
@@ -250,6 +261,39 @@ Meteor.methods({
 		Cards.update({_id:cardId}, {$set:{cardIndex:input} } );
 	},
 	//task related
+	addTaskMember : function(taskId,memberName) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(taskId, String);
+		check(memberName, String);
+
+		var member = Accounts.findUserByUsername(memberName);
+		var task = Tasks.findOne({_id:taskId});
+		var memberExists = false;
+
+		_.each(task.members, function(item) {
+			if (item == member._id) {
+				memberExists = true;
+			}
+		});
+
+		if (member && memberExists == false) {
+			Tasks.update({_id:taskId},{$push:{members:member._id}});
+		}
+	},
+	removeTaskMember : function(taskId,memberName) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(taskId, String);
+		check(memberName, String);
+
+		var member = Accounts.findUserByUsername(memberName);
+		if (member) {
+			Tasks.update({_id:taskId},{$pull:{members:member._id}});
+		}
+	},
 	newTask : function(cardId,taskName) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");

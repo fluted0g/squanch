@@ -9,24 +9,24 @@
 		</div>
 		<div class="task_info">
 			{{#with description}}
-				<span title="This task has a description.">
+				<span title="{{this}}">
 					<i class="fa fa-info-circle"></i>
 				</span>
 			{{/with}}
 			{{#with dueDate}}
-				<span title="This task has a deadline date.">
+				<span title="{{timeLeft}}">
 					<i class="fa fa-calendar-times-o"></i>
 				</span>
 			{{/with}}
 			{{#with comments}}
-				<span title="This task has comments.">
+				<span title="Comments.">
 					<i class="fa fa-comments-o"></i>
-					{{number}}
+					{{this.length}}
 				</span>
 			{{/with}}
 			{{#each checkBoxes}}
 				<span title="This task has checkbox lists.">
-					<i class="fa fa-check-square">{{checkedBoxes}}/{{totalBoxes}}</i>
+					<i class="fa fa-check-square"></i>{{checkedBoxes}}/{{totalBoxes}}
 				</span>
 			{{/each}}
 		</div>

@@ -2,10 +2,13 @@ Template.taskManager.onCreated(function() {
 	var instance = this;
 
 	instance.autorun(function() {
-		var projectId = Session.get("projectID");
+		var projectId = Session.get("projectID");		
+        var taskId = Session.get("taskID");
+
 		instance.subscribe('project', projectId);
 		instance.subscribe('owner', projectId);
-		instance.subscribe('members', projectId); 
+		instance.subscribe('members', projectId);
+        instance.subscribe('taskMembers',taskId);
 	});
 });
 
@@ -24,7 +27,19 @@ Template.taskManager.helpers({
 	},
 	comments: function() {
 		return Comments.find({task_id:this._id});
-	}
+	},
+	dueDateDisplay : function() {
+		return moment(this.dueDate).format('LLL');
+	},
+	timeLeft : function() {
+		return moment(this.dueDate).fromNow();
+	},
+    projectMembers: function() {
+        return Meteor.users.find({});
+    },
+    taskMembers : function() {
+    	return Meteor.users.find({_id: { $in: this.members }});
+    }
 });
 
 Template.taskManager.events({
@@ -172,6 +187,17 @@ Template.taskManager.events({
 			$(event.target.editableTaskDescription).replaceWith(viewableText);
 			$("#descButton").hide();
 		}
-		
-	}
+	},
+    'click .projectMember' : function(event) {
+        var taskId = Session.get("taskID");
+        var memberName = this.username;
+
+        Meteor.call("addTaskMember",taskId,memberName);
+    },
+    'click .delete_task_member' : function(event) {
+        var taskId = Session.get("taskID");
+        var memberName = this.username;
+
+        Meteor.call("removeTaskMember",taskId,memberName);
+    }
 });

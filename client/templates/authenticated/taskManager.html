@@ -40,6 +40,22 @@
 									<input type="text" name="commentMsg">
 									<input type="submit" value="Add comment">
 								</form>
+								{{timeLeft}}
+
+								<ul class="projectMemberList">
+									{{#each projectMembers}}
+										<li class="projectMember">{{username}}</li>
+									{{/each}}
+								</ul>
+
+								<ul class="taskMemberList">
+									{{#each taskMembers}}
+										<li class="taskMember">
+											{{username}}
+											<span class="delete_task_member">&times;</span>
+										</li>
+									{{/each}}
+								</ul>
 							</div>
 						</div>
 						<!--task sidebar-->
