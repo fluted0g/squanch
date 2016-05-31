@@ -1,17 +1,20 @@
 <template name="defaultP">	
 	{{#if Template.subscriptionsReady}}
+
+		{{#each project}}
 		<div class="project_info">
 			{{> controlPanel}}
-			{{#each project}}
+			
 			<form class="editableProjectNameForm" name="editableProjectNameForm">
 				<h2 class="editableContentSolid editableProjectName">{{name}}</h2>
 			</form>
-			{{/each}}
 		</div>
-			<ul class="card_manager">
-				{{#each cards}}
-					{{> card}}
-				{{/each}}
+		{{/each}}
+			<ul class="card_manager">				
+					{{#each cards}}
+						{{> card}}
+					{{/each}}	
+				{{#each project}}			
 				<li class="cardInserter">
 					<form class="insert_card">
 						<span class="fake_card_title">
@@ -19,9 +22,10 @@
 						</span>
 						<input type="text" name="card_title" class="card_title hiddenE" placeholder="Insert a card..." autocomplete="off">
 						<input class="submitCard hiddenE btn" type="submit" value="Send">
-						<span class="cancelFormC hiddenE"><i class="fa fa-times-circle"></i></span>
+						<i class="fa fa-times-circle cancelFormC hiddenE"></i>
 					</form>					
 				</li>
+				{{/each}}
 			</ul>
 	{{else}}
 		{{> loading}}

@@ -67,7 +67,7 @@ Template.defaultP.events ({
 		$(".editableContentFluid").val(html);
 		editableText.select();
 	},
-	'blur .editableContentFluid' : function(event) {    	
+	'blur .editableContentFluid' : function(event) {
 		var html = $(event.target).val().trim();    	
 		var viewableText = $("<h2 class='editableContentSolid editableProjectName'></h2>");
 		if (html == "") {

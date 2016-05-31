@@ -6,69 +6,78 @@
 
 			<h4>Control Panel</h4>
 
-            <div class="userList">
-                <h5>Members:</h5>
-                <ul>
-                    {{#each member}}
-                    {{> members}}
-                    {{/each}}
-                </ul>
-            </div>
 
-            <div class="panel-group" id="accordion">
-              <div class="panel panel-default">
-                  <div class="panel-heading">
-                      <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">ADD MEMBERS</a>
-                      </h4>
-                  </div>
-                  <div id="collapseOne" class="panel-collapse collapse">
-                      <div class="panel-body">
-                       {{> searchUser}}
-                   </div>
-               </div>
-           </div>
-           <div class="panel panel-default">
-             <div class="panel-heading">
-                 <h4 class="panel-title">
-                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">ARCHIVE</a>
-                 </h4>
-             </div>
-             <div id="collapseTwo" class="panel-collapse collapse">
-                 <div class="panel-body">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a class="archiveLink" data-toggle="tab" href="#cardList">Cards</a></li>
-                    <li><a class="archiveLink" data-toggle="tab" href="#taskList">Tasks</a></li>
-                </ul>
-                <div class="tab-content">
-                    <ul id="cardList" class="active tab-pane">
-                        {{#each archivedCards}}
-                        <li class="archivedCard">{{name}}</li>
-                        {{/each}}
-                    </ul>
-
-                    <ul id="taskList" class="tab-pane">
-                       {{#each archivedTasks}}
-                       <li class="archivedTask">{{name}}</li>
-                       {{/each}}
-                   </ul>
-                </div>
-
-
-           </div>
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">MEMBERS</a>
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul>
+                {{#each member}}
+                {{> members}}
+                {{/each}}
+              </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">ADD MEMBERS</a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+          <div class="panel-body">
+           {{> searchUser}}
+         </div>
        </div>
+     </div>
+     <div class="panel panel-default">
+       <div class="panel-heading">
+         <h4 class="panel-title">
+           <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">ARCHIVE</a>
+           <i class="fa fa-info-circle" title="Click on archived element to unarchive it."></i>
+         </h4>
+       </div>
+       <div id="collapseThree" class="panel-collapse collapse">
+         <div class="panel-body scrollbar-outer">
+          <ul class="nav nav-tabs">
+            <li class="active"><a class="archiveLink" data-toggle="tab" href="#cardList">Cards</a></li>
+            <li><a class="archiveLink" data-toggle="tab" href="#taskList">Tasks</a></li>
+          </ul>
+          <div class="tab-content">
+            <ul id="cardList" class="active tab-pane">
+              {{#each archivedCards}}
+              <li class="archivedCard">{{name}}</li>
+              {{/each}}
+            </ul>
+
+            <ul id="taskList" class="tab-pane">
+             {{#each archivedTasks}}
+             <li class="archivedTask">{{name}}</li>
+             {{/each}}
+           </ul>
+         </div>
+
+
+       </div>
+     </div>
    </div>
    <div class="panel panel-default">
-       <div class="panel-heading">
-        <h4 class="panel-title">
-         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">SETTINGS</a>
+     <div class="panel-heading">
+      <h4 class="panel-title">
+       <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">SETTINGS</a>
      </h4>
- </div>
- <div id="collapseThree" class="panel-collapse collapse">
-    <div class="panel-body">
-       <span class="deleteProject">Delete project</span>
    </div>
-</div>
+   <div id="collapseFour" class="panel-collapse collapse">
+    <div class="panel-body">
+     <span class="deleteProject">Delete project</span>
+   </div>
+ </div>
 </div>
 </div>
 </div>

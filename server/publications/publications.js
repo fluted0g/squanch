@@ -33,13 +33,14 @@ Meteor.publish('project',function(project_id) {
 	curr_project = Projects.find({_id: project_id });
 	project_cards = Cards.find({project_id: project_id},{sort:{cardIndex:1}});
 	//check user is member or owner
+	var fetchedProject = Projects.findOne({_id: project_id });
 	var isOwner;
-	if (curr_project.owner == this.userId) {
+	if (fetchedProject.owner == this.userId) {
 		isOwner = true;
 	} else {
 		isOwner = false;
 	}
-	var isMember = Meteor.users.find({ _id:this.userId , projects_ids: {$in : project_id} });
+	var isMember = Meteor.users.findOne({ _id:this.userId , project_ids: project_id});
 	var cardIds = [];
 	arrangedCards = project_cards.fetch();
 	_.each(arrangedCards, function(card) {
@@ -53,7 +54,6 @@ Meteor.publish('project',function(project_id) {
 		taskIds.push(task._id);
 	});
 	tasks_comments = Comments.find({ task_id : { $in: taskIds}},{sort:{createdAt:1}});
-
 	if (isOwner || isMember) {
 		if(curr_project) {
 			return [
@@ -63,6 +63,8 @@ Meteor.publish('project',function(project_id) {
 			tasks_comments
 			];
 		}
+	} else {
+		throw new Meteor.error("not-authorized");
 	}
 	return this.ready();
 });
@@ -98,9 +100,8 @@ Meteor.publish('owner',function(projectId) {
 Meteor.publish('taskMembers', function(taskId) {
 	check(taskId, String);
 	var task = Tasks.findOne({_id:taskId});
-	var members = Meteor.users.find({_id: { $in: task.members } });
-
-	if (members) {
+	if (task.members) {
+		var members = Meteor.users.find({_id: { $in: task.members } });
 		return members;
 	}
 	return this.ready();
@@ -140,15 +141,16 @@ Meteor.methods({
 		if (!member) {
 			member = Accounts.findUserByEmail(nameOrMail);
 		}
-		var isOwner = Projects.findOne({_id:projectId,owner:member._id});
+		var isOwner = Projects.findOne({_id:projectId, owner:member._id});
 		if (Meteor.userId() == member._id) {
 			var isSelf = true;
 		}
+
 		if (!isOwner || !isSelf) {
 			Meteor.users.update({_id : member._id },{ $pull : { project_ids : { $in : [projectId]}} });
 		} else {
 			throw new Meteor.error("invalid-target");
-		}	
+		}
 	},
 	isUser : function(nameOrMail) {
 		if (! Meteor.userId()) {
@@ -164,6 +166,29 @@ Meteor.methods({
 		} else if (!member) {
 			throw new Meteor.error("user-not-exists");
 		}
+	},
+	changeUsername : function(nameOrMail,newUsername) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(nameOrMail, String);
+		check(newUsername, String);
+
+		var member = Accounts.findUserByUsername(nameOrMail);
+		if (!member) {
+			member = Accounts.findUserByEmail(nameOrMail);
+		}
+
+		if (!member) {
+			throw new Meteor.error("not-found");
+		}
+
+		if (member._id == Meteor.user()._id) {
+			Meteor.users.update({_id:member._id}, {$set:{username:newUsername}});
+		} else {
+			throw new Meteor.error("not-authorized");
+		}
+
 	},
 	//project related
 	newProject : function(name,description,proj_type,theme) {

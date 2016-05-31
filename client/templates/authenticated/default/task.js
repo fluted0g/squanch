@@ -46,6 +46,11 @@ Template.task.helpers({
     },
     timeLeft : function() {
         return "Due " + moment(this).fromNow();
+    },
+    label : function() {
+        if (this.label != "default") {
+            return this.label;
+        }
     }
 });
 

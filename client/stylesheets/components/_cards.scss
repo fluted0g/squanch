@@ -24,9 +24,9 @@ ul {
 	float: left;
 	margin: 0.15em;
   margin-top: 0.3em;
-	padding: 0.7em;
+  padding: 0.7em;
   padding-top: 1em;
-  width: 20em;
+  width: 22em;
   height: 100%;
   border: 2px solid $darkerYellow;
   border-radius: 10px;
@@ -44,11 +44,11 @@ ul {
   display: inline-flex;
   cursor: pointer;
   i {
-    color: $lighterYellow;
+    color: $textColor;
     font-size: 2em;
 
     &:hover {
-      color: $lightYellow;
+      color: darken($textColor,15%);
     }
   }
 }
@@ -59,48 +59,93 @@ ul {
 }
 
 .activeT {
-  background-color: $mainYellow;
-  border: 2px solid $darkYellow;
+  background-color: $lightYellow;
+  border: 2px solid $mainYellow;
 }
 
 .fake_task_title {
   border-radius: 3px;
+  border: none;
   margin: 0.2em;
   padding: 0.2em;
-  width: 98%;
+  width: 99%;
   height: 2.5em;
   display: inline-block;
-  background-color: lighten($darkYellow,10%);
+  background-color: $darkYellow;
   text-align: left;
+
   span {
     display: inline-block;
+    vertical-align: sub;
   }
   &:hover {
-    background-color: tint($darkYellow,15%);
+    background-color: lighten($darkYellow,10%);
   }
 }
 
 .task_title {
-  background-color: lighten($darkYellow,10%);
-  border:none;
+  background-color: lighten($darkYellow,5%);
+  border: none;
   margin: 0.2em;
   padding: 0.2em;
   display: inline-block;
   border-radius: 3px;
   width: 98%;
   height: 2.5em;
-  outline-color: $darkYellow;
+  outline-style: none;
+  /*outline-color: $darkYellow;*/
   &:hover {
-    background-color: tint($darkYellow,15%);
+    background-color: lighten($darkYellow,10%);
   }
   &:focus {
     border: none;
   }
 }
 
+.insert_task {
+  padding:5px;
+  padding-top:2px;
+  box-sizing: content-box;
+  i {
+    font-size: 2.2em;
+    vertical-align: middle;
+    padding-bottom:3%;
+  }
+
+  .btn {
+    background-color: $gray-lighter;
+    color: #111;
+    margin-right:1.5em;
+    padding: 2% 5%;
+
+    &:hover {
+      background-color: lighten($gray-lighter,5%);
+    }
+  }
+
+  input {
+    margin-bottom: 3%;
+  }
+
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+      color:    $textColor;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+     color:    $textColor;
+     opacity:  1;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+     color:    $textColor;
+     opacity:  1;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+     color:    $textColor;
+  }
+
+}
+
 .cancelFormT {
-  color: #111;
-  font-size: 3em;
+  color: $textColor;
   cursor: pointer;
 }
 

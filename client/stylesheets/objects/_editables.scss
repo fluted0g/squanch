@@ -1,0 +1,201 @@
+@import "../tools/palette";
+
+/* project name */
+.project_info .editableContentSolid {
+
+	background-color: $lightYellow;
+	color: $textColor;
+
+	border-radius:5px;
+	width: 100%;
+	height:2.5em;
+	padding: 5px;
+	margin: 5px;
+	font-size: 1.8em;
+
+	line-height: 2.05;
+
+	&:hover {
+		background-color: $lighterYellow;
+	}
+}
+
+.project_info .editableContentFluid {
+
+	background-color: $lightYellow;
+	color: $textColor;
+
+	border-radius:5px;
+	width:100%;
+	height:2.5em;
+	padding: 5px;
+	margin: 5px;
+	font-size: 1.8em;
+
+	outline-style: none;
+	border: none;
+
+	&:hover {
+		background-color: $lighterYellow;
+	}
+}
+
+/* card title */
+
+.card_body .editableContentSolid {
+
+	background-color: $mainYellow;
+	color: $textColor;
+
+	border-radius:5px;
+	width: 85%;
+	height:1.6em;
+	padding: 3px;
+	margin: 3px;
+	font-size: 1.4em;
+
+	line-height: 1.5;
+
+	&:hover {
+		background-color: $lightYellow;
+	}
+}
+
+.card_body .editableContentFluid {
+
+	background-color: $lightYellow;
+	color: $textColor;
+
+	border-radius:5px;
+	width:85%;
+	height:1.6em;
+	padding: 3px;
+	margin: 3px;
+	font-size: 1.4em;
+
+	outline-style: none;
+	border: none;
+
+	&:hover {
+		background-color: $lighterYellow;
+	}
+}
+
+/* task title */
+
+.modal-header .editableContentSolid {
+
+	background-color: $textColor;
+	color: #111;
+
+	word-wrap: break-word;
+
+	border-radius:5px;
+	width: 90%;
+	height:1.5em;
+	padding: 7px;
+	margin: 7px;
+	font-size: 1.6em;
+
+	line-height: 1;
+
+	&:hover {
+		background-color: darken($textColor,15%);
+	}
+}
+
+.modal-header .editableContentFluid {
+
+	background-color: darken($textColor,15%);
+	color: #111;
+
+	border-radius:5px;
+	width:90%;
+	height:1.5em;
+	padding: 7px;
+	margin: 7px;
+	font-size: 1.6em;
+
+	outline-style: none;
+	border: none;
+
+	&:hover {
+		background-color: darken($textColor,25%);
+	}
+}
+
+/* task description */
+
+.modal-body .editableContentSolid {
+
+	background-color: $textColor;
+	color: #111;
+
+	border-radius:5px;
+	width: 100%;
+	height:1.5em;
+	padding: 3px;
+	margin: 3px;
+	font-size: 1em;
+
+	line-height: 1;
+
+	&:hover {
+		background-color: darken($textColor,15%);
+	}
+}
+
+.modal-body .editableContentFluid {
+
+	background-color: darken($textColor,15%);
+	color: #111;
+
+	border-radius:5px;
+	width:100%;
+	height:4em;
+	padding: 3px;
+	margin: 3px;
+	font-size: 1em;
+
+	outline-style: none;
+	border: none;
+
+	&:hover {
+		background-color: darken($textColor,25%);
+	}
+}
+
+/* profile name */
+
+.profile_info .editableContentSolid {
+
+	background-color: $lightYellow;
+	color: $textColor;
+
+	border-radius:5px;
+	height:1.5em;
+	padding: 3px;
+	margin: 3px;
+	font-size: 1em;
+
+	line-height: 1.7;
+
+	&:hover {
+		background-color: $lighterYellow;
+	}
+}
+
+.profile_info .editableContentFluid {
+
+	background-color: $lighterYellow;
+	color: $textColor;
+
+	border-radius:5px;
+	height:1.5em;
+	padding: 3px;
+	margin: 3px;
+	font-size: 1em;
+
+	outline-style: none;
+	border: none;
+}

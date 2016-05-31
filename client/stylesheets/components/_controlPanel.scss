@@ -29,6 +29,8 @@ ul {
 	text-align: center;
 	border-bottom-right-radius: 4px;
 	border-top-right-radius: 4px;
+	cursor: pointer;
+
 	h5 {
 		transform: rotate(90deg);
 		margin-top: 16px;
@@ -57,12 +59,6 @@ ul {
 	}
 }
 
-.userList {
-	background-color: lighten($gray-light,20%);
-	border-radius: 3px;
-	text-align: left;
-}
-
 #accordion {
 	text-align: left;
 }
@@ -81,4 +77,16 @@ ul {
 
 .archiveLink {
 	color: $gray-base;
+}
+
+.panel-title {
+	i {
+		font-size:1.4em;
+		float:right;
+		line-height: 18px;
+	}
+}
+
+.slimScrollDiv {
+	width:100%;
 }

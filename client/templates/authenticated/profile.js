@@ -32,14 +32,13 @@ Template.profile.events({
             $(event.target).replaceWith(viewableText);
         } else {
             viewableText.html(html);
-            Meteor.call("isUser",html, function(error,result) {
-                if(error) {
-                    Meteor.users.update({_id:Meteor.user()._id}, {$set:{username:html}});
-                    $(event.target).replaceWith(viewableText);
-                } else {
+            Meteor.call("changeUsername",Meteor.user().username, html, function(error,success){
+                if (error) {
                     Bert.alert("Name already in use","warning");
                     viewableText.html(Meteor.user().username);
-                    $(event.target).replaceWith(viewableText);         
+                    $(event.target).replaceWith(viewableText);
+                } else {
+                    $(event.target).replaceWith(viewableText);
                 }
             });
         }

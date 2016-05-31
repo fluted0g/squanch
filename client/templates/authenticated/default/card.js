@@ -27,6 +27,7 @@ Template.card.onRendered( function() {
     var cardIndex = $(this.firstNode).index();
     var cardId = $(this.firstNode).data("id");
     Meteor.call("assignCardIndex",cardId,cardIndex);
+    //$('.scrollbar-card').slimScroll();
 });
 
 Template.card.helpers ({
@@ -93,10 +94,6 @@ Template.card.events ({
 "click .archiveCard" : function(event) {
     Meteor.call("toggleStatus","card",this._id);
 },
-"click .tellMeIndex" : function(event) {
-    var listItem = document.getElementById( this._id );
-    console.log($(".card_frame").index(listItem));
-},
 'click .moveTasks' : function(event) {
     Session.set("cardID",this._id);
     var targetMenu = $(".cardList[data-id="+ this._id +"]");
@@ -111,7 +108,6 @@ Template.card.events ({
 'click .cardInList' : function(event) {
     var parentCard = Session.get("cardID");
     var targetCard = $(event.target).data("id");
-
     Meteor.call("moveAllTasks",parentCard,targetCard);
     var targetMenu = $(".cardMenu[data-id="+ parentCard +"]");
     targetMenu.fadeToggle();
@@ -125,22 +121,18 @@ Template.card.events ({
     targetMenu.css("display","none");
 },
 'click .editableContentSolid' : function(event) {
-    event.stopImmediatePropagation();
+    //event.stopImmediatePropagation();
     var html = $(event.target).text().trim();
     var editableText = 
     $("<input class='editableContentFluid editableCardName' name='editableCardName' type='text' placeholder='"+html+"'>");
     editableText.val(html);
     $(event.target).replaceWith(editableText);
-
     $(".editableContentFluid").val(html);
     editableText.select();
 },
-'blur .editableContentFluid' : function(event) {     
-    event.preventDefault();
-
+'blur .editableContentFluid' : function(event) {
     var html = $(event.target).val().trim();        
     var viewableText = $("<h3 class='editableContentSolid editableCardName'></h3>");
-
     if (html == "") {
         viewableText.html(this.name);
         $(event.target).replaceWith(viewableText);
@@ -152,10 +144,8 @@ Template.card.events ({
 },
 'submit .editableCardNameForm' : function(event) {
     event.preventDefault(); 
-
     var html = $(event.target.editableCardName).val().trim();
     var viewableText = $("<h4 class='editableContentSolid editableTaskName'></h4>");
-
     if (html == "") {
         viewableText.html(this.name);
         $(event.target.editableCardName).replaceWith(viewableText);

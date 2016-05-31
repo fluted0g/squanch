@@ -9,8 +9,7 @@
 				</span>
 			</form>
 			<div class="clearDiv"></div>
-			<ul class="task_manager" data-id="{{_id}}">
-				<!--<li class="task_frame task_placeholder"></li>-->
+			<ul class="task_manager scrollbar-card" data-id="{{_id}}">
 				{{#each tasks}}
 					{{> task}}
 				{{/each}}				
@@ -23,9 +22,7 @@
 					</span>
 					<input type="text" name="task_title" class="task_title hiddenE" data-id="{{_id}}" placeholder="Insert a task..." autocomplete="off">
 					<input class="submitTask hiddenE btn" data-id="{{_id}}" type="submit" value="Send">
-					<span class="cancelFormT hiddenE" data-id="{{_id}}">
-						<i class="fa fa-times-circle"></i>
-					</span>
+					<i class="fa fa-times-circle cancelFormT hiddenE" data-id="{{_id}}"></i>
 				</form>					
 			</div>
 

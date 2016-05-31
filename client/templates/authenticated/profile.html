@@ -1,7 +1,7 @@
 <template name="profile">
   <h3>Your Profile</h3>
 
-  <div>
+  <div class="profile_info">
     {{#with userProfile}}
     	<p><span>Name: </span> <span class="editableContentSolid" id="editableProfileName"> {{username}}{{#unless username}}No name!!!{{/unless}}</span></p>
     	<p><span>eMail: </span> <span>{{emails.[0].address}}</span></p>

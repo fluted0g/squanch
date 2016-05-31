@@ -32,7 +32,7 @@ body {
 
 .cardInserter {
 	border-radius:5px;
-	height: 8em;
+	height: 6.5em;
 	width: 20em;
 	text-align: center;
 }
@@ -40,19 +40,59 @@ body {
 .activeC {
 	background-color: $mainYellow;
 	border: 2px solid $darkYellow;
+	margin-top: 5px;
 }
 
 .insert_card {
-	
+  padding:5px;
+  padding-top:2px;
+  box-sizing: content-box;
+
+  i {
+    font-size: 2.2em;
+    vertical-align: middle;
+    padding-bottom:3%;
+  }
+
+  .btn {
+    background-color: $gray-lighter;
+    color: #111;
+    margin-right:1.5em;
+    padding: 2% 5%;
+
+    &:hover {
+      background-color: lighten($gray-lighter,5%);
+    }
+  }
+
+  input {
+    margin-bottom: 3%;
+  }
+
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+      color:    $textColor;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+     color:    $textColor;
+     opacity:  1;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+     color:    $textColor;
+     opacity:  1;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+     color:    $textColor;
+  }
 }
+
 .fake_card_title {
 	display: inline-block;
 	background-color: lighten($darkYellow,10%);
 	border-radius: 3px;
 	width: 19em;
-	height: 2.5em;
+	height: 2.6em;
 	text-align: left;
-	margin-top: 5px;
+	margin-top: 4%;
 
 	span {
 		display: inline-block;
@@ -60,9 +100,10 @@ body {
 	}
 
 	&:hover {
-		background-color: lighten($darkYellow,15%);
+		background-color: lighten($darkYellow,17%);
 	}
 }
+
 .card_title {
 	background-color: lighten($darkYellow,10%);
 	border:none;
@@ -70,7 +111,8 @@ body {
 	width: 19em;
 	height: 2.5em;
 	outline-color: $darkYellow;
-	margin-top: 4px;
+	margin-top: 0.2em;
+	margin-bottom: 0.4em;
 
 	&:hover {
 		background-color: lighten($darkYellow,15%);
@@ -82,8 +124,7 @@ body {
 }
 
 .cancelFormC {
-	color: #111;
-	font-size: 3em;
+	color: $textColor;
 	cursor: pointer;
 }
 

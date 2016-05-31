@@ -6,6 +6,11 @@ Template.controlPanel.onCreated(function() {
 });
 
 Template.controlPanel.onRendered(function() {
+	$('.scrollbar-outer').slimScroll();
+});
+
+$(document).ready(function(){
+    
 });
 
 Template.controlPanel.helpers ({
