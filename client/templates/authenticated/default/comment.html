@@ -1,10 +1,21 @@
 <template name="comment">
+	<div class="comment_container">
 
-<p>{{text}}</p>
-	{{#with authorship}}
-	<span>{{username}}</span>
-	{{/with}}
-	<span>{{showDate}}</span>
-	<span class="edit_comment">Edit</span>
-	<span class="delete_comment">Delete</span>
+		<span class="comment_text is_span" data-id="{{_id}}">{{text}}</span>
+
+		<div class="comment_clear"></div>
+		{{#with authorship}}
+		<span class="comment_author">By: {{username}} </span>
+		{{/with}}
+		<span class="comment_date"> {{showDate}} </span>
+		<div class="comment_clear"></div>
+		
+		{{#with isAuthor}}
+			<form class="comment_edition">
+				<span class="toggle_edition btn">Edit</span>
+			</form>
+			<span class="delete_comment btn">Delete</span>
+		{{/with}}
+
+	</div>
 </template>

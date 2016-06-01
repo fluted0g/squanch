@@ -7,7 +7,7 @@
   display: inline-flex;
   flex-direction: column;
   overflow: auto;
-  max-height: 360px;
+  max-height: 335px;
   list-style: none;
 }
 
@@ -55,13 +55,38 @@
 
 .task_info {
 	margin: 3px;
+
+	i {
+		font-size: 1.4em;
+	}
 }
 
 .ghostTask {
 	margin: 0.2em;
-	padding: 0.2em;
+	padding: 0.4em;
 	border-radius: 7px;
-	width: 98%;
 	height: 2.5em;
 	background-color: $darkYellow;
+}
+
+/* date info classes*/
+
+.dateHandler {
+	padding:0.5px;
+}
+
+.due {
+	color: red;
+}
+
+.lt-week-left {
+	color: orange;
+}
+
+.gt-week-left {
+	color: yellow;
+}
+
+.no-rush {
+	color: $textColor;
 }

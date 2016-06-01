@@ -17,17 +17,23 @@
 			{{/with}}
 			{{#with dueDate}}
 				<span title="{{timeLeft}}">
-					<i class="fa fa-calendar-times-o"></i>
+					<i class="fa fa-calendar-times-o dateHandler {{colorDate}}"></i>
 				</span>
 			{{/with}}
 			{{#with comments}}
-				<span title="Comments.">
+				<span title="Task has {{this.length}} comments">
 					<i class="fa fa-comments-o"></i>
 					{{this.length}}
 				</span>
 			{{/with}}
+			{{#with members}}
+				<span title="Task has {{this.length}} assigned members">
+					<i class="fa fa-user"></i>
+					{{this.length}}
+				</span>
+			{{/with}}
 			{{#each checkBoxes}}
-				<span title="This task has checkbox lists.">
+				<span title="This task has checkbox lists">
 					<i class="fa fa-check-square"></i>{{checkedBoxes}}/{{totalBoxes}}
 				</span>
 			{{/each}}

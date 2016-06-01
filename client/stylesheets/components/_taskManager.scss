@@ -1,5 +1,8 @@
 @import "../tools/palette";
 
+.editableTaskNameForm {
+	display:flex;
+}
 
 #modalTask {
 	color: #111;
@@ -9,10 +12,84 @@
 }
 
 .task_content {
-	
+
+	.btn {
+		background-color: darken($gray-lighter,5%);
+		border: 1px solid darken($gray-lighter,15%);
+		border-radius: 4px;
+		margin: 4px;
+	}
+
+	h5 {
+		font-weight: bold;
+	}
+	.description_box {
+		margin: 3px 6px;
+	}
+	.comments_box {
+		margin: 3px 6px;
+		h5 {
+			float: left;
+			clear: both;
+		}
+		.new_comment {
+			background-color: $gray-lighter;
+			border-radius: 4px;
+			display: inline-block;
+			width: 100%;
+			padding: 8px 4px;
+			clear: both;
+			.comment_input {
+				float: left;
+
+				border: 1px solid darken($gray-lighter,15%);
+				border-radius: 5px;
+				background-color: lighten($gray-lighter,3%);
+			}
+			.comment_submit {
+				margin: 5px 25px;
+				float: left;
+			}
+		}
+	}
 }
 
 .task_tools {
-	
+	padding: 0;
+	.panel-group .panel {
+		margin-top: 1px;
+	}
 }
 
+#collapseTaskOne .panel-body {
+	padding: 0;
+}
+
+.projectMemberList {
+	width: 100%;
+	margin: 0;
+	padding: 3px;
+	.projectMember {
+		width: 99%;
+		margin: 1px;
+		padding: 3px;
+		border: 1px solid darken($gray-lighter,15%);
+		border-radius: 5px;
+		background-color: darken($gray-lighter,3%);
+
+		i {
+			font-size: 1.5em;
+		}
+	}
+}
+.member_buttons {
+	display: inline-block;
+	float: right;
+}
+.isMember {
+	color: green;
+}
+
+.isNotMember {
+	color: red;
+}

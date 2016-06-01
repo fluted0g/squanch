@@ -1,2 +1,54 @@
 @import "../tools/palette";
 
+.comment_container{
+	background-color: $gray-lighter;
+	border-radius: 4px;
+	display: inline-block;
+	width: 100%;
+	padding: 8px 4px;
+	clear: both;
+}
+.comment_text,.comment_author,.comment_date {
+	float: left;
+}
+.comment_clear {
+	clear: both;
+}
+.is_span {
+		white-space: pre-wrap;
+		word-wrap: break-word;
+		display: inline-block;
+		width: 100%;
+		padding: 8px;
+		border: 1px solid darken($gray-lighter,10%);
+		border-radius: 5px;
+		background-color: lighten($gray-lighter,3%);
+}
+
+.is_textarea {
+		display: inline-block;
+		width: 100%;
+
+		outline-style: none;
+
+		border: 1px solid darken($gray-lighter,10%);
+		border-radius: 5px;
+		background-color: lighten($gray-lighter,3%);
+}
+
+.comment_author {margin-right: 6px;}
+.comment_date {}
+
+.toggle_edition, .delete_comment {
+	float: left;
+}
+/*
+.toggle_edition, .delete_comment {
+	margin: 2px;
+	padding: 4px 12px;
+	background-color: darken($gray-lighter,7%);
+	border-radius: 3px;
+	cursor: pointer;
+	float: left;
+}
+*/

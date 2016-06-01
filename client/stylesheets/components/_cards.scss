@@ -39,20 +39,6 @@ ul {
 
 }
 
-.cardOptions {
-  float: right;
-  display: inline-flex;
-  cursor: pointer;
-  i {
-    color: $textColor;
-    font-size: 2em;
-
-    &:hover {
-      color: darken($textColor,15%);
-    }
-  }
-}
-
 .taskInserter {
   border-radius:5px;
   text-align: center;
@@ -155,7 +141,7 @@ ul {
 
 .ghostCard {
   height: 2.5em;
-  width: 20em;
+  width: 22em;
   background-color: $mainYellow;
   border-radius: 10px;
   margin: 0.15em;
@@ -166,27 +152,42 @@ ul {
   clear: both;
 }
 
+.cardOptions {
+  float: right;
+  display: inline-flex;
+  cursor: pointer;
+  i {
+    color: $textColor;
+    font-size: 2em;
+
+    &:hover {
+      color: darken($textColor,15%);
+    }
+  }
+}
+
 .cardMenu {
   position: absolute;
   left: 100%;
   top: 0;
   max-width: 100%;
-  width: 7em;
-  background-color: #bbb;
-  border-radius: 5px;
-  color: #fff;
+  min-width: 7em;
+  /*background-color: $darkYellow;
+  border-radius: 5px;*/
+  color: $textColor;
   z-index: 100;
-  padding: 1px;
+  padding: 0.5px;
   display: none;
 
   li {
-    background-color: #111;
-    border-radius: 5px;
-    padding: 3px;
-    margin: 0.1em;
+    border: 2px solid darken($darkYellow,10%);
+    background-color: $mainYellow;
+    border-radius: 3px;
+    padding: 4px 3px;
+    margin: 0;
     cursor: pointer;
     &:hover {
-      background-color:#777;
+      background-color:$lightYellow;
     }
   }
 }
@@ -196,11 +197,27 @@ ul {
 }
 
 .cardList {
-  display:none;
-  background-color:black;
-  border-radius: 5px;
-  color: white;
   position: absolute;
   left: 100%;
-  top:0;
+  top:-3.5px;
+  max-width:100%;
+  min-width: 7em;
+  /*background-color:$darkYellow;
+  border-radius: 5px;*/
+  color: $textColor;
+  padding:0.5px;
+  display:none;
+
+  li {
+    border: 2px solid darken($darkYellow,10%);
+    background-color: $mainYellow;
+    border-radius: 3px;
+    padding: 4px;
+    margin:0;
+    cursor: pointer;
+    word-wrap: break-word;
+    &:hover {
+      background-color:$lightYellow;
+    }
+  }
 }

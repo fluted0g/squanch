@@ -47,6 +47,26 @@ Template.task.helpers({
     timeLeft : function() {
         return "Due " + moment(this).fromNow();
     },
+    colorDate : function() {
+        //classes = ['due','lt-week-left','gt-week-left','no-rush'];
+        
+        dueDate = moment(this);
+        now = moment();
+        timeToDate = dueDate.diff(now,'days',true);
+        console.log(timeToDate);
+        
+        if (timeToDate < 0 ) {
+            dateClass ="due";
+        } else if ( timeToDate > 0 &&  timeToDate < 8 ) {
+            dateClass ="lt-week-left";
+        } else if ( timeToDate > 8 &&  timeToDate < 30 ) {
+            dateClass ="gt-week-left";
+        } else {
+            dateClass ="no-rush";
+        }
+        console.log(dateClass);
+        return dateClass;
+    },
     label : function() {
         if (this.label != "default") {
             return this.label;

@@ -38,7 +38,21 @@ Template.taskManager.helpers({
         return Meteor.users.find({});
     },
     taskMembers : function() {
-    	return Meteor.users.find({_id: { $in: this.members }});
+    	if (this.members) {
+    		return Meteor.users.find({_id: { $in: this.members }});
+    	}
+    },
+    isMember : function() {
+    	var isMember = false;
+    	var memberId = this._id;
+    	var taskId = Session.get("taskID");
+    	var task =  Tasks.findOne({_id: taskId});
+    	_.each (task.members, function(item) {
+    		if (item == memberId) {
+    			isMember = true;
+    		}
+    	});
+    	return isMember;
     }
 });
 
@@ -82,7 +96,6 @@ Template.taskManager.events({
 	},
 	"submit .set_name" : function(event) {
 		event.preventDefault();
-		console.log(this._id);
 		var newName = event.target.editName.value;
 		Meteor.call("editTaskName",this._id,newName);
 	},
@@ -103,6 +116,7 @@ Template.taskManager.events({
 		var commentMsg = event.target.commentMsg.value;
 		var author = Meteor.user().username;
 		Meteor.call("newComment",taskId,commentMsg,author);
+		event.target.commentMsg.value = "";
 	},
 	'click .editableContentSolid' : function(event) {
 		var html = $(event.target).text().trim();
@@ -188,16 +202,14 @@ Template.taskManager.events({
 			$("#descButton").hide();
 		}
 	},
-    'click .projectMember' : function(event) {
+    'click .add_task_member' : function(event) {
         var taskId = Session.get("taskID");
         var memberName = this.username;
-
         Meteor.call("addTaskMember",taskId,memberName);
     },
     'click .delete_task_member' : function(event) {
         var taskId = Session.get("taskID");
         var memberName = this.username;
-
         Meteor.call("removeTaskMember",taskId,memberName);
     }
 });

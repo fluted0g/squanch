@@ -17,99 +17,165 @@
 				<div class="container modal-body">
 					<div class="row">
 						<!--task body-->
-						<div class="col-md-8 task_content">
+						<div class="col-md-9 task_content">
 							<div class="row">
 								<!-- Change description -->
-								<form class="editableTaskDescriptionForm" name="editableTaskDescriptionForm">
-								<span class="editableContentSolid editableTaskDescription">
-									
-									{{#unless description}}
-										Task has no description.
-									{{else}}
-										{{description}}
-									{{/unless}}
+								<div class="description_box">
+									<h5>Description:</h5>
+									<form class="editableTaskDescriptionForm" name="editableTaskDescriptionForm">
+										<span class="editableContentSolid editableTaskDescription">
 
-								</span>
-								<input type="submit" value="Send" id="descButton">
-								</form>
+											{{#unless description}}
+												Task has no description.
+											{{else}}
+												{{description}}
+											{{/unless}}
 
-								{{#each comments}}
-								{{> comment}}
-								{{/each}}
-								<form class="new_comment">
-									<input type="text" name="commentMsg">
-									<input type="submit" value="Add comment">
-								</form>
-								{{timeLeft}}
+										</span>
+										<input class="btn" type="submit" value="Send" id="descButton">
+									</form>
+								</div>
+								<div class="comments_box">
+									<h5>New Comment:</h5>
+									<form class="new_comment">
+										<textarea rows='2' cols='50' class='comment_input' name='commentMsg' type='text'></textarea>
+										<input class="comment_submit btn" type="submit" value="Send">
+									</form>
 
-								<ul class="projectMemberList">
-									{{#each projectMembers}}
-										<li class="projectMember">{{username}}</li>
+									<h5>Comments:</h5>
+									{{#each comments}}
+										{{> comment}}
 									{{/each}}
-								</ul>
-
-								<ul class="taskMemberList">
-									{{#each taskMembers}}
-										<li class="taskMember">
-											{{username}}
-											<span class="delete_task_member">&times;</span>
-										</li>
-									{{/each}}
-								</ul>
+								</div>
 							</div>
 						</div>
 						<!--task sidebar-->
-						<div class="col-md-4 task_tools">
-							<!-- Change label color -->
-							<form class="set_label">
-								<label for="editLabel">Change Label: 
-									<select name="editLabel">
-										<option>Red</option>
-										<option>Green</option>
-										<option>Blue</option>
-										<option>Yellow</option>
-										<option>Orange</option>
-										<option>Purple</option>
-									</select>	
-								</label> 
-								<span>{{label}}</span>
-								<input type="submit" value="Set">
-							</form>
+						<div class="col-md-3 task_tools">
 
-							<!-- Set due date -->
-							<form>
-								<div class="input-group datetimepicker" id="picker-dueDate">
-									<span class="input-group-addon">
-										<i class="glyphicon glyphicon-calendar"></i>
-									</span>
-									<input class="set-due-date form-control" type="text"/>		
+							<div class="panel-group" id="accordion">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion" href="#collapseTaskOne">MEMBERS</a>
+										</h4>
+									</div>
+									<div id="collapseTaskOne" class="panel-collapse collapse">
+										<div class="panel-body">
+											<ul class="projectMemberList">
+												{{#each projectMembers}}
+												<li class="projectMember">
+													{{username}}
+													<div class="member_buttons">
+														<i class="fa fa-check-circle {{#unless isMember}}add_task_member{{/unless}} {{#if isMember}}isMember{{/if}}"></i>
+														<i class="fa fa-times-circle {{#if isMember}}delete_task_member{{/if}} {{#unless isMember}}isNotMember{{/unless}}"></i>
+													</div>
+												</li>
+												{{/each}}
+											</ul>
+										</div>
+									</div>
 								</div>
-								<input class="dateSetter" type="submit" value="Set Date"/>
-							</form>
-							<!-- Move task -->
-							<form class="taskMover">
-								<label for="moveTask">Available cards:
-									<select class="moveTask" name="moveTask">
-										{{#each cards}}
-										<option data-id="{{_id}}">{{name}}</option>
-										{{/each}}
-									</select>
-								</label>
-								<input type="submit" value="Move">
-							</form>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion" href="#collapseTaskTwo">LABELS</a>
+										</h4>
+									</div>
+									<div id="collapseTaskTwo" class="panel-collapse collapse">
+										<div class="panel-body">
+											
+											<!-- Change label color -->
+											<form class="set_label">
+												<label for="editLabel">Change Label: 
+													<select name="editLabel">
+														<option>Red</option>
+														<option>Green</option>
+														<option>Blue</option>
+														<option>Yellow</option>
+														<option>Orange</option>
+														<option>Purple</option>
+													</select>	
+												</label> 
+												<span>{{label}}</span>
+												<input type="submit" value="Set">
+											</form>
 
-							<!-- Archive task -->
-							<button type="button" class ="archiveTask">Archive this task</button>
-						</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion" href="#collapseTaskThree">DUE DATE</a>
+										</h4>
+									</div>
+									<div id="collapseTaskThree" class="panel-collapse collapse">
+										<div class="panel-body">
+											
+											<!-- Set due date -->
+											<form>
+												<div class="input-group datetimepicker" id="picker-dueDate">
+													<span class="input-group-addon">
+														<i class="glyphicon glyphicon-calendar"></i>
+													</span>
+													<input class="set-due-date form-control" type="text"/>		
+												</div>
+												<input class="dateSetter" type="submit" value="Set Date"/>
+											</form>
+											
+											{{timeLeft}}
 
-					</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion" href="#collapseTaskFour">MOVE</a>
+										</h4>
+									</div>
+									<div id="collapseTaskFour" class="panel-collapse collapse">
+										<div class="panel-body">
+											
+											<!-- Move task -->
+											<form class="taskMover">
+												<label for="moveTask">Available cards:
+													<select class="moveTask" name="moveTask">
+														{{#each cards}}
+														<option data-id="{{_id}}">{{name}}</option>
+														{{/each}}
+													</select>
+												</label>
+												<input type="submit" value="Move">
+											</form>
+											
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion" href="#collapseTaskFive">ARCHIVE</a>
+										</h4>
+									</div>
+									<div id="collapseTaskFive" class="panel-collapse collapse">
+										<div class="panel-body">
+											
+											<!-- Archive task -->
+											<button type="button" class ="archiveTask btn btn-danger">Archive this task</button>
+											
+										</div>
+									</div>
+								</div>
+							</div> <!-- end accordion -->
+						</div> <!-- end col-md-3 -->
+					</div> <!-- end row -->
 				</div>
 
 				<div class="modal-footer">
 					<button type="button" 
 					class="btn btn-default" 
-					data-dismiss="modal">Close</button>     
-
+					data-dismiss="modal">Close</button>
 					<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
 				</div>
 			</div><!-- /.modal-content -->
