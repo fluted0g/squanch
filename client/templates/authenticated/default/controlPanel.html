@@ -2,7 +2,9 @@
 	<div class="controlPanelContainer panelHidden">
 
 		<div class="controlPanelMenu">
-			<div class="showHideToggler"><h5>MENU</h5></div>
+			<div class="showHideToggler">
+        <i class="fa fa-cog"></i>
+      </div>
 
 			<h4>Control Panel</h4>
 
@@ -21,67 +23,65 @@
                 {{> members}}
                 {{/each}}
               </ul>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">ADD MEMBERS</a>
-          </h4>
-        </div>
-        <div id="collapseTwo" class="panel-collapse collapse">
-          <div class="panel-body">
-           {{> searchUser}}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">ADD MEMBERS</a>
+            </h4>
+          </div>
+          <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+             {{> searchUser}}
+           </div>
+         </div>
+       </div>
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">
+             <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">ARCHIVE</a>
+             <i class="fa fa-info-circle" title="Click on archived element to unarchive it."></i>
+           </h4>
+         </div>
+         <div id="collapseThree" class="panel-collapse collapse">
+           <div class="panel-body scrollbar-outer">
+            <ul class="nav nav-tabs">
+              <li class="active"><a class="archiveLink" data-toggle="tab" href="#cardList">Cards</a></li>
+              <li><a class="archiveLink" data-toggle="tab" href="#taskList">Tasks</a></li>
+            </ul>
+            <div class="tab-content">
+              <ul id="cardList" class="active tab-pane">
+                {{#each archivedCards}}
+                <li class="archivedCard">{{name}}</li>
+                {{/each}}
+              </ul>
+
+              <ul id="taskList" class="tab-pane">
+               {{#each archivedTasks}}
+               <li class="archivedTask">{{name}}</li>
+               {{/each}}
+             </ul>
+           </div>
+
+
          </div>
        </div>
      </div>
      <div class="panel panel-default">
        <div class="panel-heading">
-         <h4 class="panel-title">
-           <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">ARCHIVE</a>
-           <i class="fa fa-info-circle" title="Click on archived element to unarchive it."></i>
-         </h4>
-       </div>
-       <div id="collapseThree" class="panel-collapse collapse">
-         <div class="panel-body scrollbar-outer">
-          <ul class="nav nav-tabs">
-            <li class="active"><a class="archiveLink" data-toggle="tab" href="#cardList">Cards</a></li>
-            <li><a class="archiveLink" data-toggle="tab" href="#taskList">Tasks</a></li>
-          </ul>
-          <div class="tab-content">
-            <ul id="cardList" class="active tab-pane">
-              {{#each archivedCards}}
-              <li class="archivedCard">{{name}}</li>
-              {{/each}}
-            </ul>
-
-            <ul id="taskList" class="tab-pane">
-             {{#each archivedTasks}}
-             <li class="archivedTask">{{name}}</li>
-             {{/each}}
-           </ul>
-         </div>
-
-
-       </div>
+        <h4 class="panel-title">
+         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">SETTINGS</a>
+       </h4>
      </div>
-   </div>
-   <div class="panel panel-default">
-     <div class="panel-heading">
-      <h4 class="panel-title">
-       <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">SETTINGS</a>
-     </h4>
-   </div>
-   <div id="collapseFour" class="panel-collapse collapse">
-    <div class="panel-body">
-     <span class="deleteProject">Delete project</span>
+     <div id="collapseFour" class="panel-collapse collapse">
+      <div class="panel-body">
+       <span class="deleteProject">Delete project</span>
+     </div>
    </div>
  </div>
 </div>
 </div>
 </div>
-</div>
-
-
 </template>

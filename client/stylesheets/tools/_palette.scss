@@ -1,17 +1,20 @@
 //main palette
 
-$mainYellow : #3c698e;		/*#FFB20A;*/
+$mainYellow : #3c698e;		/*#FFB20A (yellow)*/
 $lightYellow : lighten($mainYellow,15%);
 $lighterYellow : lighten($mainYellow,30%);
 $darkYellow : darken($mainYellow,15%);
 $darkerYellow : darken($mainYellow,30%);
+
+$successGreen : #6CBD68;
+$errorRed : #C91E1E;
 
 $gray-base : #000;
 $gray-darker : lighten($gray-base, 13.5%); // #222
 $gray-dark : lighten($gray-base, 20%);   // #333
 $gray : lighten($gray-base, 33.5%); // #555
 $gray-light : lighten($gray-base, 46.7%); // #777
-$gray-lighter : lighten($gray-base, 93.5%); // #eee
+$gray-lighter : lighten($gray-base, 91%); // #eee(modified from 93.5%)
 
 //default palette
 
@@ -22,6 +25,7 @@ $colHighlight : #ddd;
 $dropDown : true;
 
 //font colors:
+
 $textColor : #fff;
 $fa-grey : #ddd;
 
@@ -33,3 +37,41 @@ $blueL : #0000FF;
 $yellowL : #FFD700;
 $orangeL : #FF8C00;
 $purpleL : #663399;
+
+//dueDate colors
+
+$dueRed: #C91E1E;
+$dueOrange: #E87600; /* safety orange, duhhhhh */
+$dueYellow: #fad131;
+
+.due {
+	color: $dueRed;
+}
+
+.lt-week-left {
+	color: $dueOrange;
+}
+
+.gt-week-left {
+	color: $dueYellow;
+}
+
+.no-rush {
+	color: $textColor;
+}
+
+.due-border {
+	border:3px solid $dueRed;
+}
+
+.lt-week-left-border {
+	border:3px solid $dueOrange;
+}
+
+.gt-week-left-border {
+	border:3px solid $dueYellow;
+}
+
+.no-rush-border {
+	border: none;
+}

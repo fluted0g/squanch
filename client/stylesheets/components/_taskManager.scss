@@ -23,8 +23,38 @@
 	h5 {
 		font-weight: bold;
 	}
+
+	.due_box {
+		margin: 3px 6px;
+
+		.dateDisplay {
+			width: 99%;
+			margin: 1px;
+			padding: 3px;
+			word-wrap: break-word;
+			border-radius: 5px;
+			background-color: $gray-lighter;			
+			display: inline-block;
+			margin-top: 5px;
+		}
+	}
 	.description_box {
 		margin: 3px 6px;
+
+		.editableTaskDescriptionForm {
+			background-color: $gray-lighter;
+			border-radius: 4px;
+			display: inline-block;
+			width: 100%;
+			padding: 8px 4px;
+			clear: both;
+			overflow: auto;
+
+			#descButton {
+				margin: 8px 20px;
+				float: left;
+			}
+		}
 	}
 	.comments_box {
 		margin: 3px 6px;
@@ -41,7 +71,7 @@
 			clear: both;
 			.comment_input {
 				float: left;
-
+				outline-style:none;
 				border: 1px solid darken($gray-lighter,15%);
 				border-radius: 5px;
 				background-color: lighten($gray-lighter,3%);
@@ -61,8 +91,13 @@
 	}
 }
 
-#collapseTaskOne .panel-body {
-	padding: 0;
+#accordion2 .panel-body {
+	padding: 5px;
+}
+
+#collapseTaskFive .panel-body {
+	padding:15px;
+	text-align: center;
 }
 
 .projectMemberList {
@@ -87,9 +122,47 @@
 	float: right;
 }
 .isMember {
-	color: green;
+	color: $successGreen;
 }
 
 .isNotMember {
-	color: red;
+	color: $errorRed;
+}
+
+.card_target {
+	width: 99%;
+	margin: 1px;
+	padding: 3px;
+	word-wrap: break-word;
+	border: 1px solid darken($gray-lighter,15%);
+	border-radius: 5px;
+	background-color: darken($gray-lighter,3%);
+	cursor: pointer;
+}
+
+.actual_card {
+	background-color: $successGreen;
+	border-color: darken($successGreen,15%);
+	font-weight: bold;
+}
+
+.due_date_buttons {
+	text-align: center;
+}
+
+#picker-dueDate {
+	width: 100%;
+	width: 99%;
+	padding: 3px;
+	margin-bottom: 5px;
+}
+.date_browser {
+	margin: 5px;
+	padding: 3px;
+	width: 99%;
+	text-align: center;
+	border: 1px solid darken($gray-lighter,15%);
+	border-radius: 5px;
+	background-color: darken($gray-lighter,3%);
+	display: inline-block;
 }

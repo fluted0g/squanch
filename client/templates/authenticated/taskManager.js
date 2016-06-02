@@ -13,7 +13,19 @@ Template.taskManager.onCreated(function() {
 });
 
 Template.taskManager.onRendered(function() {
-	this.$('#picker-dueDate').datetimepicker();
+	this.$('#picker-dueDate').datetimepicker({
+		inline: true,
+		sideBySide: false,
+		toolbarPlacement: 'top'
+	});
+
+	$('.browse_date').html(moment().format('LLL'));
+    $('#picker-dueDate').on('dp.change', function() {
+    	browsing = $('#picker-dueDate').data("DateTimePicker").viewDate();
+    	formatBrowse = moment(browsing).format('LLL');
+    	$('.browse_date').html(formatBrowse);
+    });
+
 	this.$("#descButton").hide();
 });
 
@@ -25,15 +37,62 @@ Template.taskManager.helpers({
 	cards: function() {
 		return Cards.find({status: 'active'});
 	},
+	isActualCard : function() {
+		var taskId = Session.get("taskID");
+		task = Tasks.findOne({_id: taskId});
+		if (task.card_id == this._id) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	showDescription : function() {
+		var taskId = Session.get("taskID");
+		task = Tasks.findOne({_id: taskId});
+		if (task.description) {
+			return task.description;
+		} else {
+			return false;
+		}
+	},
 	comments: function() {
-		return Comments.find({task_id:this._id});
+		return Comments.find({task_id:this._id},{sort:{createdAt:-1}});
+	},
+	hasComments: function() {
+		comments = Comments.find({task_id:this._id}).fetch();
+		if (comments.length > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	},
 	dueDateDisplay : function() {
-		return moment(this.dueDate).format('LLL');
+		displayDate = moment(new Date(this)).format('MMMM Do YYYY, h:mm a');
+		if (displayDate != 'Invalid date') {
+			return displayDate;
+		} else {
+			return "Due date not set.";
+		}
+		
 	},
 	timeLeft : function() {
-		return moment(this.dueDate).fromNow();
+		return moment(this).fromNow();
 	},
+    colorDate : function() {
+        dueDate = moment(this);
+        now = moment();
+        timeToDate = dueDate.diff(now,'days',true);        
+        if (timeToDate < 0 ) {
+            dateClass ="due-border";
+        } else if ( timeToDate > 0 &&  timeToDate < 8 ) {
+            dateClass ="lt-week-left-border";
+        } else if ( timeToDate > 8 &&  timeToDate < 30 ) {
+            dateClass ="gt-week-left-border";
+        } else {
+            dateClass ="no-rush-border";
+        }
+        return dateClass;
+    },
     projectMembers: function() {
         return Meteor.users.find({});
     },
@@ -57,14 +116,8 @@ Template.taskManager.helpers({
 });
 
 Template.taskManager.events({
-	"submit .set_desc" : function(event) {
+	'submit .set_label' : function(event) {
 		event.preventDefault();
-		var newDesc = event.target.editDesc.value;
-		Meteor.call("editTaskDescription",oTask._id,newDesc);
-	},
-	"submit .set_label" : function(event) {
-		event.preventDefault();
-
 		var newLabel = event.target.editLabel.value;
 		//determining project_type and reformatting for collection
 		switch (newLabel) {
@@ -89,12 +142,12 @@ Template.taskManager.events({
 		}
 		Meteor.call("editTaskLabel",this._id,newLabel);
 	},
-	"submit .taskMover" : function(event) {
-		event.preventDefault();
-		var newCardId = $(event.target).find(':selected').data('id');		
-		Meteor.call("editTaskCardId",this._id,newCardId);
+	'click .card_target' : function(event) {
+		var newCardId = $(event.target).data("id");	
+		var taskId = Session.get("taskID");
+		Meteor.call("editTaskCardId",taskId,newCardId);
 	},
-	"submit .set_name" : function(event) {
+	'submit .set_name' : function(event) {
 		event.preventDefault();
 		var newName = event.target.editName.value;
 		Meteor.call("editTaskName",this._id,newName);
@@ -104,13 +157,17 @@ Template.taskManager.events({
 		var dueDate = $('.datetimepicker').data("DateTimePicker").date().toDate();
 		Meteor.call("editDueDate", this._id,dueDate);
 	},
-	"click .archiveTask": function(event) {
+	'click .dateRemover' : function(event) {
+		event.preventDefault();
+		Meteor.call("removeDueDate",this._id);
+	},
+	'click .archiveTask': function(event) {
 		event.preventDefault();
 		var id = this._id;
 		Meteor.call("toggleStatus","task",id);
 		$("#modalTask").modal('hide');
 	},
-	"submit .new_comment" : function(event) {
+	'submit .new_comment' : function(event) {
 		event.preventDefault();
 		var taskId = this._id;
 		var commentMsg = event.target.commentMsg.value;
@@ -129,7 +186,7 @@ Template.taskManager.events({
 			editableText.select();
 		}
 		else if ($(event.target).prop("tagName") == "SPAN") {
-			var editableText = $("<textarea rows='4' cols='50' class='editableContentFluid editableTaskDescription' name='editableTaskDescription' type='text'></textarea>");
+			var editableText = $("<textarea rows='2' cols='40' class='editableContentFluid editableTaskDescription' name='editableTaskDescription' type='text'></textarea>");
 			editableText.val(html);
 			$(event.target).replaceWith(editableText);
 			$(".editableContentFluid").val(html);

@@ -46,7 +46,8 @@ ul {
 
 .activeT {
   background-color: $lightYellow;
-  border: 2px solid $mainYellow;
+  border: 2px solid $darkYellow;
+
 }
 
 .fake_task_title {
@@ -65,7 +66,7 @@ ul {
     vertical-align: sub;
   }
   &:hover {
-    background-color: lighten($darkYellow,10%);
+    background-color: lighten($darkYellow,5%);
   }
 }
 
@@ -79,18 +80,13 @@ ul {
   width: 98%;
   height: 2.5em;
   outline-style: none;
-  /*outline-color: $darkYellow;*/
-  &:hover {
-    background-color: lighten($darkYellow,10%);
-  }
   &:focus {
     border: none;
   }
 }
 
 .insert_task {
-  padding:5px;
-  padding-top:2px;
+  padding:2px 4px;
   box-sizing: content-box;
   i {
     font-size: 2.2em;

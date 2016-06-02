@@ -51,6 +51,7 @@ Template.controlPanel.events ({
 		Meteor.call("toggleStatus","task",id);
 	},
 	'click .deleteProject' : function(e) {
+		
 		//prompt confirmation!!!!
 		$('.deleteProject').confirmation({
 			onConfirm : function(event) {
@@ -62,5 +63,6 @@ Template.controlPanel.events ({
 			popout: true,
 			singleton: true
 		});	
+		
 	}
 });

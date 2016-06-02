@@ -48,13 +48,9 @@ Template.task.helpers({
         return "Due " + moment(this).fromNow();
     },
     colorDate : function() {
-        //classes = ['due','lt-week-left','gt-week-left','no-rush'];
-        
         dueDate = moment(this);
         now = moment();
-        timeToDate = dueDate.diff(now,'days',true);
-        console.log(timeToDate);
-        
+        timeToDate = dueDate.diff(now,'days',true);        
         if (timeToDate < 0 ) {
             dateClass ="due";
         } else if ( timeToDate > 0 &&  timeToDate < 8 ) {
@@ -64,7 +60,6 @@ Template.task.helpers({
         } else {
             dateClass ="no-rush";
         }
-        console.log(dateClass);
         return dateClass;
     },
     label : function() {
@@ -85,9 +80,5 @@ Template.task.events({
     'click .archiveTask' : function(event) {
     	var id = this._id;
         Meteor.call("toggleStatus","task",id);
-    },
-    'click .tellMeIndex' : function(event) {
-        var listItem = document.getElementById( this._id );
-        console.log($(".task_frame").index(listItem));
     }
 });

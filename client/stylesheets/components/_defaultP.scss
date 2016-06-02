@@ -17,7 +17,7 @@ body {
 
 .project_info {
 	position: fixed;
-	padding-left: 18px;
+	padding-left: 24px;
 	margin-top: -5px;
 	width: 100%;
 	height: 5em;
@@ -87,12 +87,13 @@ body {
 
 .fake_card_title {
 	display: inline-block;
-	background-color: lighten($darkYellow,10%);
+	background-color: $lighterYellow;
 	border-radius: 3px;
 	width: 19em;
 	height: 2.6em;
 	text-align: left;
 	margin-top: 4%;
+	padding:0.2em;
 
 	span {
 		display: inline-block;
@@ -100,23 +101,20 @@ body {
 	}
 
 	&:hover {
-		background-color: lighten($darkYellow,17%);
+		background-color: darken($lighterYellow,5%);
 	}
 }
 
 .card_title {
-	background-color: lighten($darkYellow,10%);
+	background-color: darken($lighterYellow,5%);
 	border:none;
 	border-radius: 3px;
 	width: 19em;
 	height: 2.5em;
-	outline-color: $darkYellow;
+	outline-style: none;
 	margin-top: 0.2em;
 	margin-bottom: 0.4em;
-
-	&:hover {
-		background-color: lighten($darkYellow,15%);
-	}
+	padding:0.2em;
 
 	&:focus {
 		border: none;

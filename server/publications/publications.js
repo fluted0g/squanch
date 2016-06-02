@@ -406,6 +406,14 @@ Meteor.methods({
 		check(input, Date);
 		Tasks.update({'_id':taskId},{$set: {'dueDate': input}});
 	},
+	removeDueDate : function(taskId) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(taskId, String);
+
+		Tasks.update({_id:taskId},{$unset:{dueDate : ""}})
+	},
 	assignTaskIndex : function(taskId, input) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");

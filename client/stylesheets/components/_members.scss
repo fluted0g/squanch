@@ -3,12 +3,17 @@
 .userFrame {
 
 		display: inline-block;
-		background-color: darken($gray-lighter,10%);
+		background-color: $gray-lighter;
 		border-radius: 3px;
 		margin: 1px;
 		padding: 7px;
 		width: 100%;
 		position: relative;
+		cursor: default;
+
+		&:hover {
+			background-color: darken($gray-lighter,5%);
+		}
 
 		span {
 			float: left;
@@ -23,6 +28,8 @@
 }
 
 .deleteMember {
+	cursor: pointer;
+	font-size: 2em;
 	float: left;
 }
 
