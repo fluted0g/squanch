@@ -1,8 +1,9 @@
 let administrators = [
   {
     name: { first: 'Borrakas', last: 'McBorrak' },
+    username: 'Borrakas',
     email: 'borringuer.z@gmail.com',
-    password: 'MeCagoEnLaPutaFrancia777'
+    password: 'wisel555'
   }
 ];
 
@@ -12,7 +13,7 @@ let generateAccounts = () => {
 
   if ( !usersExist ) {
     _createUsers( administrators );
-    _createUsers( _generateFakeUsers( fakeUserCount ) );
+    //_createUsers( _generateFakeUsers( fakeUserCount ) );
   }
 };
 
