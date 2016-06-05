@@ -8,6 +8,14 @@
   font-family: "Avant Garde",Avantgarde,"Century Gothic",CenturyGothic,AppleGothic,sans-serif;
 }
 
+a {
+  color: $linkOnBlue;
+
+  &:hover {
+    color: lighten($linkOnBlue,10%);
+  }
+}
+
 .navbar-default {
   background-color: $bgDefault;
   border-color: $bgHighlight;
