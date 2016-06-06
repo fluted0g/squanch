@@ -1,3 +1,5 @@
+//BlazeLayout.setRoot('.backgrounder');
+
 Template.signup.onRendered( () => {
   Modules.client.signup({
     form: "#signup",

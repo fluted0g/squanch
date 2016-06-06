@@ -1,3 +1,5 @@
+//BlazeLayout.setRoot('.backgrounder');
+
 Template.login.onRendered( () => {
   Modules.client.login( { form: "#login", template: Template.instance() } );
 });

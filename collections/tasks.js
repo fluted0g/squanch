@@ -26,7 +26,7 @@ Event = new SimpleSchema({
   },
   createdAt: {
     type: Date,
-    label: "event creation date",
+    label: "Task creation date",
     autoValue: function(){
       if (this.isInsert) {
         return new Date();
