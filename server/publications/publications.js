@@ -1,9 +1,7 @@
-//old subscription
 Meteor.publish('projects', function() {
 	if (this.userId) {
 		var userId = this.userId;
 		userProjects = Projects.find( {members: {$in:[userId]}} );
-		console.log(userProjects.fetch());
 		if ( userProjects ) {
 			return userProjects;
 		}
@@ -76,16 +74,7 @@ Meteor.publish('project',function(project_id) {
 	}
 	return this.ready();
 });
-/*
-Meteor.publish('users', function() {
-	var allUsers = Meteor.users.find({},{fields:{username:1,emails:1,profile:1}});
 
-	if (allUsers) {
-		return allUsers;
-	}
-	return this.ready();
-});
-*/
 Meteor.publish('members',function(projectId) {
 	check(projectId,String);
 	var members = Meteor.users.find({project_ids : {$in: [projectId]}}, {fields: {services:0}});
@@ -148,6 +137,7 @@ Meteor.methods({
 			throw new Meteor.error("member-exists");
 		} else {
 			Meteor.users.update({ _id : member._id },{ $push: {project_ids : projectId} });
+			Projects.update({_id:projectId},{$push:{members:member._id}});
 		}	
 	},
 	removeMember : function(projectId, nameOrMail) {
@@ -218,40 +208,17 @@ Meteor.methods({
 		check(description, String);
 		check(proj_type,String);
 		check(theme,String);
-/*
-		var insertProject = function(Pname,Powner,Pdescription,Pproj_type,Ptheme) {
-			Projects.insert({
-			name: Pname,
-			owner: Powner,
-			description: Pdescription,
-			proj_type: Pproj_type,
-			theme: Ptheme
-		},function(err,doc) {
-			Meteor.users.update({ _id : Meteor.userId() },{ $push: {project_ids : doc} });
-		});
-		}
-		
-		var wrap = Meteor.wrapAsync(insertProject(name,Meteor.userId(),description,proj_type,theme));
-		console.log(wrap);
-*/
+
 		return Projects.insert({
 			name: name,
 			owner: Meteor.userId(),
 			description: description,
 			proj_type: proj_type,
-			theme: theme
+			theme: theme,
+			members: [Meteor.userId()]
 		},function(err,doc) {
 			Meteor.users.update({ _id : Meteor.userId() },{ $push: {project_ids : doc} });
-			//Meteor.projects.update({_id:doc},{$push:{members:Meteor.userId()}});
 		});
-	},
-	fixProject : function(projectId) {
-		if (! Meteor.userId()) {
-			throw new Meteor.Error("not-authorized");
-		}
-		check(projectId,String);
-
-		Meteor.projects.update({_id:projectId},{$push:{members:Meteor.userId()}});
 	},
 	deleteProject : function(projectId) {
 		if (! Meteor.userId()) {

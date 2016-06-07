@@ -2,9 +2,9 @@ Template.authenticatedNavigation.onCreated(function() {
   var instance = this;
 
   instance.autorun(function() {
-  	//instance.subscribe('projects');
-    instance.subscribe('membershipProjects');
-    instance.subscribe('ownedProjects');
+  	instance.subscribe('projects');
+    //instance.subscribe('membershipProjects');
+    //instance.subscribe('ownedProjects');
     });
 });
 

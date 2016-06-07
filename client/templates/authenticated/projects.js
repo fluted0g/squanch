@@ -3,9 +3,9 @@ Template.projects.onCreated(function() {
 
   instance.autorun(function() {
   	instance.subscribe('user');
-  	//instance.subscribe('projects');
-    instance.subscribe('membershipProjects');
-    instance.subscribe('ownedProjects');
+  	instance.subscribe('projects');
+    //instance.subscribe('membershipProjects');
+    //instance.subscribe('ownedProjects');
     });
 });
 
