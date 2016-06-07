@@ -2,6 +2,7 @@ Template.projects.onCreated(function() {
   var instance = this;
 
   instance.autorun(function() {
+  	instance.subscribe('user');
     instance.subscribe('membershipProjects');
     instance.subscribe('ownedProjects');
     });
@@ -9,7 +10,7 @@ Template.projects.onCreated(function() {
 
 Template.projects.helpers ({
 
-	projects : function() {
+	showProjects : function() {
 		return Projects.find({}, {sort: {createdAt: -1}});
 	}
 
@@ -18,14 +19,23 @@ Template.projects.helpers ({
 Template.projects.events({
 
 	//creating new project
-	"submit .start_project": function($event) {
-		event.preventDefault();
+	'click .start_project_inserter' : function(e) {
+		$(".start_project_inserter").toggleClass("hiddenE");
+		$(".project_inserter").toggleClass("hiddenE");
+	},
+	'click .cancelFormP' : function(e) {
+		$(".project_inserter").toggleClass("hiddenE");
+		$(".start_project_inserter").toggleClass("hiddenE");
+	},
+	'submit .insert_project': function(e) {
+		e.preventDefault();
 		//getting the inputs
-		var name = event.target.proj_name.value;
-		var description = event.target.proj_desc.value;
-		var proj_type = event.target.proj_type.value;
-		var theme = event.target.proj_theme.value;
+		var name = e.target.proj_name.value;
+		var description = e.target.proj_desc.value;
+		var proj_type = "defaultP";
+		var theme = "default";
 		//determining project_type and reformatting for collection
+		/*
 		switch (proj_type) {
 			case "Software project" :
 				proj_type = "defaultP";
@@ -37,14 +47,14 @@ Template.projects.events({
 				proj_type = "teacherP";
 			break;
 		}
+		*/
 		Meteor.call("newProject", name,description,proj_type,theme);
       	// clearing form, closing modal;
-      	event.target.proj_name.value = "";
-      	event.target.proj_desc.value = "";
-      	$("#newPmodal").modal("hide");
+      	e.target.proj_name.value = "";
+      	e.target.proj_desc.value = "";
   	},
-  	"mouseover .projectLink" : function(event) {
-		var proj_type = $(event.currentTarget).data("id");
+  	"mouseover .projectLink" : function(e) {
+		var proj_type = $(e.currentTarget).data("id");
 		Session.set("proj_type",proj_type);
 	}
 

@@ -97,6 +97,17 @@ Meteor.publish('owner',function(projectId) {
 	return this.ready();
 });
 
+Meteor.publish('user',function() {
+	var userId = this.userId;
+
+	user = Meteor.users.find({_id:userId},{fields:{services:0}});
+
+	if (user) {
+		return user;
+	}
+	return this.ready();
+});
+
 Meteor.publish('taskMembers', function(taskId) {
 	check(taskId, String);
 	var task = Tasks.findOne({_id:taskId});

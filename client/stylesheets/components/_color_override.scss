@@ -22,7 +22,8 @@ a {
   .navbar-brand {
     color: $colDefault;
     &:hover, &:focus {
-      color: $colHighlight; }}
+      color: $colHighlight; }
+      }
   .navbar-text {
     color: $colDefault; }
   .navbar-nav {
@@ -84,7 +85,7 @@ a {
 	background-color: $mainYellow;
 	color: $textColor;
 
-	.pContainer, .startP {
+	.pContainer {
 		background-color: $lightYellow;
 		color: $textColor;
 		&:hover {

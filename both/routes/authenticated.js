@@ -9,6 +9,13 @@ authenticatedRoutes.route( '/', {
 	}
 });
 
+authenticatedRoutes.route( '/projects', {
+	name: 'projects',
+	action() {
+		BlazeLayout.render( 'default', { yield: 'projects' } );
+	}
+});
+
 authenticatedRoutes.route( '/profile', {
 	name: 'profile',
 	action() {
@@ -16,16 +23,8 @@ authenticatedRoutes.route( '/profile', {
 	}
 });
 
-const projectRoutes = authenticatedRoutes.group({
-	prefix: '/projects',
-	name: 'project_routes'
-});
-
-projectRoutes.route('/:_id', {
-	name: 'project_page', /*
-	subscriptions: function (params) {
-		this.register('projects', params._id);
-	},*/
+authenticatedRoutes.route('/projects/:_id', {
+	name: 'project_page',
 	action: function() {
 		var proj_type = Session.get("proj_type");
 		switch (proj_type) {

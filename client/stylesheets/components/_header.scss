@@ -1,0 +1,34 @@
+@import "../tools/palette";
+
+.nav-header {
+	text-align: center;
+	position: relative;
+}
+
+.site-title {
+	position: absolute;
+	top: 5px;
+	left: 44.5%;
+	padding-top: 10px;
+
+	@media screen and(max-width: 768px) {
+		position: fixed;
+		display: inline-block;
+		text-align: center;
+		left: 40%;
+		float: none;
+	}
+
+	a {
+		font-size: 2em;
+		float: none;
+	}
+}
+
+.project-list {
+	li {
+		a {
+			padding-left:8px;
+		}
+	}
+}

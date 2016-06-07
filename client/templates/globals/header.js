@@ -7,13 +7,15 @@ Template.header.helpers({
 });
 
 Template.header.events({
-  'click .logout' () {
+  'click .logout' : function(e) {
+    e.preventDefault();
     Meteor.logout( ( error ) => {
       if ( error ) {
         Bert.alert( error.reason, 'warning' );
       } else {
         Bert.alert( 'Logged out!', 'success' );
-        FlowRouter.path('login');
+        Session.set("loggedUser",false);
+        FlowRouter.go('/login');
       }
     });
   }

@@ -1,63 +1,32 @@
 <template name="projects">
-
-
-  <!-- MODAL FOR NEW PROJECTS -->
-  <div class="modal fade" tabindex="-1" role="dialog" id="newPmodal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">New Project</h4>
-        </div>
-        <div class="modal-body">
-
-          <form class="start_project" id="myForm">
-            <label for="proj_name">Name: 
-              <input type="text" name="proj_name"></label>
-              <label for="proj_desc">Description:
-                <input type="text" name="proj_desc"></label>
-                <label for="proj_type">Type:
-                  <select name="proj_type">
-                    <option>Software project</option>
-                    <option>Exam planning</option>
-                    <option>Class managing</option>
-                  </select>
-                </label>
-                <label for="proj_theme">Theme:
-                  <select name="proj_theme">
-                    <option>Blue</option>
-                    <option>Red</option>
-                    <option>Green</option>
-                  </select>
-                </label>
-                
-              </form>
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <input type="submit" class="btn btn-success" value="Send" form="myForm">
-              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
-
-
-
-
       <div class="jumbotron text-center" style="padding: 20px;">
 
-        <h2>Your Projects</h2>
+        <h1>Your Projects</h1>
+
         <div class="row">
 
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <button class="startP" id="projectStarter" data-toggle="modal" data-target="#newPmodal"><span>+</span></button>
+          <div class="col-md-12 col-sm-12 col-xs-12 start_project_frame">
+
+            <div class="start_project_inserter" id="projectStarter">
+              <span>ADD NEW PROJECT</span>
+            </div>
+
+            <div class="project_inserter hiddenE">
+              <form class="insert_project">
+                <input type="text" name="proj_name" class="proj_name" placeholder="Insert project name..." autocomplete="off">
+                <input type="text" name="proj_desc" class="proj_desc" placeholder="Insert project description..." autocomplete="off">
+                <div></div>
+                <input class="start_project btn" type="submit" value="Create">
+                <i class="fa fa-times-circle cancelFormP"></i>
+              </form>         
+            </div>
           </div>
-        </div>
-          <div class="row">
-          {{#each projects}}
-          <div class="col-md-4 col-sm-6 col-xs-12">
+        
+        </div> <!--end row -->
+
+        <div class="row">
+          {{#each showProjects}}
+          <div class="col-md-4 col-sm-6 col-xs-12 project_container">
             {{> project}}
           </div>
           {{/each}}

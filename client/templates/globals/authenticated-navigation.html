@@ -1,11 +1,21 @@
 <template name="authenticatedNavigation">
   <ul class="nav navbar-nav">
-    <li class="{{currentRoute 'projects'}}"><a href="{{pathFor 'projects'}}">Projects</a></li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects<span class="caret"></span></a>
+      <ul class="dropdown-menu project-list" role="menu">
+      {{#each navProjects}}
+        <li><a href="../projects/{{_id}}">{{name}}</a></li>
+      {{/each}}
+      </ul>
+    </li>
+    <!--<li class="{{currentRoute 'projects'}}">
+      <a href="{{pathFor 'projects'}}">Projects</a>   
+    </li>-->
     <li class="{{currentRoute 'profile'}}"><a href="{{pathFor 'profile'}}">Profile</a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{currentUser.emails.[0].address}} <span class="caret"></span></a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{currentUser.username}} <span class="caret"></span></a>
       <ul class="dropdown-menu" role="menu">
         <li class="logout"><a href="#">Logout</a></li>
       </ul>

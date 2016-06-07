@@ -6,6 +6,17 @@ const handleRedirect = ( routes, redirect ) => {
 	}
 };
 
+Template.default.onCreated(function() {
+  var instance = this;
+
+  instance.autorun(function() {
+  		var logged = Session.get("loggedUser");
+  		if (logged /*Meteor.user()._id*/) {
+  			instance.subscribe('user');
+  		}
+    });
+});
+
 Template.default.helpers({
 	loggingIn() {
 		return Meteor.loggingIn();

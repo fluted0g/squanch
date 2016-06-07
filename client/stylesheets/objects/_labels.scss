@@ -30,3 +30,13 @@
 .purpleL {
 	background-color: $purpleL; 
 }
+
+.set_label {
+	text-align: left;
+	.btn {
+		margin-left:40%;
+		@media screen and (max-width : 992px) {
+			margin-left:6px;
+		}
+	}
+}

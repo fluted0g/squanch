@@ -30,11 +30,21 @@
 				<div class="description_box">
 					<h5>Description:</h5>
 					<form class="editableTaskDescriptionForm" name="editableTaskDescriptionForm">
-							{{#unless showDescription}}
+							<span class="editableContentSolid editableTaskDescription">
+							{{#if description}}
+								{{showDescription}}
+							{{/if}}
+							{{#unless description}}
+								<span class="no-style">Task has no description.</span>
+							{{/unless}}
+							</span>
+						<!--
+							{{#if showDescription}}
 								<span class="editableContentSolid editableTaskDescription">Task has no description.</span>
 							{{else}}
 								<span class="editableContentSolid editableTaskDescription">{{description}}</span>
-							{{/unless}}
+							{{/if}}
+						-->
 						<input class="btn" type="submit" value="Send" id="descButton">
 					</form>
 				</div>
@@ -89,8 +99,8 @@
 						<div class="panel-body">
 							<!-- Change label color -->
 							<form class="set_label">
-								<label for="editLabel">Change Label: 
-									<select name="editLabel">
+								<label class="edit_label" for="editLabel">Change Label: 
+									<select class="select_label" name="editLabel">
 										<option>Red</option>
 										<option>Green</option>
 										<option>Blue</option>
@@ -98,9 +108,8 @@
 										<option>Orange</option>
 										<option>Purple</option>
 									</select>	
-								</label> 
-								<span>{{label}}</span>
-								<input type="submit" value="Set">
+								</label>
+								<input type="submit" class="btn" value="Set">
 							</form>
 
 						</div>

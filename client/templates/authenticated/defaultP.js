@@ -19,7 +19,8 @@ Template.defaultP.onRendered( function() {
 
 Template.defaultP.helpers ({
 	project : function() {
-		return Projects.find();    
+		projectId = Session.get("projectID");
+		return Projects.find({_id:projectId});    
 	},
 	members : function() {
 		return Meteor.users.find();
