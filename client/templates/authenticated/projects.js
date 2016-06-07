@@ -3,22 +3,19 @@ Template.projects.onCreated(function() {
 
   instance.autorun(function() {
   	instance.subscribe('user');
+  	//instance.subscribe('projects');
     instance.subscribe('membershipProjects');
     instance.subscribe('ownedProjects');
     });
 });
 
 Template.projects.helpers ({
-
 	showProjects : function() {
 		return Projects.find({}, {sort: {createdAt: -1}});
 	}
-
 });
 
 Template.projects.events({
-
-	//creating new project
 	'click .start_project_inserter' : function(e) {
 		$(".start_project_inserter").toggleClass("hiddenE");
 		$(".project_inserter").toggleClass("hiddenE");
@@ -29,12 +26,10 @@ Template.projects.events({
 	},
 	'submit .insert_project': function(e) {
 		e.preventDefault();
-		//getting the inputs
 		var name = e.target.proj_name.value;
 		var description = e.target.proj_desc.value;
 		var proj_type = "defaultP";
 		var theme = "default";
-		//determining project_type and reformatting for collection
 		/*
 		switch (proj_type) {
 			case "Software project" :
@@ -48,8 +43,14 @@ Template.projects.events({
 			break;
 		}
 		*/
-		Meteor.call("newProject", name,description,proj_type,theme);
-      	// clearing form, closing modal;
+		Meteor.call("newProject", name,description,proj_type,theme , function(error,data) {
+			if (error) {
+				Bert.alert('Something went wrong','danger');
+			} else {
+				console.log(data);
+				//Meteor.call('fixProject',data);
+			}
+		});
       	e.target.proj_name.value = "";
       	e.target.proj_desc.value = "";
   	},
@@ -57,5 +58,14 @@ Template.projects.events({
 		var proj_type = $(e.currentTarget).data("id");
 		Session.set("proj_type",proj_type);
 	}
+});
 
+Template.project.helpers({
+	isOwner : function() {
+		projectId = this._id;
+		project = Projects.findOne({});
+		if (project.owner == Meteor.user()._id) {
+			return true;
+		}
+	}
 });

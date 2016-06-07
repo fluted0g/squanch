@@ -107,13 +107,11 @@ ProjectSchema = new SimpleSchema({
     type:String,
     label: "Project owner ID"
   },
-  /*
   members: {
-    type: [Member],
+    type: [String],
     label: "Project members",
     optional: true
   }
-  */
   /*,
   cards: {
     type: [String],

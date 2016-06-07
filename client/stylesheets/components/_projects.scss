@@ -8,18 +8,21 @@
 	border-radius: 10px;
 	margin: 0.5em auto;
 
+	background-color: $lightYellow;
+	color: $textColor;
+	&:hover {
+		background-color: darken($lighterYellow,10%);
+	}
+
 	h3 {
 		line-height: 0.75em;
 		margin: 0 auto;
 		padding: 1em;
-		&:hover {
-			color:black;
-		}
 	}
 }
 
 .project_container {
-	margin-top:2%;
+	margin-top:1.5%;
 }
 
 .start_project_frame {
@@ -40,7 +43,7 @@
 	background-color: $lightYellow;
 	color: $textColor;
 	&:hover {
-		background-color: $lighterYellow;
+		background-color: darken($lighterYellow,10%);
 	}
 
 	span {
@@ -60,7 +63,7 @@
 	width:100%;
 	text-align: center;
 	color: $textColor;
-	background-color: $lighterYellow;
+	background-color: darken($lighterYellow,10%);
 	margin-top: 5px;
 	padding:10px;
 }

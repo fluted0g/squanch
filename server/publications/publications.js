@@ -1,32 +1,40 @@
 //old subscription
 Meteor.publish('projects', function() {
-	var id = this.userId;
-	userProjects = Projects.find( { 'members' :  { $in:  [id] } } );
-	if ( userProjects ) {
-		return userProjects;
+	if (this.userId) {
+		var userId = this.userId;
+		userProjects = Projects.find( {members: {$in:[userId]}} );
+		console.log(userProjects.fetch());
+		if ( userProjects ) {
+			return userProjects;
+		}
 	}
 	return this.ready();
 });
 
 Meteor.publish('membershipProjects', function() {
-	userProjectsIds = Meteor.users.findOne({_id:this.userId},{fields: {project_ids:1}});
-	userMembershipProjects = Projects.find({_id: {$in : userProjectsIds.project_ids}});
-	if (userMembershipProjects) {
-		return userMembershipProjects;
+	if (this.userId) {
+		userProjectsIds = Meteor.users.findOne({_id:this.userId},{fields: {project_ids:1}});
+		userMembershipProjects = Projects.find({_id: {$in : userProjectsIds.project_ids}});
+		if (userMembershipProjects) {
+			return userMembershipProjects;
+		}
 	}
 	return this.ready();
 });
 
 Meteor.publish('ownedProjects', function() {
-	var id = this.userId;
-	userProjects = Projects.find({owner : id});
-	if (userProjects) {
-		return userProjects;
+	if (this.userId) {
+		var id = this.userId;
+		userProjects = Projects.find({owner : id});
+		if (userProjects) {
+			return userProjects;
+		}
 	}
 	return this.ready();
 });
 
 Meteor.publish('project',function(project_id) {
+
 	var userId = this.userId;
 	check(project_id,String);
 	//find project and his cards
@@ -210,8 +218,23 @@ Meteor.methods({
 		check(description, String);
 		check(proj_type,String);
 		check(theme,String);
+/*
+		var insertProject = function(Pname,Powner,Pdescription,Pproj_type,Ptheme) {
+			Projects.insert({
+			name: Pname,
+			owner: Powner,
+			description: Pdescription,
+			proj_type: Pproj_type,
+			theme: Ptheme
+		},function(err,doc) {
+			Meteor.users.update({ _id : Meteor.userId() },{ $push: {project_ids : doc} });
+		});
+		}
 		
-		Projects.insert({
+		var wrap = Meteor.wrapAsync(insertProject(name,Meteor.userId(),description,proj_type,theme));
+		console.log(wrap);
+*/
+		return Projects.insert({
 			name: name,
 			owner: Meteor.userId(),
 			description: description,
@@ -219,7 +242,16 @@ Meteor.methods({
 			theme: theme
 		},function(err,doc) {
 			Meteor.users.update({ _id : Meteor.userId() },{ $push: {project_ids : doc} });
+			//Meteor.projects.update({_id:doc},{$push:{members:Meteor.userId()}});
 		});
+	},
+	fixProject : function(projectId) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(projectId,String);
+
+		Meteor.projects.update({_id:projectId},{$push:{members:Meteor.userId()}});
 	},
 	deleteProject : function(projectId) {
 		if (! Meteor.userId()) {
@@ -230,6 +262,7 @@ Meteor.methods({
 		var project = Projects.findOne({_id:projectId});
 		if (project.owner == userId) {
 			Projects.remove({_id:projectId});
+			Meteor.users.update({_id:userId},{$pull:{project_ids:projectId}});
 		} else {
 			throw new Meteor.Error("not-authorized");
 		}

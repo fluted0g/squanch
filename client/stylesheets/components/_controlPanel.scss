@@ -12,6 +12,13 @@ ul {
 	left: 0;
 	z-index: 999;
 	text-align: center;
+
+	a {
+		color: #111;
+		&:hover {
+			color:#111;
+		}
+	}
 }
 .controlPanelMenu {
 	padding: 10px;

@@ -84,12 +84,4 @@ a {
 .jumbotron {
 	background-color: $mainYellow;
 	color: $textColor;
-
-	.pContainer {
-		background-color: $lightYellow;
-		color: $textColor;
-		&:hover {
-			background-color: $lighterYellow;
-		}
-	}
 }
