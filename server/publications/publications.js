@@ -52,25 +52,24 @@ Meteor.publish('project',function(project_id) {
 	_.each(arrangedCards, function(card) {
 		cardIds.push(card._id);
 	});
-	test_tasks = Tasks.find({ card_id : { $in: cardIds}},{sort:{taskIndex:1,updatedAt:1}});
-	
+
+	var project_tasks = Tasks.find({ card_id : { $in: cardIds}},{sort:{taskIndex:1,updatedAt:1}});
 	var taskIds = [];
-	arrangedTasks = test_tasks.fetch();
+	arrangedTasks = project_tasks.fetch();
 	_.each(arrangedTasks, function(task) {
 		taskIds.push(task._id);
 	});
 	tasks_comments = Comments.find({ task_id : { $in: taskIds}},{sort:{createdAt:1}});
+
 	if (isOwner || isMember) {
 		if(curr_project) {
 			return [
 			curr_project,
 			project_cards,
-			test_tasks,
+			project_tasks,
 			tasks_comments
 			];
 		}
-	} else {
-		throw new Meteor.error("not-authorized");
 	}
 	return this.ready();
 });
