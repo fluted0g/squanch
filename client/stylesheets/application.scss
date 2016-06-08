@@ -2,13 +2,13 @@
 
 @import "tools/palette";
 
-@import "components/color_override";
-
 @import "objects/forms";
 
 @import "objects/labels";
 
 @import "objects/editables";
+
+@import "components/color_override";
 
 @import "components/login";
 
@@ -31,5 +31,7 @@
 @import "components/comment";
 
 @import "components/header";
+
+@import "components/profile";
 
 

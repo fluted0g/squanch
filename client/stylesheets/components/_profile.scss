@@ -1,0 +1,64 @@
+@import "../tools/palette";
+
+.profile_container {
+	text-align: center;
+}
+
+.profile_info {
+	text-align: center;
+	word-wrap: break-word;
+	float:none;
+	margin: 0 auto;
+	background-color:lighten($darkYellow,10%);
+	border-radius:5px;
+	padding:20px;
+	.general_info {
+		text-align: left;
+	}
+
+	.btn {
+    	background-color: $gray-lighter;
+    	color: #111;
+    	padding: 1% 2%;
+    	font-size:1.6em;
+
+    	&:hover {
+     	 background-color: lighten($gray-lighter,5%);
+    	}
+  	}
+}
+
+.defaultInputField, .gender_input {
+	color: #fff;
+	background-color: lighten($lightYellow,5%);
+	border-radius: 5px;
+	outline-style: none;
+	border: none;
+}
+
+.profileForm {
+	p {
+		text-align: left;
+		span {
+			display: inline-block;
+		}
+		input,select,textarea {
+			display: inline-block;
+			width: auto;
+		}
+	}
+}
+
+.profileFormFluid {
+	span {
+		display: inline-block;
+		width: 15%;
+		@media screen and(max-width: 1024px) {
+			width: 22%;
+		}
+	}
+}
+
+.bio_span {
+	vertical-align: top;
+}

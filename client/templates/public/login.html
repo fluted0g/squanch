@@ -1,7 +1,7 @@
 <template name="login">
   <div class="backgrounder">
     <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-4 loginFrame">
+      <div class="col-xs-12 col-sm-12 col-md-6 loginFrame">
         <h4 class="page-header">Login</h4>
         <form id="login" class="login">
           <div class="form-group">
@@ -17,6 +17,10 @@
           </div>
         </form>
         <p>Don't have an account? <a href="{{pathFor 'signup'}}">Sign Up</a>.</p>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-6 app_info">
+        <p>Squanch is an open-source application which aim is to help teams develop complex projects by providing an easy to use interface and a simple way of managing their tasks. <span>Check our <a href="https://github.com/fluted0g/squanch">repository</a> on gitHub.</span></p>
       </div>
     </div>
   </div>

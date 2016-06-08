@@ -1,15 +1,28 @@
 Template.profile.onCreated(function() {
-  var instance = this;
+    var instance = this;
 
-  instance.autorun(function() {
+    instance.autorun(function() {
 
-  });
+    });
+});
+
+Template.profile.onRendered(function() {
+    //$('.birthday_input').val(new Date().toDateInputValue());
 });
 
 Template.profile.helpers({
-	userProfile : function() {
+	userAccount : function() {
 		return Meteor.user();
-	}
+	},
+    userProfile : function() {
+        return Meteor.user().profile;
+    },
+    proccessBirthday : function() {
+        return (moment(this.birthday).format('LL'));
+    },
+    proccessBirthdayInput : function() {
+        return moment(this.birthday).format('YYYY-MM-DD');
+    }
 });
 
 Template.profile.events({
@@ -42,5 +55,35 @@ Template.profile.events({
                 }
             });
         }
-	}
+	},
+    'click .profileEditorSolid' : function(e) {
+        e.preventDefault();
+        if ($(".profileFormFluid").hasClass("hiddenE")) {
+            $(".profileFormFluid").toggleClass("hiddenE");
+            $(".profileFormSolid").toggleClass("hiddenE");
+        } else {
+            $(".profileFormFluid").toggleClass("hiddenE");
+            $(".profileFormSolid").toggleClass("hiddenE");
+        }
+    },
+    'submit .profileFormFluid' :function(e) {
+        e.preventDefault();
+        var profile = {name:{first:'',last:''},country:{name:'Not defined'}};
+        profile.name.first = e.target.first_name_input.value;
+        profile.name.last = e.target.last_name_input.value;
+        profile.birthday= e.target.birthday_input.value;
+        profile.gender= e.target.gender_input.value;
+        profile.organization= e.target.organization_input.value;
+        profile.website= e.target.website_input.value;
+        profile.bio= e.target.bio_input.value;
+        profile.country.name= e.target.country_input.value;
+
+        Meteor.call("editUserProfile",profile, function(error,success) {
+            if (success) {
+                $(".profileFormFluid").toggleClass("hiddenE");
+                $(".profileFormSolid").toggleClass("hiddenE");
+            }
+        });
+        
+    }
 });

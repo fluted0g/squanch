@@ -11,7 +11,7 @@
 a {
   color: $linkOnBlue;
 
-  &:hover {
+  &:hover, &:visited {
     color: lighten($linkOnBlue,10%);
   }
 }

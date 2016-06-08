@@ -8,7 +8,14 @@
 	color: #111;
 	.modal-content {
 		min-width: 115%;
-	}	
+	}
+
+	a {
+		color: #111;
+		&:hover {
+			color:#111;
+		}
+	}
 }
 
 .task_content {

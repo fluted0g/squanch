@@ -1,10 +1,133 @@
 <template name="profile">
-  <h3>Your Profile</h3>
+	<div class="jumbotron text-center" style="padding: 20px;">
+		<h1>Your Profile</h1>
+		<div class="row profile_container">
+			<div class="col-xs-6 col-md-9 col-sm-12 profile_info">
+				{{#with userAccount}}
+				<div class="general_info">
+					<p>
+						<span>Name: </span>
+						<span class="editableContentSolid" id="editableProfileName"> {{username}}{{#unless username}}No name set.{{/unless}}</span>
+					</p>
+					<p>
+						<span>eMail: </span>
+						<span>{{emails.[0].address}}</span>
+					</p>
+				</div>
+				{{#with userProfile}}
+				<div class="profileFormSolid profileForm">
+					<p>
+						<span>First Name: </span>
+						{{#if name.first}}
+						<span class="editableProfileField">{{name.first}}</span>					
+						{{else}}
+						<span class="editableProfileField">Not set.</span>
+						{{/if}}
+					</p>
+					<p>
+						<span>Last Name: </span>
+						{{#if name.last}}
+						<span class="editableProfileField">{{name.last}}</span>					
+						{{else}}
+						<span class="editableProfileField">Not set.</span>
+						{{/if}}
+					</p>
+					<p>
+						<span>Birthday: </span>
+						{{#if birthday}}
+						<span class="editableProfileField editableBirthday">{{proccessBirthday}}</span>					
+						{{else}}
+						<span class="editableProfileField editableBirthday">Not set.</span>
+						{{/if}}
+					</p>
+					<p>
+						<span>Gender: </span>
+						{{#if gender}}
+						<span class="editableProfileField genderField">{{gender}}</span>					
+						{{else}}
+						<span class="editableProfileField genderField">Not set.</span>
+						{{/if}}
+					</p>
+					<p>
+						<span>Organization: </span>
+						{{#if organization}}
+						<span class="editableProfileField">{{organization}}</span>					
+						{{else}}
+						<span class="editableProfileField">Not set.</span>
+						{{/if}}
+					</p>
+					<p>
+						<span>Website: </span>
+						{{#if website}}
+						<span class="editableProfileField">
+							<a href="{{website}}">{{website}}</a>
+						</span>					
+						{{else}}
+						<span class="editableProfileField">Not set.</span>
+						{{/if}}
+					</p>
+					<p>
+						<span>Bio: </span>
+						{{#if bio}}
+						<span class="editableProfileField editableBio">{{bio}}</span>					
+						{{else}}
+						<span class="editableProfileField editableBio">Not set.</span>
+						{{/if}}
+					</p>
+					<p>
+						<span>Country: </span>
+						{{#if country}}
+						<span class="editableProfileField">{{country.name}}</span>					
+						{{else}}
+						<span class="editableProfileField">Not set.</span>
+						{{/if}}
+					</p>
+					<input type="submit" name="profileEditorSolid" class="profileEditorSolid btn" value="Edit">
+				</div>
 
-  <div class="profile_info">
-    {{#with userProfile}}
-    	<p><span>Name: </span> <span class="editableContentSolid" id="editableProfileName"> {{username}}{{#unless username}}No name!!!{{/unless}}</span></p>
-    	<p><span>eMail: </span> <span>{{emails.[0].address}}</span></p>
-    {{/with}}
-  </div>
+				<form name="profileFormFluid" class="profileForm profileFormFluid hiddenE">
+					<p>
+						<span>First Name: </span>
+						<input type="text" class="defaultInputField first_name_input" name="first_name_input" value="{{name.first}}">
+						
+					</p>
+					<p>
+						<span>Last Name: </span>
+						<input type="text" class="defaultInputField last_name_input" name="last_name_input" value="{{name.last}}">					
+					</p>
+					<p>
+						<span>Birthday: </span>
+						<input type="date" class="defaultInputField birthday_input" name="birthday_input" value="{{proccessBirthdayInput}}">				
+					</p>
+					<p>
+						<span>Gender: </span>
+						<select class="gender_input" name="gender_input">
+							<option value="Male">Male</option>
+							<option value="Female">Female</option>
+						</select>					
+					</p>
+					<p>
+						<span>Organization: </span>
+						<input type="text" class="defaultInputField organization_input" name="organization_input" value="{{organization}}">
+					</p>
+					<p>
+						<span>Website: </span>
+						<input type="text" class="defaultInputField website_input" name="website_input" value="{{website}}">
+					</p>
+					<p>
+						<span class="bio_span">Bio: </span>
+						<textarea rows="3" cols="25" class="defaultInputField bio_input" name="bio_input">{{bio}}</textarea>
+					</p>
+					<p>
+						<span>Country: </span>
+						<input type="text" class="defaultInputField country_input" name="country_input" value="{{country.name}}">
+					</p>
+					<input type="submit" name="profileEditor" class="profileEditor btn" value="Edit">
+				</form>
+				{{/with}} <!--end userProfile-->
+				{{/with}} <!--end userAccount-->
+
+			</div>
+		</div>
+	</div>
 </template>

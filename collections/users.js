@@ -20,17 +20,23 @@ Schema.UserCountry = new SimpleSchema({
     },
     code: {
         type: String,
-        regEx: /^[A-Z]{2}$/
+        regEx: /^[A-Z]{2}$/,
+        optional: true
+    }
+});
+
+Schema.UserName = new SimpleSchema({
+    first: {
+        type:String
+    },
+    last: {
+        type: String
     }
 });
 
 Schema.UserProfile = new SimpleSchema({
-    firstName: {
-        type: String,
-        optional: true
-    },
-    lastName: {
-        type: String,
+    name: {
+        type: Schema.UserName,
         optional: true
     },
     birthday: {
@@ -48,7 +54,8 @@ Schema.UserProfile = new SimpleSchema({
     },
     website: {
         type: String,
-        regEx: SimpleSchema.RegEx.Url,
+        //regEx: SimpleSchema.RegEx.Url,
+        regEx: SimpleSchema.RegEx.Domain,
         optional: true
     },
     bio: {

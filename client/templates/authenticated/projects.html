@@ -38,12 +38,13 @@
     <template name="project">      
       <a href="./projects/{{_id}}" class="projectLink" data-id="{{proj_type}}">
         <div class="pContainer">
-          <h3>{{name}}</h3>
-          <span class="owner_container">
+          <h3>{{name}}
             {{#if isOwner}}
-              <i class="fa fa-star"></i>
+            <span class="owner_container" title="You own this project">
+                <i class="fa fa-star"></i>
+            </span>
             {{/if}}
-          </span>
+          </h3>          
         </div>
       </a>      
     </template>

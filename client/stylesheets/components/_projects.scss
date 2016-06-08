@@ -15,6 +15,7 @@
 	}
 
 	h3 {
+		text-align: left;
 		line-height: 0.75em;
 		margin: 0 auto;
 		padding: 1em;
@@ -130,6 +131,16 @@
 .cancelFormP {
 	color: $textColor;
 	cursor: pointer;
+}
+
+.owner_container {
+	line-height: 0;
+	float: right;
+	font-size:1.6em;
+
+	i {
+		color: #ffb20a;
+	}
 }
 
 

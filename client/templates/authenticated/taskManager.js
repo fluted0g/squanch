@@ -46,15 +46,6 @@ Template.taskManager.helpers({
 			return false;
 		}
 	},
-	showDescription : function() {
-		var taskId = Session.get("taskID");
-		task = Tasks.findOne({_id: taskId});
-		if (task.description) {
-			return task.description;
-		} else {
-			return false;
-		}
-	},
 	comments: function() {
 		return Comments.find({task_id:this._id},{sort:{createdAt:-1}});
 	},

@@ -63,9 +63,11 @@ Template.projects.events({
 Template.project.helpers({
 	isOwner : function() {
 		projectId = this._id;
-		project = Projects.findOne({});
+		project = Projects.findOne({_id:projectId});
 		if (project.owner == Meteor.user()._id) {
 			return true;
+		} else {
+			return false;
 		}
 	}
 });
