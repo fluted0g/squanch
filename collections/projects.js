@@ -60,6 +60,18 @@ Card = new SimpleSchema({
   }
 });
 */
+LabelSchema = new SimpleSchema({
+  color: {
+    type: String,
+    label: "Label color",
+    optional: true
+  },
+  text: {
+    type: String,
+    label: "Label text",
+    optional: true
+  }
+});
 
 ProjectSchema = new SimpleSchema({
   name: {
