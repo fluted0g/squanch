@@ -25,13 +25,18 @@ Schema.UserCountry = new SimpleSchema({
     }
 });
 
-Schema.UserProfile = new SimpleSchema({
-    firstName: {
-        type: String,
-        optional: true
+Schema.UserName = new SimpleSchema({
+    first: {
+        type:String
     },
-    lastName: {
-        type: String,
+    last: {
+        type: String
+    }
+});
+
+Schema.UserProfile = new SimpleSchema({
+    name: {
+        type: Schema.UserName,
         optional: true
     },
     birthday: {

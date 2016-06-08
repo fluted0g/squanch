@@ -53,9 +53,15 @@
 		text-align: left;
 		font-size: 2.5em;
 		color: #fff;
-		background-color: rgba(#111,0.2);
+		background-color: rgba(#111,0.25);
 		border-radius: 5px;
 		padding: 4.5px 20px;
+
+		span {
+			float: left;
+			clear: both;
+			font-size: 0.6em;
+		}
 
 		@media screen and (max-width: 1024px) {
 			width: 100%;

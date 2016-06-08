@@ -68,9 +68,9 @@ Template.profile.events({
     },
     'submit .profileFormFluid' :function(e) {
         e.preventDefault();
-        var profile = {country:{name:'Not defined'}};
-        profile.firstName = e.target.first_name_input.value;
-        profile.lastName = e.target.first_name_input.value;
+        var profile = {name:{first:'',last:''},country:{name:'Not defined'}};
+        profile.name.first = e.target.first_name_input.value;
+        profile.name.last = e.target.last_name_input.value;
         profile.birthday= e.target.birthday_input.value;
         profile.gender= e.target.gender_input.value;
         profile.organization= e.target.organization_input.value;
