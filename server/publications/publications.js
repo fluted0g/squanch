@@ -120,6 +120,13 @@ Meteor.publish('taskMembers', function(taskId) {
 
 Meteor.methods({
 	//user related
+	editUserProfile : function(objProfile) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(objProfile, Object);
+		return Meteor.users.update({_id:Meteor.userId()},{$set: {profile:objProfile}});
+	},
 	addMember : function(projectId,nameOrMail) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
@@ -154,8 +161,9 @@ Meteor.methods({
 			var isSelf = true;
 		}
 
-		if (!isOwner || !isSelf) {
+		if (!isSelf) {
 			Meteor.users.update({_id : member._id },{ $pull : { project_ids : { $in : [projectId]}} });
+			Projects.update({_id:projectId},{$pull:{members:member._id}});
 		} else {
 			throw new Meteor.error("invalid-target");
 		}
@@ -294,6 +302,16 @@ Meteor.methods({
 		check(cardId, String);
 		check(input, Number);
 		Cards.update({_id:cardId}, {$set:{cardIndex:input} } );
+	},
+	archiveAllCards: function(projectId) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(projectId, String);
+		var cards = Cards.find({project_id:projectId});
+		if (cards) {
+			Cards.update({project_id:projectId}, { $set : {status:'archived'}},{multi:true});
+		}
 	},
 	//task related
 	addTaskMember : function(taskId,memberName) {
