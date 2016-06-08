@@ -120,6 +120,13 @@ Meteor.publish('taskMembers', function(taskId) {
 
 Meteor.methods({
 	//user related
+	editUserProfile : function(objProfile) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(objProfile, Object);
+		return Meteor.users.update({_id:Meteor.userId()},{$set: {profile:objProfile}});
+	},
 	addMember : function(projectId,nameOrMail) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");

@@ -20,7 +20,8 @@ Schema.UserCountry = new SimpleSchema({
     },
     code: {
         type: String,
-        regEx: /^[A-Z]{2}$/
+        regEx: /^[A-Z]{2}$/,
+        optional: true
     }
 });
 
@@ -48,7 +49,8 @@ Schema.UserProfile = new SimpleSchema({
     },
     website: {
         type: String,
-        regEx: SimpleSchema.RegEx.Url,
+        //regEx: SimpleSchema.RegEx.Url,
+        regEx: SimpleSchema.RegEx.Domain,
         optional: true
     },
     bio: {

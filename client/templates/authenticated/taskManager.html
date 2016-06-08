@@ -32,11 +32,8 @@
 					<form class="editableTaskDescriptionForm" name="editableTaskDescriptionForm">
 							<span class="editableContentSolid editableTaskDescription">
 							{{#if description}}
-								{{showDescription}}
-							{{/if}}
-							{{#unless description}}
-								<span class="no-style">Task has no description.</span>
-							{{/unless}}
+								{{description}}
+							{{else}}Task has no description.{{/if}}
 							</span>
 						<!--
 							{{#if showDescription}}
