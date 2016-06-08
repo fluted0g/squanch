@@ -7,8 +7,10 @@
 						{{emails.[0].address}}
 					{{/if}}
 				</span>
-			{{#unless isOwner}}
+			{{#if userIsOwner}}
+				{{#unless isOwner}}
 			<span class="deleteMember"><i class="fa fa-times-circle"></i></span>
-			{{/unless}}
+				{{/unless}}
+			{{/if}}
 			</li>
 </template>

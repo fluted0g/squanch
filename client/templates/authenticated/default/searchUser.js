@@ -40,7 +40,11 @@ Template.searchUser.events({
       e.stopImmediatePropagation();
     	var projectId = Session.get("projectID");
       var text = $(e.target.searchUser).val().trim();
-      Meteor.call('addMember',projectId, text);
+      Meteor.call('addMember',projectId, text, function(error,success) {
+        if (error) {
+          Bert.alert("User is already a member.","warning");
+        }
+      });
       $('.searchUser').val("");
       userSearch.search("20G25N81Y77B79");
   },
@@ -50,7 +54,11 @@ Template.searchUser.events({
         member = this.emails[0].address;
       }
       var projectId = Session.get("projectID");
-      Meteor.call('addMember',projectId, member);
+      Meteor.call('addMember',projectId, member, function(error,success) {
+        if (error) {
+          Bert.alert("User is already a member.","warning");
+        }
+      });
       $('.searchUser').val("");
       userSearch.search("20G25N81Y77B79");
   }

@@ -51,18 +51,25 @@ Template.controlPanel.events ({
 		Meteor.call("toggleStatus","task",id);
 	},
 	'click .deleteProject' : function(e) {
-		
 		//prompt confirmation!!!!
 		$('.deleteProject').confirmation({
 			onConfirm : function(event) {
 				event.preventDefault();
-				var id = Session.get("projectID");
-				Meteor.call("deleteProject",id);
-				FlowRouter.go('/');
+				var projectId = Session.get("projectID");
+				Meteor.call("deleteProject",projectId, function(error,success) {
+					if (error) {
+						Bert.alert("You're not allowed to delete this project.","warning");
+					} else if (success) {
+						FlowRouter.go('/');
+					}
+				});
 			},
 			popout: true,
 			singleton: true
 		});	
-		
+	},
+	'click .archiveAllCards' : function(e) {
+		var projectId = Session.get("projectID");
+		Meteor.call("archiveAllCards",projectId);
 	}
 });

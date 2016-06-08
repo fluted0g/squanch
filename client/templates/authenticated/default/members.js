@@ -8,11 +8,22 @@ Template.members.onCreated(function() {
 });
 
 Template.members.helpers({
+	//old isOwner helper
 	isOwner : function() {
 		var projectId = Session.get("projectID");
-		var ownerP = Projects.find({},{fields:{owner:1}}).fetch()[0];
+		var ownerP = Projects.find({_id:projectId},{fields:{owner:1}}).fetch()[0];
 		if (ownerP.owner == this._id) {
 			return true;
+		}
+	},
+	//new isOwner helper(checks if current user is the owner)
+	userIsOwner : function() {
+		var projectId = Session.get("projectID");
+		var ownerP = Projects.find({_id:projectId},{fields:{owner:1}}).fetch()[0];
+		if (ownerP.owner == Meteor.user()._id) {
+			return true;
+		} else {
+			return false;
 		}
 	},
 	initials : function() {

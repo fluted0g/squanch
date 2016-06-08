@@ -11,8 +11,8 @@ Template.authenticatedNavigation.onCreated(function() {
 Template.authenticatedNavigation.helpers ({
 
 	navProjects: function() {
-		var logged = Session.get("loggedUser");
-		if (logged) {
+		var projects = Projects.find({});
+		if (projects.count() > 0) {
 			return Projects.find({}, {sort: {createdAt: -1}});
 		}
 	}
