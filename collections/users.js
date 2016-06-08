@@ -27,10 +27,12 @@ Schema.UserCountry = new SimpleSchema({
 
 Schema.UserName = new SimpleSchema({
     first: {
-        type:String
+        type:String,
+        optional: true
     },
     last: {
-        type: String
+        type: String, 
+        optional: true
     }
 });
 
