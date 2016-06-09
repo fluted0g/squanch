@@ -59,8 +59,8 @@ Template.controlPanel.events ({
 				Meteor.call("deleteProject",projectId, function(error,success) {
 					if (error) {
 						Bert.alert("You're not allowed to delete this project.","warning");
-					} else if (success) {
-						FlowRouter.go('/');
+					} else {
+						FlowRouter.go('/projects');
 					}
 				});
 			},

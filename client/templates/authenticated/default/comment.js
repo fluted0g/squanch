@@ -51,9 +51,11 @@ Template.comment.events({
 				//$('.edit_comment[data-id='+dataId+']').css('display','block');
 			} else if ($(target).prop("tagName") == "TEXTAREA") {
 				newMsg = $(target).val().trim();
-				Meteor.call("editComment",dataId,newMsg);
-				editableText = $('<span class="comment_text is_span" data-id="'+dataId+'">'+newMsg+'</span>');
-				$(target).replaceWith(editableText);
+				if (newMsg != "") {
+					Meteor.call("editComment",dataId,newMsg);
+					editableText = $('<span class="comment_text is_span" data-id="'+dataId+'">'+newMsg+'</span>');
+					$(target).replaceWith(editableText);
+				}
 				//$('.edit_comment[data-id='+dataId+']').css('display','none');
 			}
 		} else if (Meteor.user()._id != this.author) {

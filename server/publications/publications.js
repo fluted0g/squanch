@@ -347,22 +347,39 @@ Meteor.methods({
 			Tasks.update({_id:taskId},{$pull:{members:member._id}});
 		}
 	},
-	newTask : function(cardId,taskName) {
+	newTask : function(projectId,cardId,taskName) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
 		}
 		check(taskName, String);
 		check(cardId, String);
+		check(projectId, String);
+
+		//check if another card exists, to find the existing labels
+		projectCards = Cards.find({project_id:projectId}).fetch();
+		var cardIds = [];
+		_.each(projectCards, function(card) {
+			cardIds.push(card._id);
+		});
+		existingTask = Tasks.findOne({card_id:{$in: cardIds}});
+
+		//build the task object
 		var userId = Meteor.userId();
 		var status = "active";
-		var label = "default";
 		var oTask = {
 			name: taskName,
 			card_id: cardId,
 			status: status,
-			label: label,
 			author: userId
 		}
+		//if task is not the first one, copy the label settings from another one
+		//else, create the default labels
+		if (existingTask) {
+			oTask.labels = existingTask.labels;
+		} else {
+			oTask.labels = [{color:'#DA5347'},{color:'#75BA50'},{color:'#8E4585'},{color:'#FAD131'},{color:'#E87600'}];
+		}
+		//instert the task into mongo
 		Tasks.insert(oTask);
 	},
 	moveAllTasks : function(parentCard,targetCard) {
@@ -410,13 +427,25 @@ Meteor.methods({
 			Tasks.update({'_id':taskId},{$set: {'description': input}});
 		}
 	},
-	editTaskLabel : function(taskId,input) {
+	toggleLabel : function(taskId, color, status) {
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
 		}
 		check(taskId, String);
-		check(input, String);
-		Tasks.update({'_id':taskId},{$set:{'label': input}});
+		check(color, String);
+		check(status, Boolean);
+		
+		Tasks.update({_id:taskId,'labels.color':color},{$set:{'labels.$.active':status}});
+	},
+	setLabelText : function(taskId, color, text) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		check(taskId, String);
+		check(color, String);
+		check(text, String);
+		
+		return Tasks.update({'labels.color':color},{$set:{'labels.$.text':text}},{multi:true});
 	},
 	editTaskCardId : function(taskId,input) {
 		if (! Meteor.userId()) {

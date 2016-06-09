@@ -62,9 +62,15 @@ Template.task.helpers({
         }
         return dateClass;
     },
-    label : function() {
-        if (this.label != "default") {
-            return this.label;
+    activeLabels: function() {
+        var labels = [];
+        _.each(this.labels, function(label) {
+            if (label.active == true) {
+                labels.push(label);
+            }
+        });
+        if (labels.length > 0) {
+            return labels;
         }
     }
 });

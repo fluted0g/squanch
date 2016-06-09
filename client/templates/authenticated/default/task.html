@@ -1,9 +1,9 @@
 <template name="task">
 	<li class="task_frame" data-id="{{_id}}">
 		<div class="task_head">
-			{{#with label}}
-			<span class="labelMarker {{this}}"></span>
-			{{/with}}
+			{{#each activeLabels}}
+			<span class="labelMarker" title="{{this.text}}" style="background-color:{{this.color}}"></span>
+			{{/each}}
 			<h4>{{name}}</h4>
 			<span class="taskOptions">
 					<i class="fa fa-pencil-square"></i>

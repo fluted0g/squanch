@@ -7,9 +7,13 @@
 #modalTask {
 	color: #111;
 	.modal-content {
-		min-width: 115%;
+		min-width: 150%;
+		margin-left: -20%;
+		@media screen and (max-width:1024px) {
+			min-width: 95%;
+			margin-left:0;
+		}
 	}
-
 	a {
 		color: #111;
 		&:hover {
@@ -19,18 +23,15 @@
 }
 
 .task_content {
-
 	.btn {
 		background-color: darken($gray-lighter,5%);
 		border: 1px solid darken($gray-lighter,15%);
 		border-radius: 4px;
 		margin: 4px;
 	}
-
 	h5 {
 		font-weight: bold;
 	}
-
 	.due_box {
 		margin: 3px 6px;
 
@@ -47,7 +48,6 @@
 	}
 	.description_box {
 		margin: 3px 6px;
-
 		.editableTaskDescriptionForm {
 			background-color: $gray-lighter;
 			border-radius: 4px;
@@ -56,7 +56,6 @@
 			padding: 8px 4px;
 			clear: both;
 			overflow: auto;
-
 			#descButton {
 				margin: 8px 20px;
 				float: left;
@@ -118,7 +117,6 @@
 		border: 1px solid darken($gray-lighter,15%);
 		border-radius: 5px;
 		background-color: darken($gray-lighter,3%);
-
 		i {
 			font-size: 1.5em;
 		}
@@ -128,6 +126,7 @@
 	display: inline-block;
 	float: right;
 }
+
 .isMember {
 	color: $successGreen;
 }
@@ -162,7 +161,6 @@
 	width: 99%;
 	padding: 3px;
 	margin-bottom: 5px;
-
 	a {
 		color: lighten($mainYellow,5%);
 	}
@@ -182,3 +180,45 @@
 	padding: 0;
 	margin: 0;
 }
+.label_wrapper {
+	margin:2px;
+	padding:4px;
+	font-weight: bold;
+	color: #111;
+	.label_picker {
+		/*display: inline-block;*/
+		width:85%;
+		border-radius:3px;
+		min-height:30px;
+		padding:3px 6px;
+		float:left;
+		cursor: default;
+		i {
+			float: right;
+			padding-top:3px;
+			font-size:1.4em;
+		}
+	}
+	.label_text {
+		width:85%;
+		border-radius:3px;
+		min-height:30px;
+		padding:3px 6px;
+		float:left;
+		outline-color:black;
+		border:none;
+	}
+	.label_editor {
+		float:left;
+		padding: 2px 0 6px 6px;
+		color: #111;
+		i {
+			font-size:1.8em;
+		}
+	}
+}
+
+.hiddenE {
+	display:none;
+}
+

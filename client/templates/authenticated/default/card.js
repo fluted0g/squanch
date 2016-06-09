@@ -48,10 +48,11 @@ Template.card.events ({
     */
     "submit .insert_task" : function(event) {
       event.preventDefault();
+      var projectId = Session.get("projectID");
       var cardId = this._id;
       var taskTitle = event.target.task_title.value;
       if (taskTitle != "") {
-        Meteor.call("newTask",cardId,taskTitle);
+        Meteor.call("newTask",projectId,cardId,taskTitle);
         event.target.task_title.value = "";
         $(".taskInserter[data-id="+cardId+"]").toggleClass("activeT");
         $(".submitTask[data-id="+cardId+"]"+

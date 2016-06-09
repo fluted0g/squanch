@@ -13,6 +13,10 @@ ul {
   flex-direction: row;
   overflow: auto;
   list-style: none;
+
+  @media screen and (max-width:716px) {
+    flex-direction: column;
+  }
 }
 
 .card_body {

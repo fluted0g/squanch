@@ -47,3 +47,5 @@ fortawesome:fontawesome
 hinas:meteor-bootstrap-confirmation
 momentjs:moment
 rochal:slimscroll
+meteorhacks:kadira
+kadira:debug

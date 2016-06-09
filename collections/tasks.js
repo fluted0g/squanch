@@ -43,6 +43,29 @@ Event = new SimpleSchema({
   }
 });
 
+Label = new SimpleSchema({
+  color: {
+    type: String,
+    label: "Label color"
+  },
+  text: {
+    type: String,
+    label: "Label text",
+    optional: true
+  },
+  active: {
+    type: Boolean,
+    label: "Label activeness",
+    autoValue: function() {
+      if (this.isInsert) {
+        return false;
+      } else if (this.isUpsert) {
+        return {$setOnInsert: false};
+      }
+    }
+  }
+});
+
 TaskSchema = new SimpleSchema({
   name: {
     type: String,
@@ -86,10 +109,9 @@ TaskSchema = new SimpleSchema({
     label: "Task due date",
     optional: true
   },
-  //red,yellow,green,buggy,
-  label: {
-    type: String,
-    label: "Task label"
+  labels : {
+    type: [Label],
+    optional: true
   },
   status : {
     type: String,

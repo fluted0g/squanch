@@ -103,36 +103,28 @@ Template.taskManager.helpers({
     		}
     	});
     	return isMember;
+    },
+    isActive : function() {
+    	if (this.active == true) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    },
+    activeLabels: function() {
+        var labels = [];
+        _.each(this.labels, function(label) {
+            if (label.active == true) {
+                labels.push(label);
+            }
+        });
+        if (labels.length > 0) {
+            return labels;
+        }
     }
 });
 
 Template.taskManager.events({
-	'submit .set_label' : function(event) {
-		event.preventDefault();
-		var newLabel = event.target.editLabel.value;
-		//determining project_type and reformatting for collection
-		switch (newLabel) {
-			case "Red" :
-			newLabel = "redL";
-			break;
-			case "Green" :
-			newLabel = "greenL";
-			break;
-			case "Blue" :
-			newLabel = "blueL";
-			break;
-			case "Yellow" :
-			newLabel = "yellowL";
-			break;
-			case "Orange" :
-			newLabel = "orangeL";
-			break;
-			case "Purple" :
-			newLabel = "purpleL";
-			break;
-		}
-		Meteor.call("editTaskLabel",this._id,newLabel);
-	},
 	'click .card_target' : function(event) {
 		var newCardId = $(event.target).data("id");	
 		var taskId = Session.get("taskID");
@@ -163,8 +155,10 @@ Template.taskManager.events({
 		var taskId = this._id;
 		var commentMsg = event.target.commentMsg.value;
 		var author = Meteor.user().username;
-		Meteor.call("newComment",taskId,commentMsg,author);
-		event.target.commentMsg.value = "";
+		if (commentMsg != "") {
+			Meteor.call("newComment",taskId,commentMsg,author);
+			event.target.commentMsg.value = "";
+		}
 	},
 	'click .editableContentSolid' : function(event) {
 		var html = $(event.target).text().trim();
@@ -259,5 +253,39 @@ Template.taskManager.events({
         var taskId = Session.get("taskID");
         var memberName = this.username;
         Meteor.call("removeTaskMember",taskId,memberName);
+    },
+    'click .label_picker' : function(e) {
+
+    	taskId = Session.get("taskID");
+    	Meteor.call("toggleLabel",taskId,this.color,!this.active);
+
+    },
+    'click .label_editor' : function(e) {
+    	if ($(".label_text[data-id="+this.color+"]").hasClass("hiddenE")) {
+    		$(".label_picker[data-id="+this.color+"]").css("display","none");
+    		$(".label_text[data-id="+this.color+"]").toggleClass("hiddenE");
+    		$(".label_text[data-id="+this.color+"]").focus();
+    	}/*else {
+    		//text = $(".label_text[data-id="+this.color+"]").val();
+    		//labelColor = this.color;
+    		//taskId = Session.get("taskID");
+    		//Meteor.call("setLabelText",taskId,labelColor,text, function(error,success) {
+    		//	if (success) {
+    				$(".label_picker[data-id="+this.color+"]").css("display","inline-block");
+    				$(".label_text[data-id="+this.color+"]").toggleClass("hiddenE");
+    		//	}
+    		//});	
+    	}*/
+    },
+    'blur .label_text' : function(e) {
+    	text = e.currentTarget.value;
+    	labelColor = this.color;
+    	taskId = Session.get("taskID");
+    	Meteor.call("setLabelText",taskId,labelColor,text, function(error,success) {
+    		if (success) {
+    			$(".label_picker[data-id="+labelColor+"]").css("display","inline-block");
+    			$(".label_text[data-id="+labelColor+"]").toggleClass("hiddenE");
+    		}
+    	});
     }
 });

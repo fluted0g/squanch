@@ -11,8 +11,10 @@
 		<h4 class="modal-title editableContentSolid editableTaskName">
 			{{name}}
 		</h4>
-		<span class="labelMarker {{label}}"></span>
 	</form>
+	{{#each activeLabels}}
+		<span class="labelMarkerAuto {{#unless this.text}}labelNoText{{/unless}}" style="background-color:{{this.color}}">{{this.text}}</span>
+	{{/each}}
 </div>
 <div class="container modal-body">
 	<div class="row">
@@ -94,7 +96,23 @@
 					</div>
 					<div id="collapseTaskTwo" class="panel-collapse collapse">
 						<div class="panel-body">
-							<!-- Change label color -->
+
+							{{#each labels}}
+								<div class="label_wrapper">
+									<div class="label_picker" style="background-color: {{color}}" data-id="{{color}}">
+										{{text}}
+										{{#with isActive}}
+											<i class="fa fa-check"></i>
+										{{/with}}
+									</div>
+									<input type="text" class="label_text hiddenE" style="background-color: {{color}}" data-id="{{color}}" value="{{text}}">
+									<span class="label_editor">
+										<i class="fa fa-pencil-square"></i>
+									</span>
+								</div>
+							{{/each}}
+
+							<!-- OLD LABEL FORM
 							<form class="set_label">
 								<label class="edit_label" for="editLabel">Change Label: 
 									<select class="select_label" name="editLabel">
@@ -108,7 +126,7 @@
 								</label>
 								<input type="submit" class="btn" value="Set">
 							</form>
-
+							-->
 						</div>
 					</div>
 				</div>

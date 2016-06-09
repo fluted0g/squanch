@@ -2,7 +2,7 @@
 	<div class="jumbotron text-center" style="padding: 20px;">
 		<h1>Your Profile</h1>
 		<div class="row profile_container">
-			<div class="col-xs-6 col-md-9 col-sm-12 profile_info">
+			<div class="col-xs-12 col-md-9 col-sm-12 profile_info">
 				{{#with userAccount}}
 				<div class="general_info">
 					<p>
@@ -60,7 +60,7 @@
 						<span>Website: </span>
 						{{#if website}}
 						<span class="editableProfileField">
-							<a href="{{website}}">{{website}}</a>
+							<a href="http://{{website}}">{{website}}</a>
 						</span>					
 						{{else}}
 						<span class="editableProfileField">Not set.</span>
@@ -116,7 +116,7 @@
 					</p>
 					<p>
 						<span class="bio_span">Bio: </span>
-						<textarea rows="3" cols="25" class="defaultInputField bio_input" name="bio_input">{{bio}}</textarea>
+						<textarea rows="3" cols="20" class="defaultInputField bio_input" name="bio_input">{{bio}}</textarea>
 					</p>
 					<p>
 						<span>Country: </span>
