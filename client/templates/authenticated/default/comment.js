@@ -25,13 +25,13 @@ Template.comment.helpers({
 		if (!this.updatedAt) {
 			var date = this.createdAt;
 			displayDate = moment(new Date(date)).format('MMMM Do YYYY, h:mm a');
-			prefix = "Created: ";
+			prefix = TAPi18n.__('created');
 			result = prefix.concat(displayDate);
 			return result;
 		} else {
 			var date = this.updatedAt;
 			displayDate =  moment(new Date(date)).format('MMMM Do YYYY, h:mm a');
-			prefix = "Last update: ";
+			prefix = TAPi18n.__('updated');
 			result = prefix.concat(displayDate);
 			return result;
 		}

@@ -6,14 +6,14 @@
         <i class="fa fa-cog"></i>
       </div>
 
-			<h4>Control Panel</h4>
+			<h4>{{_ 'controlPanelHeader'}}</h4>
 
 
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">MEMBERS</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{_ 'memberAccordion'}}</a>
             </h4>
           </div>
           <div id="collapseOne" class="panel-collapse collapse">
@@ -29,7 +29,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">ADD MEMBERS</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">{{_ 'addMembersAccordion'}}</a>
             </h4>
           </div>
           <div id="collapseTwo" class="panel-collapse collapse">
@@ -41,15 +41,15 @@
        <div class="panel panel-default">
          <div class="panel-heading">
            <h4 class="panel-title">
-             <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">ARCHIVE</a>
-             <i class="fa fa-info-circle" title="Click on archived element to unarchive it."></i>
+             <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">{{_ 'archiveAccordion'}}</a>
+             <i class="fa fa-info-circle" title="{{_ 'archiveInfo'}}"></i>
            </h4>
          </div>
          <div id="collapseThree" class="panel-collapse collapse">
            <div class="panel-body scrollbar-outer">
             <ul class="nav nav-tabs">
-              <li class="active"><a class="archiveLink" data-toggle="tab" href="#cardList">Cards</a></li>
-              <li><a class="archiveLink" data-toggle="tab" href="#taskList">Tasks</a></li>
+              <li class="active"><a class="archiveLink" data-toggle="tab" href="#cardList">{{_ 'CardNames'}}</a></li>
+              <li><a class="archiveLink" data-toggle="tab" href="#taskList">{{_ 'TaskNames'}}</a></li>
             </ul>
             <div class="tab-content">
               <ul id="cardList" class="active tab-pane">
@@ -72,13 +72,13 @@
      <div class="panel panel-default">
        <div class="panel-heading">
         <h4 class="panel-title">
-         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">SETTINGS</a>
+         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">{{_ 'settingsAccordion'}}</a>
        </h4>
      </div>
      <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">
-        <span class="archiveAllCards">Archive all cards</span>
-        <span class="deleteProject">Delete project</span>
+        <span class="archiveAllCards">{{_ 'archiveAllButton'}}</span>
+        <span class="deleteProject">{{_ 'deleteProjectButton'}}</span>
       </div>
    </div>
  </div>

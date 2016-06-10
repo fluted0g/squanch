@@ -45,8 +45,11 @@ Template.task.helpers({
         return Comments.find({task_id:this._id}).fetch();
     },
     timeLeft : function() {
-        return "Due " + moment(this).fromNow();
-    },
+        //console.log(moment(this).fromNow().locale(lang))
+        var processedDueDate = TAPi18n.__('taskDueIcon') +""+ moment(this).fromNow();
+    
+        return processedDueDate;
+        },
     colorDate : function() {
         dueDate = moment(this);
         now = moment();

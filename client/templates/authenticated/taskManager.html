@@ -24,18 +24,18 @@
 				{{#with dueDate}}
 				<div class="due_box">
 					<span class="dateDisplay {{colorDate}}">
-						<b>Due</b> : {{dueDateDisplay}} ({{timeLeft}})
+						<b>{{_ 'dueLabel'}}</b> : {{dueDateDisplay}} ({{timeLeft}})
 					</span>
 				</div>
 				{{/with}}
 				<!-- Change description -->
 				<div class="description_box">
-					<h5>Description:</h5>
+					<h5>{{_ 'descriptionLabel'}}</h5>
 					<form class="editableTaskDescriptionForm" name="editableTaskDescriptionForm">
 							<span class="editableContentSolid editableTaskDescription">
 							{{#if description}}
 								{{description}}
-							{{else}}Task has no description.{{/if}}
+							{{else}}{{_ 'noDescription'}}{{/if}}
 							</span>
 						<!--
 							{{#if showDescription}}
@@ -44,17 +44,17 @@
 								<span class="editableContentSolid editableTaskDescription">{{description}}</span>
 							{{/if}}
 						-->
-						<input class="btn" type="submit" value="Send" id="descButton">
+						<input class="btn" type="submit" value="{{_ 'sendButton'}}" id="descButton">
 					</form>
 				</div>
 				<div class="comments_box">
-					<h5>New Comment:</h5>
+					<h5>{{_ 'newCommentLabel'}}</h5>
 					<form class="new_comment">
 						<textarea rows='2' cols='40' class='comment_input' name='commentMsg' type='text'></textarea>
-						<input class="comment_submit btn" type="submit" value="Send">
+						<input class="comment_submit btn" type="submit" value="{{_ 'sendButton'}}">
 					</form>
 					{{#if hasComments}}
-						<h5>Comments:</h5>
+						<h5>{{_ 'commentsLabel'}}</h5>
 					{{/if}}
 
 					{{#each comments}}
@@ -69,7 +69,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion2" href="#collapseTaskOne">MEMBERS</a>
+							<a data-toggle="collapse" data-parent="#accordion2" href="#collapseTaskOne">{{_ 'taskMemberAccordion'}}</a>
 						</h4>
 					</div>
 					<div id="collapseTaskOne" class="panel-collapse collapse">
@@ -91,7 +91,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion2" href="#collapseTaskTwo">LABELS</a>
+							<a data-toggle="collapse" data-parent="#accordion2" href="#collapseTaskTwo">{{_ 'labelsAccordion'}}</a>
 						</h4>
 					</div>
 					<div id="collapseTaskTwo" class="panel-collapse collapse">
@@ -133,7 +133,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion2" href="#collapseTaskThree">DUE DATE</a>
+							<a data-toggle="collapse" data-parent="#accordion2" href="#collapseTaskThree">{{_ 'dueDateAccordion'}}</a>
 						</h4>
 					</div>
 					<div id="collapseTaskThree" class="panel-collapse collapse">
@@ -146,8 +146,8 @@
 								<span class="browse_date"></span>
 								</div>
 								<div class="due_date_buttons">
-									<input class="dateSetter btn" type="submit" value="Set Date"/>
-									<button class="dateRemover btn">Remove Date</button>
+									<input class="dateSetter btn" type="submit" value="{{_ 'setDateBtn'}}"/>
+									<button class="dateRemover btn">{{_ 'removeDateBtn'}}</button>
 								</div>
 							</form>
 						</div>
@@ -156,7 +156,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion2" href="#collapseTaskFour">MOVE</a>
+							<a data-toggle="collapse" data-parent="#accordion2" href="#collapseTaskFour">{{_ 'moveAccordion'}}</a>
 						</h4>
 					</div>
 					<div id="collapseTaskFour" class="panel-collapse collapse">
@@ -171,14 +171,14 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion2" href="#collapseTaskFive">ARCHIVE</a>
+							<a data-toggle="collapse" data-parent="#accordion2" href="#collapseTaskFive">{{_ 'archiveAccordion'}}</a>
 						</h4>
 					</div>
 					<div id="collapseTaskFive" class="panel-collapse collapse">
 						<div class="panel-body">
 							
 							<!-- Archive task -->
-							<button type="button" class ="archiveTask btn btn-danger">Archive this task</button>
+							<button type="button" class ="archiveTask btn btn-danger">{{_ 'archiveBtn'}}</button>
 							
 						</div>
 					</div>
@@ -190,7 +190,7 @@
 <div class="modal-footer">
 	<button type="button" 
 	class="btn btn-default" 
-	data-dismiss="modal">Close</button>
+	data-dismiss="modal">{{_ 'closeButton'}}</button>
 	<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
 </div>
 </div><!-- /.modal-content -->

@@ -18,24 +18,24 @@
 			<div class="taskInserter" data-id="{{_id}}">
 				<form class="insert_task">
 					<span class="fake_task_title" data-id="{{_id}}">
-						<span>Insert a task...</span>
+						<span>{{_ 'insertTaskPlaceHolder'}}</span>
 					</span>
-					<input type="text" name="task_title" class="task_title hiddenE" data-id="{{_id}}" placeholder="Insert a task..." autocomplete="off">
-					<input class="submitTask hiddenE btn" data-id="{{_id}}" type="submit" value="Add">
+					<input type="text" name="task_title" class="task_title hiddenE" data-id="{{_id}}" placeholder="{{_ 'insertTaskPlaceHolder'}}" autocomplete="off">
+					<input class="submitTask hiddenE btn" data-id="{{_id}}" type="submit" value="{{_ 'addButton'}}">
 					<i class="fa fa-times-circle cancelFormT hiddenE" data-id="{{_id}}"></i>
 				</form>					
 			</div>
 
 			<ul class="cardMenu" data-id="{{_id}}">
-				<li class="archiveCard">Archive</li>
-				<li class="moveTasks">Move tasks
+				<li class="archiveCard">{{_ 'archiveCard'}}</li>
+				<li class="moveTasks">{{_ 'moveTasks'}}
 					<ul class="cardList" data-id="{{_id}}">
 						{{#each cards}}
 						<li class="cardInList" data-id="{{_id}}">{{name}}</li>
 						{{/each}}
 					</ul>
 				</li>
-				<li class="archiveTasks">Archive tasks</li>
+				<li class="archiveTasks">{{_ 'archiveTasks'}}</li>
 			</ul>
 
 

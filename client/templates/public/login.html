@@ -2,25 +2,25 @@
   <div class="backgrounder">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-6 loginFrame">
-        <h4 class="page-header">Login</h4>
+        <h4 class="page-header">{{_ 'navLogin'}}</h4>
         <form id="login" class="login">
           <div class="form-group">
-            <label for="emailAddress">Email Address</label>
-            <input type="email" name="emailAddress" class="form-control" placeholder="Email Address">
+            <label for="emailAddress">{{_ 'emailInputLabel'}}</label>
+            <input type="email" name="emailAddress" class="form-control" placeholder="{{_ 'emailInputLabel'}}">
           </div>
           <div class="form-group">
-            <label for="password"><span class="pull-left">Password</span> <a class="pull-right" href="{{pathFor 'recover-password'}}">Forgot Password?</a></label>
+            <label for="password"><span class="pull-left">{{_ 'passInputLabel'}}</span> <a class="pull-right" href="{{pathFor 'recover-password'}}">{{_ 'forgotPass'}}</a></label>
             <input type="password" name="password" class="form-control" placeholder="Password">
           </div>
           <div class="form-group">
-            <input type="submit" class="btn btn-success" value="Login">
+            <input type="submit" class="btn btn-success" value="{{_ 'navLogin'}}">
           </div>
         </form>
-        <p>Don't have an account? <a href="{{pathFor 'signup'}}">Sign Up</a>.</p>
+        <p>{{_ 'loginFormToSignup'}} <a href="{{pathFor 'signup'}}">{{_ 'signupLink'}}</a>.</p>
       </div>
 
       <div class="col-xs-12 col-sm-12 col-md-6 app_info">
-        <p>Squanch is an open-source application which aim is to help teams develop complex projects by providing a simple way of managing their tasks. <span>Check our <a href="https://github.com/fluted0g/squanch">repository</a> on gitHub.</span></p>
+        <p>{{_ 'appInfo'}} <span>{{_ 'checkRep'}} <a href="https://github.com/fluted0g/squanch">{{_ 'Rep'}}</a> {{_ 'gitRep'}}</span></p>
       </div>
     </div>
   </div>

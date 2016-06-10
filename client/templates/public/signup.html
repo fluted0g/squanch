@@ -2,28 +2,28 @@
   <div class="backgrounder">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-6 signupFrame">
-        <h4 class="page-header">Sign Up</h4>
+        <h4 class="page-header">{{_ 'navSignup'}}</h4>
         <form id="signup" class="signup">
           <div class="form-group">
-            <label for="userName">Name</label>
-            <input type="text" name="userName" class="form-control" placeholder="User name">
+            <label for="userName">{{_ 'nameInputLabel'}}</label>
+            <input type="text" name="userName" class="form-control" placeholder="{{_ 'nameInputLabel'}}">
           </div>
           <div class="form-group">
-            <label for="emailAddress">Email Address</label>
-            <input type="email" name="emailAddress" class="form-control" placeholder="Email Address">
+            <label for="emailAddress">{{_ 'emailInputLabel'}}</label>
+            <input type="email" name="emailAddress" class="form-control" placeholder="{{_ 'emailInputLabel'}}">
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" class="form-control" placeholder="Password">
+            <label for="password">{{_ 'passInputLabel'}}</label>
+            <input type="password" name="password" class="form-control" placeholder="{{_ 'passInputLabel'}}">
           </div>
           <div class="form-group">
-            <input type="submit" class="btn btn-success" value="Sign Up">
+            <input type="submit" class="btn btn-success" value="{{_ 'navSignup'}}">
           </div>
         </form>
-        <p>Already have an account? <a href="{{pathFor 'login'}}">Log In</a>.</p>
+        <p>{{_ 'signupFormToLogin'}} <a href="{{pathFor 'login'}}">{{_ 'loginLink'}}</a>.</p>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 app_info">
-        <p>Squanch is an open-source application which aim is to help teams develop complex projects by providing a simple way of managing their tasks. <span>Check our <a href="https://github.com/fluted0g/squanch">repository</a> on gitHub.</span></p>
+        <p>{{_ 'appInfo'}} <span>{{_ 'checkRep'}} <a href="https://github.com/fluted0g/squanch">{{_ 'Rep'}}</a> {{_ 'gitRep'}}</span></p>
       </div>
     </div>
   </div>

@@ -41,7 +41,7 @@ let _handleReset = ( template ) => {
     if ( error ) {
       Bert.alert( error.reason, 'danger' );
     } else {
-      Bert.alert( 'Password reset!', 'success' );
+      Bert.alert( TAPi18n.__('bertPassReset'), 'success' );
     }
   });
 };

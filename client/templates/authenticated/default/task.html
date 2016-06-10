@@ -21,22 +21,24 @@
 				</span>
 			{{/with}}
 			{{#with comments}}
-				<span title="Task has {{this.length}} comments">
+				<span title="{{_ 'taskHas'}} {{this.length}} {{_ 'commentsIcon'}}">
 					<i class="fa fa-comments-o"></i>
 					{{this.length}}
 				</span>
 			{{/with}}
 			{{#with members}}
-				<span title="Task has {{this.length}} assigned members">
+				<span title="{{_ 'taskHas'}} {{this.length}} {{_ 'assignedMembersIcon'}}">
 					<i class="fa fa-user"></i>
 					{{this.length}}
 				</span>
 			{{/with}}
+		<!--
 			{{#each checkBoxes}}
 				<span title="This task has checkbox lists">
 					<i class="fa fa-check-square"></i>{{checkedBoxes}}/{{totalBoxes}}
 				</span>
 			{{/each}}
+		-->
 		</div>
 	</li>
 </template>

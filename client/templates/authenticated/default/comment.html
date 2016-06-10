@@ -5,16 +5,16 @@
 
 		<div class="comment_clear"></div>
 		{{#with authorship}}
-		<span class="comment_author">By: {{username}} </span>
+		<span class="comment_author">{{_ 'by'}} {{username}} </span>
 		{{/with}}
 		<span class="comment_date"> {{showDate}} </span>
 		<div class="comment_clear"></div>
 		
 		{{#with isAuthor}}
 			<form class="comment_edition">
-				<span class="toggle_edition btn">Edit</span>
+				<span class="toggle_edition btn">{{_ 'editButton'}}</span>
 			</form>
-			<span class="delete_comment btn">Delete</span>
+			<span class="delete_comment btn">{{_ 'deleteButton'}}</span>
 		{{/with}}
 
 	</div>

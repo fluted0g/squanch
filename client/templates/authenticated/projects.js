@@ -46,9 +46,6 @@ Template.projects.events({
 		Meteor.call("newProject", name,description,proj_type,theme , function(error,data) {
 			if (error) {
 				Bert.alert('Something went wrong','danger');
-			} else {
-				//console.log(data);
-				//Meteor.call('fixProject',data);
 			}
 		});
       	e.target.proj_name.value = "";

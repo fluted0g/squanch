@@ -1,22 +1,22 @@
 <template name="projects">
       <div class="jumbotron text-center" style="padding: 20px;">
 
-        <h1>Your Projects</h1>
+        <h1>{{_ 'projectsHeader'}}</h1>
 
         <div class="row">
 
           <div class="col-md-12 col-sm-12 col-xs-12 start_project_frame">
 
             <div class="start_project_inserter" id="projectStarter">
-              <span>ADD NEW PROJECT</span>
+              <span>{{_ 'addProjectButton'}}</span>
             </div>
 
             <div class="project_inserter hiddenE">
               <form class="insert_project">
-                <input type="text" name="proj_name" class="proj_name" placeholder="Insert project name..." autocomplete="off">
-                <input type="text" name="proj_desc" class="proj_desc" placeholder="Insert project description..." autocomplete="off">
+                <input type="text" name="proj_name" class="proj_name" placeholder="{{_ 'projectNamePlaceholder'}}" autocomplete="off">
+                <input type="text" name="proj_desc" class="proj_desc" placeholder="{{_ 'projectNamePlaceholder'}}" autocomplete="off">
                 <div></div>
-                <input class="start_project btn" type="submit" value="Create">
+                <input class="start_project btn" type="submit" value="{{_ 'addProjectSubmit'}}">
                 <i class="fa fa-times-circle cancelFormP"></i>
               </form>         
             </div>
@@ -40,7 +40,7 @@
         <div class="pContainer">
           <h3>{{name}}
             {{#if isOwner}}
-            <span class="owner_container" title="You own this project">
+            <span class="owner_container" title="{{_ 'starTitle'}}">
                 <i class="fa fa-star"></i>
             </span>
             {{/if}}

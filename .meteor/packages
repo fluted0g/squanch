@@ -50,3 +50,5 @@ rochal:slimscroll
 meteorhacks:kadira
 kadira:debug
 tap:i18n
+tap:i18n-ui
+rzymek:moment-locale-es

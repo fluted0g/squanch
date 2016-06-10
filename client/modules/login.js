@@ -38,7 +38,7 @@ let _handleLogin = ( template ) => {
     if ( error ) {
       Bert.alert( error.reason, 'warning' );
     } else {
-      Bert.alert( 'Logged in!', 'success' );
+      Bert.alert( TAPi18n.__('bertLogin'), 'success' );
     }
   });
 };

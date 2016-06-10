@@ -13,7 +13,7 @@ Template.header.events({
       if ( error ) {
         Bert.alert( error.reason, 'danger' );
       } else {
-        Bert.alert( 'Logged out!', 'success' );
+        Bert.alert( TAPi18n.__('bertLogout'), 'success' );
         Session.set("loggedUser",false);
         FlowRouter.go('/login');
       }

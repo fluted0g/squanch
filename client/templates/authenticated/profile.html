@@ -1,128 +1,128 @@
 <template name="profile">
 	<div class="jumbotron text-center" style="padding: 20px;">
-		<h1>Your Profile</h1>
+		<h1>{{_ 'profileHeader'}}</h1>
 		<div class="row profile_container">
 			<div class="col-xs-12 col-md-9 col-sm-12 profile_info">
 				{{#with userAccount}}
 				<div class="general_info">
 					<p>
-						<span>Name: </span>
-						<span class="editableContentSolid" id="editableProfileName"> {{username}}{{#unless username}}No name set.{{/unless}}</span>
+						<span>{{_ 'nameLabel'}} </span>
+						<span class="editableContentSolid" id="editableProfileName"> {{username}}{{#unless username}}{{_ 'noNameLabel'}}{{/unless}}</span>
 					</p>
 					<p>
-						<span>eMail: </span>
+						<span>{{_ 'emailLabel'}} </span>
 						<span>{{emails.[0].address}}</span>
 					</p>
 				</div>
 				{{#with userProfile}}
 				<div class="profileFormSolid profileForm">
 					<p>
-						<span>First Name: </span>
+						<span>{{_ 'firstNameLabel'}}</span>
 						{{#if name.first}}
 						<span class="editableProfileField">{{name.first}}</span>					
 						{{else}}
-						<span class="editableProfileField">Not set.</span>
+						<span class="editableProfileField">{{_ 'notSetLabel'}}</span>
 						{{/if}}
 					</p>
 					<p>
-						<span>Last Name: </span>
+						<span>{{_ 'lastNameLabel'}}</span>
 						{{#if name.last}}
 						<span class="editableProfileField">{{name.last}}</span>					
 						{{else}}
-						<span class="editableProfileField">Not set.</span>
+						<span class="editableProfileField">{{_ 'notSetLabel'}}</span>
 						{{/if}}
 					</p>
 					<p>
-						<span>Birthday: </span>
+						<span>{{_ 'birthdayLabel'}}</span>
 						{{#if birthday}}
 						<span class="editableProfileField editableBirthday">{{proccessBirthday}}</span>					
 						{{else}}
-						<span class="editableProfileField editableBirthday">Not set.</span>
+						<span class="editableProfileField editableBirthday">{{_ 'notSetLabel'}}</span>
 						{{/if}}
 					</p>
 					<p>
-						<span>Gender: </span>
+						<span>{{_ 'genderLabel'}}</span>
 						{{#if gender}}
 						<span class="editableProfileField genderField">{{gender}}</span>					
 						{{else}}
-						<span class="editableProfileField genderField">Not set.</span>
+						<span class="editableProfileField genderField">{{_ 'notSetLabel'}}</span>
 						{{/if}}
 					</p>
 					<p>
-						<span>Organization: </span>
+						<span>{{_ 'organizationLabel'}}</span>
 						{{#if organization}}
 						<span class="editableProfileField">{{organization}}</span>					
 						{{else}}
-						<span class="editableProfileField">Not set.</span>
+						<span class="editableProfileField">{{_ 'notSetLabel'}}</span>
 						{{/if}}
 					</p>
 					<p>
-						<span>Website: </span>
+						<span>{{_ 'websiteLabel'}}</span>
 						{{#if website}}
 						<span class="editableProfileField">
 							<a href="http://{{website}}">{{website}}</a>
 						</span>					
 						{{else}}
-						<span class="editableProfileField">Not set.</span>
+						<span class="editableProfileField">{{_ 'notSetLabel'}}</span>
 						{{/if}}
 					</p>
 					<p>
-						<span>Bio: </span>
+						<span>{{_ 'bioLabel'}}</span>
 						{{#if bio}}
 						<span class="editableProfileField editableBio">{{bio}}</span>					
 						{{else}}
-						<span class="editableProfileField editableBio">Not set.</span>
+						<span class="editableProfileField editableBio">{{_ 'notSetLabel'}}</span>
 						{{/if}}
 					</p>
 					<p>
-						<span>Country: </span>
+						<span>{{_ 'countryLabel'}}</span>
 						{{#if country}}
 						<span class="editableProfileField">{{country.name}}</span>					
 						{{else}}
-						<span class="editableProfileField">Not set.</span>
+						<span class="editableProfileField">{{_ 'notSetLabel'}}</span>
 						{{/if}}
 					</p>
-					<input type="submit" name="profileEditorSolid" class="profileEditorSolid btn" value="Edit">
+					<input type="submit" name="profileEditorSolid" class="profileEditorSolid btn" value="{{_ 'editButton'}}">
 				</div>
 
 				<form name="profileFormFluid" class="profileForm profileFormFluid hiddenE">
 					<p>
-						<span>First Name: </span>
+						<span>{{_ 'firstNameLabel'}}</span>
 						<input type="text" class="defaultInputField first_name_input" name="first_name_input" value="{{name.first}}">
 						
 					</p>
 					<p>
-						<span>Last Name: </span>
+						<span>{{_ 'lastNameLabel'}}</span>
 						<input type="text" class="defaultInputField last_name_input" name="last_name_input" value="{{name.last}}">					
 					</p>
 					<p>
-						<span>Birthday: </span>
+						<span>{{_ 'birthdayLabel'}}</span>
 						<input type="date" class="defaultInputField birthday_input" name="birthday_input" value="{{proccessBirthdayInput}}">				
 					</p>
 					<p>
-						<span>Gender: </span>
+						<span>{{_ 'genderLabel'}}</span>
 						<select class="gender_input" name="gender_input">
-							<option value="Male">Male</option>
-							<option value="Female">Female</option>
+							<option value="Female">{{_ 'femaleLabel'}}</option>
+							<option value="Male">{{_ 'maleLabel'}}</option>
 						</select>					
 					</p>
 					<p>
-						<span>Organization: </span>
+						<span>{{_ 'organizationLabel'}}</span>
 						<input type="text" class="defaultInputField organization_input" name="organization_input" value="{{organization}}">
 					</p>
 					<p>
-						<span>Website: </span>
+						<span>{{_ 'websiteLabel'}}</span>
 						<input type="text" class="defaultInputField website_input" name="website_input" value="{{website}}">
 					</p>
 					<p>
-						<span class="bio_span">Bio: </span>
+						<span class="bio_span">{{_ 'bioLabel'}}</span>
 						<textarea rows="3" cols="20" class="defaultInputField bio_input" name="bio_input">{{bio}}</textarea>
 					</p>
 					<p>
-						<span>Country: </span>
+						<span>{{_ 'countryLabel'}}</span>
 						<input type="text" class="defaultInputField country_input" name="country_input" value="{{country.name}}">
 					</p>
-					<input type="submit" name="profileEditor" class="profileEditor btn" value="Edit">
+					<input type="submit" name="profileEditor" class="profileEditor btn" value="{{_ 'editButton'}}">
 				</form>
 				{{/with}} <!--end userProfile-->
 				{{/with}} <!--end userAccount-->

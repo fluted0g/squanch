@@ -1,6 +1,6 @@
 <template name="searchUser">
 	<form name="searchUserForm" class="searchUserForm">
-		<label for="searchUser">Search by email or username:
+		<label for="searchUser">{{_ 'addMemberLabel'}}
 			<input type="text" name="searchUser" class="searchUser" autocomplete="off">
 		</label>
 		<!--<input type="submit" class="btn" value="Add">-->
@@ -9,8 +9,8 @@
 		<ul>
 			{{#each getUsers}}
 				<li class="addUser">
-					<p>Username: {{username}}</p>
-					<p>Email: {{{emails.[0].address}}}</p>
+					<p>{{_ 'nameLabel'}}: {{username}}</p>
+					<p>{{_ 'navSignup'}}: {{{emails.[0].address}}}</p>
 				</li>
 			{{/each}}
 		</ul>

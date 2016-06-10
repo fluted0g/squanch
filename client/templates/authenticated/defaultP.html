@@ -8,13 +8,13 @@
 			<form class="editableProjectNameForm" name="editableProjectNameForm">
 				<h2 class="editableContentSolidPName editableProjectName">{{name}}</h2>
 			</form>
-			<span class="project_descriptor" title="Description: {{description}}">
+			<span class="project_descriptor" title="{{_ 'descriptionLabel'}} {{description}}">
 				<i class="fa fa-question-circle" ></i>
 			</span>
 
 			<form class="edit_project_description hiddenE" name="edit_project_description">
 				<textarea class="desc_editor" name="desc_editor" cols="20" rows="2">{{description}}</textarea>
-				<input type="submit" class="btn" value="Edit">
+				<input type="submit" class="btn" value="{{_ 'editButton'}}">
 			</form>
 		</div>
 		{{/each}}
@@ -26,10 +26,10 @@
 				<li class="cardInserter">
 					<form class="insert_card">
 						<span class="fake_card_title">
-							<span>Insert a card...</span>
+							<span>{{_ 'insertCardPlaceHolder'}}</span>
 						</span>
-						<input type="text" name="card_title" class="card_title hiddenE" placeholder="Insert a card..." autocomplete="off">
-						<input class="submitCard hiddenE btn" type="submit" value="Add">
+						<input type="text" name="card_title" class="card_title hiddenE" placeholder="{{_ 'insertCardPlaceHolder'}}" autocomplete="off">
+						<input class="submitCard hiddenE btn" type="submit" value="{{_ 'addButton'}}">
 						<i class="fa fa-times-circle cancelFormC hiddenE"></i>
 					</form>					
 				</li>

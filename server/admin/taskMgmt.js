@@ -107,8 +107,9 @@ Meteor.methods({
 		}
 		else if(input =="Task has no description.") {
 			Tasks.update({_id:taskId},{$unset:{description:"Task has no description."}});
-		}
-		else {
+		}else if(input =="No hay descripción.") {
+			Tasks.update({_id:taskId},{$unset:{description:"No hay descripción."}});
+		}else {
 			Tasks.update({'_id':taskId},{$set: {'description': input}});
 		}
 	},
