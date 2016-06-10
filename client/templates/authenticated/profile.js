@@ -82,8 +82,9 @@ Template.profile.events({
             if (success) {
                 $(".profileFormFluid").toggleClass("hiddenE");
                 $(".profileFormSolid").toggleClass("hiddenE");
+            } else if (error) {
+                Bert.alert(error.reason, "danger");
             }
         });
-        
     }
 });

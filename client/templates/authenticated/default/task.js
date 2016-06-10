@@ -46,7 +46,7 @@ Template.task.helpers({
     },
     timeLeft : function() {
         //console.log(moment(this).fromNow().locale(lang))
-        var processedDueDate = TAPi18n.__('taskDueIcon') +""+ moment(this).fromNow();
+        var processedDueDate = TAPi18n.__('taskDueIcon') +" "+ moment(this).fromNow();
     
         return processedDueDate;
         },

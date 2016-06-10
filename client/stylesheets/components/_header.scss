@@ -31,3 +31,12 @@
 		}
 	}
 }
+
+.language_container {
+	float: right;
+	margin: 0.5em;
+
+	.btn-primary {
+		background-color: $lightYellow;
+	}
+}
