@@ -42,7 +42,7 @@ Template.searchUser.events({
       var text = $(e.target.searchUser).val().trim();
       Meteor.call('addMember',projectId, text, function(error,success) {
         if (error) {
-          Bert.alert("User is already a member.","danger");
+          Bert.alert("User is already a member","danger");
         }
       });
       $('.searchUser').val("");
@@ -56,7 +56,7 @@ Template.searchUser.events({
       var projectId = Session.get("projectID");
       Meteor.call('addMember',projectId, member, function(error,success) {
         if (error) {
-          Bert.alert("User is already a member.","danger");
+          Bert.alert("User is already a member","danger");
         }
       });
       $('.searchUser').val("");

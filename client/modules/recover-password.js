@@ -29,7 +29,7 @@ let _handleRecovery = ( template ) => {
 
   Accounts.forgotPassword( { email: email }, ( error ) => {
     if ( error ) {
-      Bert.alert( error.reason, 'warning' );
+      Bert.alert( error.reason, 'danger' );
     } else {
       Bert.alert( 'Check your inbox for a reset link!', 'success' );
     }
