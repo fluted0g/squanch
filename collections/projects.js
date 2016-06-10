@@ -12,55 +12,6 @@ Projects.deny({
   remove: () => true
 });
 
-/*
-Member = new SimpleSchema({
-  memberId: {
-    type: String,
-    regEx: SimpleSchema.RegEx.Id
-  },
-  memberSince: {
-    type: Date,
-    label: "Member's primerito día",
-    optional: true,
-    autoValue: function(){
-      if (this.isInsert) {
-        return new Date();
-      } else if (this.isUpsert) {
-        return {$setOnInsert: new Date()};
-      } else {
-        this.unset();
-      }
-    }
-  }
-
-});
-
-Card = new SimpleSchema({
-  _id: {    
-    type: String,
-    regEx: SimpleSchema.RegEx.Id,
-    autoValue: function(){ return Random.id(); }
-  },
-  project_id: {
-    type: String,
-    label: "Project ID"
-  },
-  name:{
-    type: String,
-    label: "Card title"
-  },
-  status:{
-    type: String,
-    label: "Card status"
-  },
-  label: {
-    type: String,
-    label: "Card status",
-    optional: true
-  }
-});
-*/
-
 ProjectSchema = new SimpleSchema({
   name: {
     type: String,
@@ -112,20 +63,6 @@ ProjectSchema = new SimpleSchema({
     label: "Project members",
     optional: true
   }
-  /*,
-  cards: {
-    type: [String],
-    label: "Project cards ID's",
-    optional: true
-  }
-  
-  ,
-  tasks: {
-    type: [String],
-    label: "Card tasks ID's",
-    optional: true
-  }
-  */
 });
 
 

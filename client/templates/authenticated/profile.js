@@ -47,7 +47,7 @@ Template.profile.events({
             viewableText.html(html);
             Meteor.call("changeUsername",Meteor.user().username, html, function(error,success){
                 if (error) {
-                    Bert.alert("Name already in use","warning");
+                    Bert.alert("Name already in use","danger");
                     viewableText.html(Meteor.user().username);
                     $(event.target).replaceWith(viewableText);
                 } else {

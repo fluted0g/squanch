@@ -1,4 +1,3 @@
-
 Meteor.users.allow({
   insert: () => false,
   update: () => false,
@@ -10,7 +9,6 @@ Meteor.users.deny({
   update: () => true,
   remove: () => true
 });
-
 
 Schema = {};
 

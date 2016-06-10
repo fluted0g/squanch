@@ -47,7 +47,7 @@ Template.projects.events({
 			if (error) {
 				Bert.alert('Something went wrong','danger');
 			} else {
-				console.log(data);
+				//console.log(data);
 				//Meteor.call('fixProject',data);
 			}
 		});

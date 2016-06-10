@@ -59,18 +59,18 @@ Template.defaultP.events ({
 		var author = Meteor.user()._id;
 		Meteor.call("newComment",taskId,commentMsg,author);
 	},
-	'click .editableContentSolid' : function(event) {
+	'click .editableContentSolidPName' : function(event) {
 		var html = $(event.target).text().trim();
 		var editableText = 
-		$("<input class='editableContentFluid editableProjectName' name='editableProjectName' type='text' placeholder='"+html+"'>");
+		$("<input class='editableContentFluidPName editableProjectName' name='editableProjectName' type='text' placeholder='"+html+"'>");
 		editableText.val(html);
 		$(event.target).replaceWith(editableText);
-		$(".editableContentFluid").val(html);
+		$(".editableContentFluidPName").val(html);
 		editableText.select();
 	},
-	'blur .editableContentFluid' : function(event) {
+	'blur .editableContentFluidPName' : function(event) {
 		var html = $(event.target).val().trim();    	
-		var viewableText = $("<h2 class='editableContentSolid editableProjectName'></h2>");
+		var viewableText = $("<h2 class='editableContentSolidPName editableProjectName'></h2>");
 		if (html == "") {
 			viewableText.html(this.name);
 			$(event.target).replaceWith(viewableText);
@@ -83,7 +83,7 @@ Template.defaultP.events ({
 	'submit .editableProjectNameForm' : function(event) {
 		event.preventDefault(); 
 		var html = $(event.target.editableProjectName).val().trim();
-		var viewableText = $("<h2 class='editableContentSolid editableProjectName'></h2>");
+		var viewableText = $("<h2 class='editableContentSolidPName editableProjectName'></h2>");
 		if (html == "") {
 			viewableText.html(this.name);
 			$(event.target.editableProjectName).replaceWith(viewableText);

@@ -12,8 +12,7 @@ Tasks.deny({
   remove: () => true
 });
 
-//track activity in the task
-//should be first to load I guess?
+//track activity in the task (NOT IMPLEMENTED)
 Event = new SimpleSchema({
   event_id : {
     type: String,

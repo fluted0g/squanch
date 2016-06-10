@@ -6,8 +6,11 @@
 			{{> controlPanel}}
 			
 			<form class="editableProjectNameForm" name="editableProjectNameForm">
-				<h2 class="editableContentSolid editableProjectName">{{name}}</h2>
+				<h2 class="editableContentSolidPName editableProjectName">{{name}}</h2>
 			</form>
+			<span class="project_descriptor" title="Description: {{description}}">
+				<i class="fa fa-question-circle" ></i>
+			</span>
 		</div>
 		{{/each}}
 			<ul class="card_manager">				

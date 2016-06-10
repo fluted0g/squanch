@@ -125,22 +125,26 @@ Template.card.events ({
     //event.stopImmediatePropagation();
     var html = $(event.target).text().trim();
     var editableText = 
-    $("<input class='editableContentFluid editableCardName' name='editableCardName' type='text' placeholder='"+html+"'>");
+    $("<input class='editableContentFluid editableCardName' data-id='"+this._id+"' name='editableCardName' type='text' placeholder='"+html+"'>");
     editableText.val(html);
-    $(event.target).replaceWith(editableText);
-    $(".editableContentFluid").val(html);
-    editableText.select();
+    if ( $(event.target).data("id") == this._id) {
+        $(event.target).replaceWith(editableText);
+        $(".editableContentFluid[data-id='"+this._id+"']").val(html);
+        editableText.select(); 
+    }
 },
 'blur .editableContentFluid' : function(event) {
     var html = $(event.target).val().trim();        
-    var viewableText = $("<h3 class='editableContentSolid editableCardName'></h3>");
-    if (html == "") {
-        viewableText.html(this.name);
-        $(event.target).replaceWith(viewableText);
-    } else {
-        viewableText.html(html);
-        Meteor.call("editCardName",this._id,html);
-        $(event.target).replaceWith(viewableText);
+    var viewableText = $("<h3 class='editableContentSolid editableCardName' data-id='"+this._id+"'></h3>");
+    if ( $(event.target).data("id") == this._id) {
+        if (html == "") {
+            viewableText.html(this.name);
+            $(event.target).replaceWith(viewableText);
+        } else {
+            viewableText.html(html);
+            Meteor.call("editCardName",this._id,html);
+            $(event.target).replaceWith(viewableText);
+        }
     }
 },
 'submit .editableCardNameForm' : function(event) {

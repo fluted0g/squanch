@@ -262,21 +262,21 @@ Template.taskManager.events({
     },
     'click .label_editor' : function(e) {
     	if ($(".label_text[data-id="+this.color+"]").hasClass("hiddenE")) {
-    		$(".label_picker[data-id="+this.color+"]").css("display","none");
+    		$(".label_picker[data-id="+this.color+"]").toggleClass("hiddenE");
     		$(".label_text[data-id="+this.color+"]").toggleClass("hiddenE");
-    		$(".label_text[data-id="+this.color+"]").focus();
-    	}/*else {
-    		//text = $(".label_text[data-id="+this.color+"]").val();
-    		//labelColor = this.color;
-    		//taskId = Session.get("taskID");
-    		//Meteor.call("setLabelText",taskId,labelColor,text, function(error,success) {
-    		//	if (success) {
-    				$(".label_picker[data-id="+this.color+"]").css("display","inline-block");
-    				$(".label_text[data-id="+this.color+"]").toggleClass("hiddenE");
-    		//	}
-    		//});	
-    	}*/
-    },
+    		$(".label_text[data-id="+this.color+"]").select();
+    	} else {
+    		labelColor = this.color;
+    		text = $(".label_text[data-id="+labelColor+"]").val();
+    		taskId = Session.get("taskID");
+    		Meteor.call("setLabelText",taskId,labelColor,text, function(error,success) {
+    			if (success) {
+    				$(".label_picker[data-id="+labelColor+"]").toggleClass("hiddenE");
+    				$(".label_text[data-id="+labelColor+"]").toggleClass("hiddenE");
+    			}
+    		});	
+    	}
+    }/*,
     'blur .label_text' : function(e) {
     	text = e.currentTarget.value;
     	labelColor = this.color;
@@ -287,5 +287,5 @@ Template.taskManager.events({
     			$(".label_text[data-id="+labelColor+"]").toggleClass("hiddenE");
     		}
     	});
-    }
+    }*/
 });

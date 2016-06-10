@@ -11,7 +11,7 @@ Template.header.events({
     e.preventDefault();
     Meteor.logout( ( error ) => {
       if ( error ) {
-        Bert.alert( error.reason, 'warning' );
+        Bert.alert( error.reason, 'danger' );
       } else {
         Bert.alert( 'Logged out!', 'success' );
         Session.set("loggedUser",false);
