@@ -44,45 +44,45 @@ body {
 }
 
 .insert_card {
-  padding:5px;
-  padding-top:2px;
-  box-sizing: content-box;
+	padding:5px;
+	padding-top:2px;
+	box-sizing: content-box;
 
-  i {
-    font-size: 2.2em;
-    vertical-align: middle;
-    padding-bottom:3%;
-  }
+	i {
+		font-size: 2.2em;
+		vertical-align: middle;
+		padding-bottom:3%;
+	}
 
-  .btn {
-    background-color: $gray-lighter;
-    color: #111;
-    margin-right:1.5em;
-    padding: 2% 5%;
+	.btn {
+		background-color: $gray-lighter;
+		color: #111;
+		margin-right:1.5em;
+		padding: 2% 5%;
 
-    &:hover {
-      background-color: lighten($gray-lighter,5%);
-    }
-  }
+		&:hover {
+			background-color: lighten($gray-lighter,5%);
+		}
+	}
 
-  input {
-    margin-bottom: 3%;
-  }
+	input {
+		margin-bottom: 3%;
+	}
 
-  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-      color:    $textColor;
-  }
-  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-     color:    $textColor;
-     opacity:  1;
-  }
-  ::-moz-placeholder { /* Mozilla Firefox 19+ */
-     color:    $textColor;
-     opacity:  1;
-  }
-  :-ms-input-placeholder { /* Internet Explorer 10-11 */
-     color:    $textColor;
-  }
+	::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+		color:    $textColor;
+	}
+	:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+		color:    $textColor;
+		opacity:  1;
+	}
+	::-moz-placeholder { /* Mozilla Firefox 19+ */
+		color:    $textColor;
+		opacity:  1;
+	}
+	:-ms-input-placeholder { /* Internet Explorer 10-11 */
+		color:    $textColor;
+	}
 }
 
 .fake_card_title {
@@ -134,4 +134,37 @@ body {
 	font-size: 7em;
 	line-height:40px;
 	margin-left:20px;
+	cursor: pointer;
+}
+
+.edit_project_description {
+	background-color: $mainYellow;
+	border: 2px solid $darkYellow;
+	min-width:18%;
+	border-radius: 5px;
+	margin-top: 5px;
+	margin-left: 1em;
+	padding:5px;
+
+	.btn {
+		background-color: $gray-lighter;
+		color: #111;
+		padding: 2% 5%;
+		display: inline-block;
+		margin-bottom: 15%;
+		margin-left: 5px;
+
+		&:hover {
+			background-color: lighten($gray-lighter,5%);
+		}
+	}
+
+	textarea {
+		background-color: $lightYellow;
+		display: inline-block;
+		color: #fff;
+		outline-style: none;
+		border: none;
+		border-radius: 5px;
+	}
 }

@@ -11,6 +11,11 @@
 			<span class="project_descriptor" title="Description: {{description}}">
 				<i class="fa fa-question-circle" ></i>
 			</span>
+
+			<form class="edit_project_description hiddenE" name="edit_project_description">
+				<textarea class="desc_editor" name="desc_editor" cols="20" rows="2">{{description}}</textarea>
+				<input type="submit" class="btn" value="Edit">
+			</form>
 		</div>
 		{{/each}}
 			<ul class="card_manager">				

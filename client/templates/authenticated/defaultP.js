@@ -92,5 +92,15 @@ Template.defaultP.events ({
 			Meteor.call("editProjectName",this._id,html);
 			$(event.target.editableProjectName).replaceWith(viewableText);
 		}
+	},
+	'click .project_descriptor' :function(event) {
+		$(".edit_project_description").toggleClass("hiddenE");
+	},
+	'submit .edit_project_description' : function(event) {
+		event.preventDefault();
+		description = event.target.desc_editor.value;
+		console.log(description);
+		Meteor.call("editProjectDescription",this._id,description);
+		$(".edit_project_description").toggleClass("hiddenE");
 	}
 });

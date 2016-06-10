@@ -45,5 +45,18 @@ Meteor.methods({
 		} else {
 			throw new Meteor.error("invalid-target")
 		}
+	},
+	editProjectDescription : function(projectId,input) {
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}		
+		check(projectId, String);
+		check(input, String);
+		var project = Projects.findOne({_id:projectId});
+		if (project) {
+			Projects.update({_id:projectId},{$set:{description:input}});
+		} else {
+			throw new Meteor.error("invalid-target")
+		}
 	}
 });
