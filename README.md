@@ -1,4 +1,7 @@
 # Squanch
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/fluted0g/squanch.svg)](https://greenkeeper.io/)
+
 A trello clone for my final grade project.
 
 Using Meteor Chef's Base:
